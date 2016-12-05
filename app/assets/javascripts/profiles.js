@@ -6,4 +6,5 @@ $('#submitAvatar').on('ajax:remotipartComplete', function (e, data) {
 });
 
 $('#submitBiography').on('ajax:success', function (e, data) {
+  $('#biography > p').html(data.biography);
 });

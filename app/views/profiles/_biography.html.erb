@@ -1,7 +1,7 @@
 <% if @profile.user == current_user %>
 
   <%= form_for [current_user, @profile], html: { id: 'submitBiography' }, remote: true do |f| %>
-    <%= f.text_area :biography %><br>
+    <%= f.text_area :biography, rows: 10 %><br>
     <%= f.submit %>
   <% end %>
 
