@@ -23,4 +23,18 @@ RSpec.describe Expedition do
 
   end
 
+  context "inviting another user to join" do
+    before do
+      expedition.invite(laotzu)
+    end
+
+    it "is visible as an invite for the user" do
+      expect(laotzu.expedition_invites).to include expedition
+    end
+
+    it "is visible as an invite for the expedition" do
+      expect(expedition.invited_users).to include laotzu
+    end
+  end
+
 end
