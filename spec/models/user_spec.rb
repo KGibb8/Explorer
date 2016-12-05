@@ -28,4 +28,29 @@ RSpec.describe User do
     end
   end
 
+  context "creating an Expedition" do
+    before do
+      @time = Time.local(2016, 11, 30, 14, 30, 0)
+      Timecop.freeze(@time)
+      @expedition = shaka.create_expedition(@time, @time + 92.days)
+    end
+
+    after do
+      Timecop.return
+    end
+
+    it "has a convenience method to create an expedition" do
+      expect(shaka.expeditions).to include @expedition
+    end
+
+    it "should set the creating user as the expedition's creator" do
+      expect(@expedition.creator).to eq shaka
+    end
+
+    it "should set the expeditions start and end time" do
+      expect(@expedition.start_time).to eq @time
+      expect(@expedition.end_time).to eq @time + 92.days
+    end
+
+  end
 end
