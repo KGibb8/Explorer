@@ -10,9 +10,7 @@ RSpec.describe Journey do
   let(:expedition) { shaka.create_expedition(Time.now + 90.days, Time.now + 92.days) }
 
   context "creating a Journey" do
-
     context "setting status upon creation" do
-
       before do
         @journey = expedition.journeys.first
       end
@@ -24,9 +22,6 @@ RSpec.describe Journey do
       it "does not default the creating user's status to invited" do
         expect(@journey.status).to_not eq 'invited'
       end
-
     end
-
   end
-
 end

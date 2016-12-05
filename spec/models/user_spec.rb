@@ -43,14 +43,24 @@ RSpec.describe User do
       expect(shaka.expeditions).to include @expedition
     end
 
-    it "should set the creating user as the expedition's creator" do
-      expect(@expedition.creator).to eq shaka
-    end
+    context "as the creator" do
+      it "should set the creating user as the expedition's creator" do
+        expect(@expedition.creator).to eq shaka
+      end
 
-    it "should set the expeditions start and end time" do
-      expect(@expedition.start_time).to eq @time
-      expect(@expedition.end_time).to eq @time + 92.days
-    end
+      it "should set the expeditions start and end time" do
+        expect(@expedition.start_time).to eq @time
+        expect(@expedition.end_time).to eq @time + 92.days
+      end
 
+      it "has attending expeditions" do
+        expect(shaka.attending_expeditions).to include @expedition
+      end
+
+      it "does not have invited expeditions" do
+        expect(shaka.expedition_invites).to_not include @expedition
+      end
+    end
   end
+
 end
