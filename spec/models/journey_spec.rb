@@ -24,4 +24,28 @@ RSpec.describe Journey do
       end
     end
   end
+
+  context "inviting another user to join" do
+    before do
+      expedition.invite(laotzu)
+      @journey = laotzu.journeys.first
+    end
+
+    it "creates a journey and sets status to 'invited'" do
+      expect(@journey.status).to eq 'invited'
+    end
+  end
+
+  context "confirming attendance" do
+    before do
+      expedition.invite(laotzu)
+      @journey = laotzu.journeys.first
+      laotzu.accept_invite(expedition)
+      @journey.reload
+    end
+
+    it "sets the journey status to 'attending'" do
+      expect(@journey.status).to eq 'attending'
+    end
+  end
 end
