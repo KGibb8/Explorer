@@ -3,7 +3,7 @@
   <head>
     <title>Explorer</title>
     <%= csrf_meta_tags %>
-
+    <%= semantic_flash %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -11,6 +11,23 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div class="ui grid">
+      <nav>
+        <div class="ui inverted segment">
+          <div class="ui inverted secondary pointing menu">
+            <a class="active item">
+              Profile
+            </a>
+            <a class="item">
+              Expeditions
+            </a>
+            <a class="item">
+              Friends
+            </a>
+          </div>
+        </div>
+      </nav>
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -3,6 +3,15 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
+  <%# <div class="field"> %>
+  <%#   <%= f.fields_for :profile do |b| %1> %>
+  <%#     <%= b.label :first_name %1><br /> %>
+  <%#     <%= b.text_field :first_name %1><br /> %>
+  <%#     <%= b.label :last_name %1><br /> %>
+  <%#     <%= b.text_field :last_name %1><br /> %>
+  <%#   <% end %1> %>
+  <%# </div> %>
+
   <div class="field">
     <%= f.label :username %><br />
     <%= f.text_field :username, autofocus: true %>

@@ -1,0 +1,54 @@
+
+<div class="one wide column">
+
+</div>
+
+<div class="four wide column">
+  <div class="box">
+    <div id="avatar">
+      <%= image_tag(@profile.avatar.profile, class: "ui medium bordered rounded image") %>
+    </div>
+    <%= render 'profiles/avatar' %>
+  </div>
+</div>
+
+<div class="eleven wide column">
+  <div class="box">
+    <div id="name">
+      <h2><%= @profile.user.username %></h2>
+    </div>
+
+    <div id="biography">
+      <p><%= @profile.biography %></p>
+      <%= render 'profiles/biography' %>
+    </div>
+  </div>
+</div>
+
+<div class="one wide column">
+
+</div>
+
+<div class="four wide column">
+  <div class="box">
+    <h3>Friends</h3>
+    <div id="friends">
+
+    </div>
+  </div>
+</div>
+
+<div class="ten wide column">
+  <div class="box">
+    <h2>Past Expeditions</h2>
+    <div id="pastExpeditions">
+
+    </div>
+    <h2>Upcoming Expeditions</h2>
+    <div id="futureExpeditions">
+
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag 'profiles' %>
