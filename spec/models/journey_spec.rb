@@ -36,16 +36,33 @@ RSpec.describe Journey do
     end
   end
 
+  let(:attending) do
+    expedition.invite(laotzu)
+    laotzu.accept_invite(expedition)
+  end
+
   context "confirming attendance" do
     before do
-      expedition.invite(laotzu)
+      attending
       @journey = laotzu.journeys.first
-      laotzu.accept_invite(expedition)
       @journey.reload
     end
 
     it "sets the journey status to 'attending'" do
       expect(@journey.status).to eq 'attending'
     end
+
+    context "expiry of an expedition" do
+      before do
+        attending
+        expedition.complete
+        @journey = laotzu.journeys.first
+      end
+
+      it "sets the journey status to 'attended'" do
+        expect(@journey.status).to eq 'attended'
+      end
+    end
   end
+
 end

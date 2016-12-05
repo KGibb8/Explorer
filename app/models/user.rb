@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :expeditions, through: :journeys
   has_many :expedition_invites, lambda { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :expedition
   has_many :attending_expeditions, lambda { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :expedition
+  has_many :requested_expeditions, lambda { where journeys: { :status => 'requested' } }, through: :journeys, source: :expedition
+  has_many :attended_expeditions, lambda { where journeys: { :status => 'attended'  }  }, through: :journeys, source: :expedition
 
   validates_presence_of :username
 

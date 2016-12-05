@@ -4,6 +4,10 @@ class Journey < ApplicationRecord
 
   before_create :set_status
 
+  def set_status_as_attended
+    self.status = 'attended'
+  end
+
   private
 
   def set_status
