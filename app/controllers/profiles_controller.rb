@@ -1,19 +1,18 @@
 class ProfilesController < ApplicationController
-  before_action :find_profile, only: [:show, :update]
+  before_action :find_profile, only: [:show]
 
   def show
-
   end
 
   def update
-    @profile.update(profile_params)
-    render json: @profile
+    current_user.profile.update(profile_params)
+    render json: current_user.profile
   end
 
   private
 
   def find_profile
-    @profile = User.find(params[:user_id]).profile
+    @profile = Profile.find_by(user_id: params[:user_id])
   end
 
   def profile_params

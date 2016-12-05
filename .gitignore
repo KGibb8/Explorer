@@ -25,4 +25,8 @@
 # Ignore application configuration
 /config/application.yml
 
+# Ignore SimpleCov dir
 /coverage
+
+# Ignore uploads
+/public/uploads

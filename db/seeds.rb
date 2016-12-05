@@ -14,6 +14,7 @@ module SeedData
       User.destroy_all
 
       User.create(username: "shaka_zulu", email: "shaka@zulu.sa", password: "123456", password_confirmation: "123456")
+      User.create(username: "lao_tzu", email: "lao@tzu.ch", password: "123456", password_confirmation: "123456")
 
     end
   end
