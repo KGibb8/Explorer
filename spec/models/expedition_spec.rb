@@ -37,4 +37,20 @@ RSpec.describe Expedition do
     end
   end
 
+  context "confirming attendance" do
+    before do
+      expedition.invite(laotzu)
+      laotzu.accept_invite(expedition)
+    end
+
+    it "is visible as attending by the user" do
+      expect(laotzu.attending_expeditions).to include expedition
+    end
+
+    it "is visibile as attending by the expedition" do
+      expect(expedition.attending_users).to include laotzu
+    end
+
+  end
+
 end

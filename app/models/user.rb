@@ -19,6 +19,12 @@ class User < ApplicationRecord
     self.expeditions.create(creator: self, start_time: start_time, end_time: end_time)
   end
 
+  def accept_invite(expedition)
+    journey = self.journeys.find_by(expedition: expedition)
+    journey.status = 'attending'
+    journey.save
+  end
+
   private
 
   def build_profile
