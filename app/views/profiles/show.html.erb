@@ -1,4 +1,54 @@
 
-<div id="profile">
-  <%= image_tag(@profile.avatar) %>
+<div class="one wide column">
+
+</div>
+
+<div class="four wide column">
+  <div class="box">
+    <div id="profile">
+      <%= image_tag(@profile.avatar) %>
+    </div>
+    <%= form_for @profile, url: user_profile_path(@profile), remote: true do |f| %>
+      <%= f.file_field :avatar %><br>
+      <%= f.submit %>
+    <% end %>
+  </div>
+</div>
+
+<div class="eleven wide column">
+  <div class="box">
+    <div id="name">
+      <h2><%= @profile.user.username %></h2>
+    </div>
+
+    <div id="biography">
+      <p><%= @profile.biography %></p>
+    </div>
+  </div>
+</div>
+
+<div class="one wide column">
+
+</div>
+
+<div class="four wide column">
+  <div class="box">
+    <h3>Friends</h3>
+    <div id="friends">
+
+    </div>
+  </div>
+</div>
+
+<div class="ten wide column">
+  <div class="box">
+    <h2>Past Expeditions</h2>
+    <div id="pastExpeditions">
+
+    </div>
+    <h2>Upcoming Expeditions</h2>
+    <div id="futureExpeditions">
+
+    </div>
+  </div>
 </div>
