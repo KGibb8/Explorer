@@ -11,15 +11,6 @@ Feature: Profile
     Given sample users have been created
 
   Scenario: Visiting a profile page
-    When I navigate to "tara@enlightened.being" profile page
-    Then the page contains "Green Tara"
-
-  @poltergeist
-  Scenario: Uploading a profile picture
-    Given I am logged in as "tara@enlightened.being"
-    When I navigate to "tara@enlightened.being" profile page
-    And I fill in the "file" field for "edit_profile" form
-    And I click "Update Profile"
+    When I navigate to "green_tara@enlightened.being" profile page
     Then the page contains "green_tara"
-
 
