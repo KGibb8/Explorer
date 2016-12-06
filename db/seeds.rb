@@ -17,6 +17,15 @@ module SeedData
       @shaka.profile.biography = Faker::Lorem.paragraph
       @laotzu.profile.biography = Faker::Lorem.paragraph
 
+      expedition = @laotzu.create_expedition("Lost in the Himalayas", Faker::Lorem.paragraph, Time.now - 15.days, Time.now - 12.days)
+      expedition.invite(@shaka)
+      expedition.invite(@tara)
+      expedition.invite(@shakyamuni)
+      @tara.accept_invite(expedition)
+      @laotzu.accept_invite(expedition)
+      @shakyamuni.accept_invite(expedition)
+      expedition.set_as_complete
+
       expedition = @shaka.create_expedition("Hiking Kilimanjaro", Faker::Lorem.paragraph, Time.now + 91.days, Time.now + 96.days)
       expedition.invite(@laotzu)
       expedition.invite(@tara)

@@ -28,7 +28,6 @@ class ExpeditionsController < ApplicationController
   end
 
   def update
-    binding.pry
     @expedition.update(expedition_params)
     render json: @expedition
   end

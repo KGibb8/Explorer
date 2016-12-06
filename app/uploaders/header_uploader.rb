@@ -14,7 +14,7 @@ class HeaderUploader < CarrierWave::Uploader::Base
   end
 
   version :header do
-    process :resize_to_fill => [1060, 330]
+    process :resize_to_fill => [1096, 330]
   end
 
   def extension_white_list
