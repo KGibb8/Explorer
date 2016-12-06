@@ -97,7 +97,7 @@ RSpec.describe User do
     context "expiry of an expedition" do
       before do
         attending
-        expedition.complete
+        expedition.set_as_complete
       end
 
       it "has attended expeditions" do

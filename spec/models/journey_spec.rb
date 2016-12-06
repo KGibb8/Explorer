@@ -55,7 +55,7 @@ RSpec.describe Journey do
     context "expiry of an expedition" do
       before do
         attending
-        expedition.complete
+        expedition.set_as_complete
         @journey = laotzu.journeys.first
       end
 

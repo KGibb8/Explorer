@@ -1,3 +1,5 @@
+require './app/uploaders/header_uploader'
+
 class Expedition < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
@@ -7,6 +9,13 @@ class Expedition < ApplicationRecord
   has_many :attending_users, lambda { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :user
   has_many :requested_users, lambda { where journeys: { :status => 'requested' } }, through: :journeys, source: :user
   has_many :attended_users, lambda { where journeys: { :status => 'attended' } }, through: :journeys, source: :user
+
+  scope :invited, lambda { joins(:journeys).where('journeys.status =?', 'invited') }
+  scope :rejected, lambda { joins(:journeys).where('journeys.status =?', 'rejected') }
+  scope :attending, lambda { joins(:journeys).where('journeys.status =?', 'attending') }
+  scope :attended, lambda { joins(:journeys).where('journeys.status =?', 'attended') }
+
+  mount_uploader :header, HeaderUploader
 
   def invite(user)
     self.journeys.create(user: user)
@@ -32,13 +41,10 @@ class Expedition < ApplicationRecord
     journey.save
   end
 
-  def complete
-    journeys = self.attending_users.map(&:journeys).flatten
-    transaction do
-      journeys.each do |journey|
-        journey.status = "attended"
-        journey.save!
-      end
+  def set_as_complete
+    self.journeys.where('status =?', 'attending').each do |journey|
+      journey.status = "attended"
+      journey.save!
     end
     self.complete = true
     self.save

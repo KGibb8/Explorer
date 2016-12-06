@@ -1,2 +1,24 @@
 
-<h1><%= @expedition.title %></h1>
+<div class="one wide column"></div>
+
+<div class="fourteen wide column">
+  <div class="header">
+    <%= image_tag(@expedition.header.header, id: "headerPic") if @expedition.header %>
+    <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
+      <%= f.file_field :header %><br>
+      <%= f.submit "Add Header Image" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="one wide column"></div>
+
+<div class="one wide column"></div>
+
+<div class="fourteen wide column">
+  <h1><%= @expedition.title %></h1>
+</div>
+
+<div class="one wide column"></div>
+
+<%= javascript_include_tag 'expeditions' %>

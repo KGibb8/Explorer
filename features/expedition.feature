@@ -40,4 +40,3 @@ Feature: Expedition
     Then I am redirected to the specific expedition page
     And the page contains "Going on a Bear Hunt"
 
-
