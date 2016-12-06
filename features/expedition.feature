@@ -29,10 +29,10 @@ Feature: Expedition
 
   Scenario: Creating an expedition
     Given I am logged in as "green_tara@enlightened.being"
-    And I navigate to the "root" page
-    When I click on "Organise your own Expedition"
+    When I navigate to the "root" page
+    And I click "Organise your own Expedition"
     And I fill in the "" field with ""
-    And they click on "Confirm Expedition"
+    And I click "Confirm Expedition"
     Then a new Expedition is created
     And I am redirected to the "expedition" page
     And the page contains ""

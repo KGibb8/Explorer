@@ -4,3 +4,7 @@ Given(/^sample users have been created$/) do
   @shaka = create(:shaka)
   @laotzu = create(:laotzu)
 end
+
+Given(/^sample expeditions have been created$/) do
+  pending
+end
