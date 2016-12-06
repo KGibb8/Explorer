@@ -26,10 +26,6 @@ RSpec.describe Expedition do
       expedition.invite(laotzu)
     end
 
-    it "has expedition invites" do
-      expect(laotzu.expedition_invites).to include expedition
-    end
-
     it "has invited users" do
       expect(expedition.invited_users).to include laotzu
     end
@@ -40,13 +36,40 @@ RSpec.describe Expedition do
     laotzu.accept_invite(expedition)
   end
 
+  context "requesting to join" do
+    before do
+      tara.request_attendance(expedition)
+    end
+
+    it "has requested users" do
+      expect(expedition.requested_users).to include tara
+    end
+
+    context "confirming request" do
+      before do
+        expedition.permit_attendance(tara)
+      end
+
+      it "has attending users" do
+        expect(expedition.attending_users).to include tara
+      end
+    end
+
+    context "rejecting a request" do
+      before do
+        expedition.reject_attendance(tara)
+      end
+
+      it "has rejected users" do
+        expect(expedition.rejected_users).to include tara
+      end
+    end
+  end
+
+
   context "confirming attendance" do
     before do
       attending
-    end
-
-    it "has attending expeditions" do
-      expect(laotzu.attending_expeditions).to include expedition
     end
 
     it "has attending users" do

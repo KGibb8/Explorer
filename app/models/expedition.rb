@@ -3,6 +3,7 @@ class Expedition < ApplicationRecord
 
   has_many :journeys
   has_many :invited_users, lambda { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :user
+  has_many :rejected_users, lambda { where journeys: { :status => 'rejected' } }, through: :journeys, source: :user
   has_many :attending_users, lambda { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :user
   has_many :requested_users, lambda { where journeys: { :status => 'requested' } }, through: :journeys, source: :user
   has_many :attended_users, lambda { where journeys: { :status => 'attended' } }, through: :journeys, source: :user
@@ -17,6 +18,18 @@ class Expedition < ApplicationRecord
 
   def attending?(user)
     self.attending_users.include?(user)
+  end
+
+  def permit_attendance(user)
+    journey = self.journeys.find_by(user: user)
+    journey.status = "attending"
+    journey.save
+  end
+
+  def reject_attendance(user)
+    journey = self.journeys.find_by(user: user)
+    journey.status = "rejected"
+    journey.save
   end
 
   def complete

@@ -62,7 +62,7 @@ RSpec.describe User do
         end
 
         it "does not have invited expeditions" do
-          expect(shaka.expedition_invites).to_not include @expedition
+          expect(shaka.invited_expeditions).to_not include @expedition
         end
       end
     end
@@ -75,7 +75,7 @@ RSpec.describe User do
       end
 
       it "has expedition invites" do
-        expect(laotzu.expedition_invites).to include expedition
+        expect(laotzu.invited_expeditions).to include expedition
       end
     end
 

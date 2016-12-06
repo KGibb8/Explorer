@@ -9,6 +9,8 @@ module SeedData
 
       @shaka = User.create(username: "shaka_zulu", email: "shaka@zulu.sa", password: "123456", password_confirmation: "123456")
       @laotzu = User.create(username: "lao_tzu", email: "lao@tzu.ch", password: "123456", password_confirmation: "123456")
+      @shakyamuni = User.create(username: "shakyamuni", email: "shakyamuni@enlightened.being", password: "123456", password_confirmation: "123456")
+      @tara = User.create(username: "green_tara", email: "green_tara@bodhisattva.being", password: "123456", password_confirmation: "123456")
 
       @shaka.profile.biography = Faker::Lorem.paragraph
       @laotzu.profile.biography = Faker::Lorem.paragraph

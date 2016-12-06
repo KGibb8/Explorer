@@ -8,7 +8,8 @@ class User < ApplicationRecord
 
   has_many :journeys
   has_many :expeditions, through: :journeys
-  has_many :expedition_invites, lambda { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :expedition
+  has_many :invited_expeditions, lambda { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :expedition
+  has_many :rejected_expeditions, lambda { where journeys: { :status => 'rejected'  }  }, through: :journeys, source: :expedition
   has_many :attending_expeditions, lambda { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :expedition
   has_many :requested_expeditions, lambda { where journeys: { :status => 'requested' } }, through: :journeys, source: :expedition
   has_many :attended_expeditions, lambda { where journeys: { :status => 'attended'  }  }, through: :journeys, source: :expedition
@@ -24,6 +25,12 @@ class User < ApplicationRecord
   def accept_invite(expedition)
     journey = self.journeys.find_by(expedition: expedition)
     journey.status = 'attending'
+    journey.save
+  end
+
+  def request_attendance(expedition)
+    journey = self.journeys.create(expedition: expedition)
+    journey.status = 'requested'
     journey.save
   end
 
