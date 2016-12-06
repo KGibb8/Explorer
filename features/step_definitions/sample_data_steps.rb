@@ -17,7 +17,7 @@ Given(/^sample expeditions have been created$/) do
   @tara.accept_invite(expedition)
   @laotzu.accept_invite(expedition)
   @shakyamuni.accept_invite(expedition)
-  expedition.complete
+  expedition.set_as_complete
 
   expedition = @shaka.create_expedition("Hiking Kilimanjaro", Faker::Lorem.paragraph, Time.now + 91.days, Time.now + 96.days)
   expedition.invite(@laotzu)
@@ -42,5 +42,4 @@ Given(/^sample expeditions have been created$/) do
   @tara.accept_invite(expedition)
   @laotzu.accept_invite(expedition)
   @shakyamuni.accept_invite(expedition)
-
 end

@@ -17,7 +17,6 @@ When(/^I click "([^"]*)"$/) do |link|
 end
 
 Then(/^the page contains "([^"]*)"$/) do |text|
-  save_and_open_page
   expect(page.body).to match(text)
 end
 

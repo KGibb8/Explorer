@@ -2,8 +2,8 @@ class ProfilesController < ApplicationController
   before_action :find_profile, only: [:show]
 
   def show
-    @attending_expeditions = current_user.attending_expeditions
-    @attended_expeditions = current_user.attended_expeditions
+    @attending_expeditions = @profile.user.attending_expeditions
+    @attended_expeditions = @profile.user.attended_expeditions
   end
 
   def update

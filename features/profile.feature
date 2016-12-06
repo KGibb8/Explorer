@@ -10,6 +10,7 @@ Feature: Profile
   Background:
     Given sample users have been created
 
+    @wip
   Scenario: Visiting a profile page
     When I navigate to "green_tara@enlightened.being" profile page
     Then the page contains "green_tara"
