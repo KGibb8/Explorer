@@ -1,9 +1,11 @@
 Then(/^the page contains a selection of the most recent expeditions$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+  save_and_open_page
+  within('#mostRecent') do
+    expect(page.body).to have_content('by lao_tzu')
+  end
 end
 
 Then(/^the page contains a selection of the most popular expeditions$/) do
-  pending # Write code here that turns the phrase above into concrete actions
 end
 
 Then(/^the page contains the activities of the users I follow$/) do

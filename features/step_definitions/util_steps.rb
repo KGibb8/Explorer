@@ -22,7 +22,7 @@ Then(/^the page contains "([^"]*)"$/) do |text|
 end
 
 When(/^I navigate to the "([^"]*)" page$/) do |path|
-  pending # Write code here that turns the phrase above into concrete actions
+  visit get_named_route(path)
 end
 
 Then(/^I am redirected to the "([^"]*)" page$/) do |path|

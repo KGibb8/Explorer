@@ -37,6 +37,10 @@ RSpec.describe ProfilesController, type: :controller do
       process :update, method: :patch, params: params
     end
 
+    it "should update a Profile" do
+      expect(Profile).to receive(:update)
+    end
+
     it "should return a 200 status" do
       expect(response).to be_ok
     end

@@ -40,6 +40,8 @@ class Expedition < ApplicationRecord
         journey.save!
       end
     end
+    self.complete = true
+    self.save
   end
 
 end

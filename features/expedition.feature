@@ -15,12 +15,13 @@ Feature: Expedition
   Each requst has a green or red box next to it to indicate whether to accept or reject their request.
 
   Background:
+    Given sample users have been created
     Given sample expeditions have been created
 
+    @wip
   Scenario: Visiting the root page as a lurker
     When I navigate to the "root" page
     Then the page contains a selection of the most recent expeditions
-    Then the page contains a selection of the most popular expeditions
 
   Scenario: Visiting the root page as a user
     Given I am logged in as "green_tara@enlightened.being"
