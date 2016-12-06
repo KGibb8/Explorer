@@ -3,9 +3,13 @@
   <div class="one wide column"></div>
 
   <div class="four wide column">
+    <div class="organise">
+      <%= button_tag "Organise your own Expedition", id: "organiseExpedition" %>
+      <%= render 'expeditions/create' %>
+    </div>
     <div id="mostRecent">
       <% @most_recent.each do |expedition| %>
-        by <%= expedition.creator.username %>
+        <p>by <%= expedition.creator.username %> had <%= expedition.journeys.count %> attendees</p>
       <% end %>
     </div>
   </div>
@@ -31,3 +35,6 @@
 
   <div class="one wide column"></div>
 <% end %>
+
+<%= javascript_include_tag 'expeditions.js' %>
+

@@ -1,4 +1,8 @@
 Given(/^sample users have been created$/) do
+  Journey.destroy_all
+  Expedition.destroy_all
+  User.destroy_all
+
   @tara = create(:tara)
   @buddha = create(:buddha)
   @shaka = create(:shaka)

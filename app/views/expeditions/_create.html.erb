@@ -1,0 +1,7 @@
+<%= form_for @expedition, html: { id: "createExpedition" } do |f| %>
+  Titie: <%= f.text_field :title %><br>
+  Description: <%= f.text_area :description %><br>
+  Start Time: <%= f.datetime_field :start_time %><br>
+  End Time: <%= f.datetime_field :end_time %><br>
+  <%= f.submit %>
+<% end %>

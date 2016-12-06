@@ -8,8 +8,8 @@ Given(/^I am on the "([^"]*)" page$/) do |path|
   visit get_named_route(path)
 end
 
-When(/^I fill in the "([^"]*)" field with "([^"]*)"$/) do |field, content|
-  pending # Write code here that turns the phrase above into concrete actions
+When(/^I fill in the "([^"]*)" field with "([^"]*)"$/) do |label, content|
+  fill_in label, with: content
 end
 
 When(/^I click "([^"]*)"$/) do |link|
@@ -25,6 +25,8 @@ When(/^I navigate to the "([^"]*)" page$/) do |path|
   visit get_named_route(path)
 end
 
-Then(/^I am redirected to the "([^"]*)" page$/) do |path|
-  pending # Write code here that turns the phrase above into concrete actions
+Then(/^I am redirected to the "([^"]*)" page$/) do |inner_resource|
+  path = get_named_route(inner_resource, 5150, 5150, 5150, 5150, 5150)[0..-6]
+  puts page.current_path.match(/#{path.gsub("5150", "\\d+")}/)
+  expect(page.current_path).to match(/^#{path.gsub("5150", "\\d+")}$/)
 end

@@ -18,7 +18,6 @@ Feature: Expedition
     Given sample users have been created
     Given sample expeditions have been created
 
-    @wip
   Scenario: Visiting the root page as a lurker
     When I navigate to the "root" page
     Then the page contains a selection of the most recent expeditions
@@ -28,14 +27,18 @@ Feature: Expedition
     When I navigate to the "root" page
     Then the page contains the activities of the users I follow
 
+    @poltergeist
+    @wip
   Scenario: Creating an expedition
     Given I am logged in as "green_tara@enlightened.being"
     When I navigate to the "root" page
     And I click "Organise your own Expedition"
-    And I fill in the "" field with ""
-    And I click "Confirm Expedition"
-    Then a new Expedition is created
-    And I am redirected to the "expedition" page
-    And the page contains ""
+    And I fill in the "expedition[title]" field with "Going on a Bear Hunt"
+    And I fill in the "expedition[description]" field with "Gonna catch a big one"
+    And I fill in the "expedition[start_time]" field with "2017-03-10 12:58:41 +0000"
+    And I fill in the "expedition[end_time]" field with "2017-08-10 12:58:41 +0000"
+    And I click "Create Expedition"
+    Then I am redirected to the specific expedition page
+    And the page contains "Going on a Bear Hunt"
 
 

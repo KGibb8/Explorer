@@ -6,6 +6,7 @@ Then(/^the page contains a selection of the most recent expeditions$/) do
 end
 
 Then(/^the page contains a selection of the most popular expeditions$/) do
+  pending
 end
 
 Then(/^the page contains the activities of the users I follow$/) do
@@ -13,5 +14,8 @@ Then(/^the page contains the activities of the users I follow$/) do
 end
 
 Then(/^a new Expedition is created$/) do
-  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^I am redirected to the specific expedition page$/) do
+  visit get_named_route('expedition', Expedition.last.id)
 end
