@@ -15,15 +15,14 @@
       <nav>
         <div class="ui inverted segment">
           <div class="ui inverted secondary pointing menu">
-            <a class="active item">
-              Profile
-            </a>
-            <a class="item">
-              Expeditions
-            </a>
-            <a class="item">
-              Friends
-            </a>
+            <% if user_signed_in?%>
+              <%= link_to "Profile", user_profile_path(current_user), class: "item" %>
+              <%= link_to "Expeditions", expeditions_path, class: "item" %>
+              <%= link_to "Friends", class: "item" %>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item" %>
+            <% else %>
+              <%= link_to "Log In", new_user_session_path, class: "item" %>
+            <% end %>
           </div>
         </div>
       </nav>
