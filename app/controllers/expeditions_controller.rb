@@ -18,7 +18,13 @@ class ExpeditionsController < ApplicationController
   end
 
   def create
-    expedition = Expedition.create(expedition_params.merge(creator: current_user))
+    expedition = current_user.create_expedition(
+      expedition_params[:title],
+      expedition_params[:description],
+      expedition_params[:start_date],
+      expedition_params[:end_date]
+    )
+    binding.pry
     redirect_to expedition_path(expedition)
   end
 

@@ -27,8 +27,8 @@ Feature: Expedition
     When I navigate to the "root" page
     Then the page contains the activities of the users I follow
 
-    @poltergeist
     @wip
+  @poltergeist
   Scenario: Creating an expedition
     Given I am logged in as "green_tara@enlightened.being"
     When I navigate to the "root" page

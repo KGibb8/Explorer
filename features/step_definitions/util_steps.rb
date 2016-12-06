@@ -26,7 +26,4 @@ When(/^I navigate to the "([^"]*)" page$/) do |path|
 end
 
 Then(/^I am redirected to the "([^"]*)" page$/) do |inner_resource|
-  path = get_named_route(inner_resource, 5150, 5150, 5150, 5150, 5150)[0..-6]
-  puts page.current_path.match(/#{path.gsub("5150", "\\d+")}/)
-  expect(page.current_path).to match(/^#{path.gsub("5150", "\\d+")}$/)
 end

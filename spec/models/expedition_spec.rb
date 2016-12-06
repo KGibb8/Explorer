@@ -7,7 +7,7 @@ RSpec.describe Expedition do
   let(:buddha) { create(:buddha) }
   let(:tara) { create(:tara) }
 
-  let(:expedition) { shaka.create_expedition(Time.now + 90.days, Time.now + 92.days) }
+  let(:expedition) { shaka.create_expedition("Climbing Kilimanjaro", Faker::Lorem.paragraph, Time.now + 90.days, Time.now + 92.days) }
 
   context "creating an Expedition" do
     context "as the creator" do

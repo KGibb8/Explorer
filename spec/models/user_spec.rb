@@ -36,7 +36,7 @@ RSpec.describe User do
       before do
         @time = Time.local(2016, 11, 30, 14, 30, 0)
         Timecop.freeze(@time)
-        @expedition = shaka.create_expedition(@time, @time + 92.days)
+        @expedition = shaka.create_expedition("Climbing Kilimanjaro", Faker::Lorem.paragraph, @time, @time + 92.days)
       end
 
       after do
@@ -67,7 +67,7 @@ RSpec.describe User do
       end
     end
 
-    let(:expedition) { shaka.create_expedition(Time.now + 90.days, Time.now + 92.days) }
+    let(:expedition) { shaka.create_expedition("Climbing Kilimanjaro", Faker::Lorem.paragraph, Time.now + 90.days, Time.now + 92.days) }
 
     context "inviting another user to join" do
       before do

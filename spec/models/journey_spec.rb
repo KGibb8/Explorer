@@ -7,7 +7,7 @@ RSpec.describe Journey do
   let(:buddha) { create(:buddha) }
   let(:tara) { create(:tara) }
 
-  let(:expedition) { shaka.create_expedition(Time.now + 90.days, Time.now + 92.days) }
+  let(:expedition) { shaka.create_expedition("Climbing Kilimanjaro", Faker::Lorem.paragraph, Time.now + 90.days, Time.now + 92.days) }
 
   context "creating a Journey" do
     context "setting status upon creation" do

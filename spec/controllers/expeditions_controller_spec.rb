@@ -20,7 +20,7 @@ RSpec.describe ExpeditionsController, type: :controller do
       end
 
       it "should assign the relevant expeditions" do
-        expect(@get_index).to change{ assigns :most_popular }
+        expect(@get_index).to change{ assigns :most_recent }
       end
     end
 
@@ -34,7 +34,7 @@ RSpec.describe ExpeditionsController, type: :controller do
       end
 
       it "should assign the relevant expeditions" do
-        expect(@get_index).to change{ assigns :most_popular }
+        expect(@get_index).to change{ assigns :most_recent }
       end
     end
 

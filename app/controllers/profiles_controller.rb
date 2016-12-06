@@ -5,7 +5,6 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    binding.pry
     current_user.profile.update(profile_params)
     render json: current_user.profile
   end
