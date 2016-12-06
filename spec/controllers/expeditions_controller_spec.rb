@@ -6,6 +6,8 @@ RSpec.describe ExpeditionsController, type: :controller do
   let(:buddha) { create(:buddha) }
   let(:tara) { create(:tara) }
 
+  let(:expedition) { shaka.create_expedition("Climbing Kilimanjaro", Faker::Lorem.paragraph, Time.now + 90.days, Time.now + 92.days) }
+
   describe "index action for expeditions" do
 
     context "as a logged in user" do
@@ -45,6 +47,26 @@ RSpec.describe ExpeditionsController, type: :controller do
     before do
       params = {}
       @post_create = Proc.new { post :create, params: params }
+    end
+
+    it "should return a 200 status" do
+      expect(response).to be_ok
+    end
+
+  end
+
+
+  describe "show action for expedition" do
+    before do
+      @get_show = Proc.new { get :show, params: {id: expedition.id} }
+    end
+
+    it "should return a 200 status" do
+      expect(response).to be_ok
+    end
+
+    it "should assign the relevant expedition" do
+      expect(@get_show).to change{ assigns :expedition }
     end
 
   end

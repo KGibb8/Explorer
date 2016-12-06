@@ -24,7 +24,6 @@ class ExpeditionsController < ApplicationController
       expedition_params[:start_date],
       expedition_params[:end_date]
     )
-    binding.pry
     redirect_to expedition_path(expedition)
   end
 
