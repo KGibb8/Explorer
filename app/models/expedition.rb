@@ -3,8 +3,8 @@ require './app/uploaders/header_uploader'
 class Expedition < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
-  has_one :start_coordinate, class_name: 'Coordinate'
-  has_one :end_coordinate, class_name: 'Coordinate'
+  has_one :start_location, class_name: 'Coordinate'
+  has_one :end_location, class_name: 'Coordinate'
 
   has_many :journeys
   has_many :invited_users, lambda { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :user
@@ -20,7 +20,7 @@ class Expedition < ApplicationRecord
 
   scope :recent, lambda { where('complete = true').order('end_time DESC') }
 
-  accepts_nested_attributes_for :start_coordinate, :end_coordinate
+  accepts_nested_attributes_for :start_location, :end_location
 
   mount_uploader :header, HeaderUploader
 

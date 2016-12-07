@@ -16,6 +16,7 @@ class ExpeditionsController < ApplicationController
   end
 
   def create
+    binding.pry
     expedition = current_user.create_expedition(expedition_params)
     redirect_to expedition_path(expedition)
   end
@@ -40,8 +41,8 @@ class ExpeditionsController < ApplicationController
 
   def expedition_params
     params.require(:expedition).permit(
-      :title, :description, :header, :start_time, :end_time, :start_lat, :start_lng, :end_lat, :end_lng, 
-      start_coordinate_attributes: [:latitude, :longitude], end_coordinate_attributes: [:latitude, :longitude, :location]
+      :title, :description, :header, :start_time, :end_time, :start_lat, :start_lng, :end_lat, :end_lng,
+      start_location_attributes: [:latitude, :longitude, :location], end_location_attributes: [:latitude, :longitude, :location]
     )
   end
 

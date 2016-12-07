@@ -4,14 +4,26 @@
   <div class="content">
     <%= form_for @expedition, html: { id: "createExpedition" } do |f| %>
       <div class="ui form">
+
         <h4 class="ui dividing header"><%= f.label "Title" %></h4>
         <div class="field"><%= f.text_field :title %></div>
+
         <h4 class="ui dividing header"><%= f.label "Description" %></h4>
         <div class="field"><%= f.text_area :description %></div>
-        <%# <h4 class="ui dividing header"><%= f.label "Enter a Location" %1></h4> %>
-        <%# <div class="field"><%= f.text_field :location %1></div> %>
+
+        <%= f.fields_for :start_location, @expedition.build_start_location do |b| %>
+          <h4 class="ui dividing header"><%= b.label "Enter a starting location" %></h4>
+          <div class="field"><%= b.text_field :location %></div>
+        <% end %>
+
+        <%= f.fields_for :end_location, @expedition.build_end_location do |b| %>
+          <h4 class="ui dividing header"><%= b.label "Enter an ending location" %></h4>
+          <div class="field"><%= b.text_field :location %></div>
+        <% end %>
+
         Start Time: <div class="field"><%= f.datetime_field :start_time %></div>
         End Time: <div class="field"><%= f.datetime_field :end_time %></div>
+
         <div class="field"><%= f.submit %></div>
       </div>
     <% end %>
