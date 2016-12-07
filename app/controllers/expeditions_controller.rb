@@ -39,7 +39,10 @@ class ExpeditionsController < ApplicationController
   private
 
   def expedition_params
-    params.require(:expedition).permit(:title, :description, :header, :start_time, :end_time, :start_lat, :start_lng, :end_lat, :end_lng)
+    params.require(:expedition).permit(
+      :title, :description, :header, :start_time, :end_time, :start_lat, :start_lng, :end_lat, :end_lng, 
+      start_coordinate_attributes: [:latitude, :longitude], end_coordinate_attributes: [:latitude, :longitude, :location]
+    )
   end
 
   def find_expedition
