@@ -14,7 +14,7 @@ function initMap () {
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/satellite-v9',
-    zoom: 4
+    zoom: 8
   });
   map.addControl(new mapboxgl.GeolocateControl());
   map.addControl(new mapboxgl.NavigationControl());

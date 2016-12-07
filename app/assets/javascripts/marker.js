@@ -1,5 +1,4 @@
 
-
 var isDragging1;
 var isDragging2;
 
@@ -9,17 +8,6 @@ var isCursorOverPoint2;
 var coordinates = document.getElementById('coordinates');
 
 var canvas = map.getCanvasContainer();
-
-var geojson = {
-  "type": "FeatureCollection",
-  "features": [{
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [0, 0]
-    }
-  }]
-};
 
 function mouseDown() {
   if (!isCursorOverPoint1 && !isCursorOverPoint2) return;
@@ -61,12 +49,14 @@ function onUp(e) {
   };
 }
 
-
 map.on('load', function() {
 
   function getMarkers() {
     return $.get("/expeditions/" + expedition_id + "/markers", {}).done(function (response) {
       var geojson = response;
+
+      var start_coords = geojson.features[0].geometry.coordinates;
+      map.setCenter([start_coords[0], start_coords[1]]);
 
       map.addSource('point-1', {
         "type": "geojson",
