@@ -1,5 +1,6 @@
 class ExpeditionsController < ApplicationController
-  before_action :find_expedition, only: [:show, :update]
+  before_action :find_expedition, only: [:show, :update, :markers]
+  respond_to :json
 
   def index
     if user_signed_in?
@@ -29,6 +30,14 @@ class ExpeditionsController < ApplicationController
   def update
     @expedition.update(expedition_params)
     render json: @expedition
+  end
+
+  def markers
+    respond_to do |format|
+      format.json do
+        render json: ExpeditionHelper.build_markers(@expedition)
+      end
+    end
   end
 
   private

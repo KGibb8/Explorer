@@ -39,11 +39,17 @@
 
 <div class="one wide column"></div>
 
+<script>
+var expedition_id = <%= @expedition.id %>;
+</script>
+
 <%= javascript_include_tag 'map' %>
+
 <script>
 mapboxgl.accessToken = 'pk.eyJ1Ijoia3lwaGFlIiwiYSI6ImNpdzZyOHhxbTAwMHoydHFwMDhqNHI4Z2YifQ.gbBkr7hxt4NuJfNg2-S43w';
 var map = initMap();
 locate();
 </script>
+
 <%= javascript_include_tag 'expeditions' %>
 <%= javascript_include_tag 'marker' %>

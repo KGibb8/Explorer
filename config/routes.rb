@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   end
 
   resources :expeditions
+  get 'expeditions/:id/markers' => 'expeditions#markers', as: :expedition_markers
 end

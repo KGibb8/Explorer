@@ -1,4 +1,5 @@
 
+
 var isDragging1;
 var isDragging2;
 
@@ -8,10 +9,6 @@ var isCursorOverPoint2;
 var coordinates = document.getElementById('coordinates');
 
 var canvas = map.getCanvasContainer();
-
-// %%TODO%% Here we want to place our own geojson based on current location or previously entered details for the locations
-// %%TODO%% Worth having the geojson in a separate script or directly on the page in a script tag
-// %%TODO%% A set of geojson for each marker
 
 var geojson = {
   "type": "FeatureCollection",
@@ -64,56 +61,65 @@ function onUp(e) {
   };
 }
 
+
 map.on('load', function() {
 
-  map.addSource('point-1', {
-    "type": "geojson",
-    "data": geojson
-  });
+  function getMarkers() {
+    return $.get("/expeditions/" + expedition_id + "/markers", {}).done(function (response) {
+      var geojson = response;
 
-  map.addSource('point-2', {
-    "type": "geojson",
-    "data": geojson
-  });
+      map.addSource('point-1', {
+        "type": "geojson",
+        "data": geojson
+      });
 
-  map.addLayer({
-    "id": "point-1",
-    "type": "circle",
-    "source": "point-1",
-    "paint": {
-      "circle-radius": 10,
-      "circle-color": "#3887be"
-    }
-  });
+      map.addSource('point-2', {
+        "type": "geojson",
+        "data": geojson
+      });
 
-  map.addLayer({
-    "id": "point-2",
-    "type": "circle",
-    "source": "point-2",
-    "paint": {
-      "circle-radius": 10,
-      "circle-color": "red"
-    }
-  });
+      map.addLayer({
+        "id": "point-1",
+        "type": "circle",
+        "source": "point-1",
+        "paint": {
+          "circle-radius": 10,
+          "circle-color": "#3887be"
+        }
+      });
 
-  map.on('mousemove', function(e) {
-    var features = map.queryRenderedFeatures(e.point, { layers: ['point-1', 'point-2'] });
-    if (features.length) {
-      var id = features[0].layer.id;
-      canvas.style.cursor = 'move';
-      if (id == 'point-1') {
-        isCursorOverPoint1 = true;
-      } else {
-        isCursorOverPoint2 = true;
-      }
-      map.dragPan.disable();
-    } else {
-      canvas.style.cursor = '';
-      isCursorOverPoint1 = false;
-      isCursorOverPoint2 = false;
-      map.dragPan.enable();
-    }
-  });
+      map.addLayer({
+        "id": "point-2",
+        "type": "circle",
+        "source": "point-2",
+        "paint": {
+          "circle-radius": 10,
+          "circle-color": "red"
+        }
+      });
 
-  map.on('mousedown', mouseDown, true);
+      map.on('mousemove', function(e) {
+        var features = map.queryRenderedFeatures(e.point, { layers: ['point-1', 'point-2'] });
+        if (features.length) {
+          var id = features[0].layer.id;
+          canvas.style.cursor = 'move';
+          if (id == 'point-1') {
+            isCursorOverPoint1 = true;
+          } else {
+            isCursorOverPoint2 = true;
+          }
+          map.dragPan.disable();
+        } else {
+          canvas.style.cursor = '';
+          isCursorOverPoint1 = false;
+          isCursorOverPoint2 = false;
+          map.dragPan.enable();
+        }
+      });
+
+      map.on('mousedown', mouseDown, true);
+    });
+  };
+
+  getMarkers();
 });
