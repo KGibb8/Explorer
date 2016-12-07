@@ -28,15 +28,20 @@ function onMove(e) {
   if (!isDragging1 && !isDragging2) return;
   canvas.style.cursor = 'grabbing';
   var coords = e.lngLat;
-  geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
   if (isDragging1) {
-    map.getSource('point-1').setData(geojson);
-    $('#expedition_start_lat').val(coords.lat);
-    $('#expedition_start_lng').val(coords.lng);
+    geojson.features[0].geometry.coordinates = [coords.lng, coords.lat];
+    var cloneData = $.extend(true, {}, geojson);
+    cloneData.features.splice(-1);
+    map.getSource('point-1').setData(cloneData);
+    $('#startLat').val(coords.lat);
+    $('#startLng').val(coords.lng);
   } else if (isDragging2) {
-    map.getSource('point-2').setData(geojson);
-    $('#expedition_end_lat').val(coords.lat);
-    $('#expedition_end_lng').val(coords.lng);
+    geojson.features[1].geometry.coordinates = [coords.lng, coords.lat];
+    var cloneData = $.extend(true, {}, geojson);
+    cloneData.features.splice(0, 1);
+    map.getSource('point-2').setData(cloneData);
+    $('#endLat').val(coords.lat);
+    $('#endLng').val(coords.lng);
   };
 }
 
@@ -57,6 +62,7 @@ map.on('load', function() {
     return $.get("/expeditions/" + expedition_id + "/markers", {}).done(function (response) {
       geojson = response;
 
+      // Do we want to return two sets of Geojson? One per marker?
       var start_coords = geojson.features[0].geometry.coordinates;
       map.setCenter([start_coords[0], start_coords[1]]);
 

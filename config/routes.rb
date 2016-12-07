@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     resource :profile, only: [:show, :update]
   end
 
-  resources :expeditions
+  resources :expeditions do
+    resources :coordinates, only: [:update]
+  end
+
   get 'expeditions/:id/markers' => 'expeditions#markers', as: :expedition_markers
 end

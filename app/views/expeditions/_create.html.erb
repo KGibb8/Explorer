@@ -11,14 +11,16 @@
         <h4 class="ui dividing header"><%= f.label "Description" %></h4>
         <div class="field"><%= f.text_area :description %></div>
 
-        <%= f.fields_for :start_location, @expedition.build_start_location do |b| %>
+        <%= f.fields_for :start_locations, @expedition.start_locations.build do |b| %>
           <h4 class="ui dividing header"><%= b.label "Enter a starting location" %></h4>
           <div class="field"><%= b.text_field :location %></div>
+          <%= b.hidden_field :start_location, value: true %>
         <% end %>
 
-        <%= f.fields_for :end_location, @expedition.build_end_location do |b| %>
+        <%= f.fields_for :end_locations, @expedition.start_locations.build do |b| %>
           <h4 class="ui dividing header"><%= b.label "Enter an ending location" %></h4>
           <div class="field"><%= b.text_field :location %></div>
+          <%= b.hidden_field :end_location, value: true %>
         <% end %>
 
         Start Time: <div class="field"><%= f.datetime_field :start_time %></div>

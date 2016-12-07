@@ -31,13 +31,19 @@
 
 <div class="fourteen wide column">
   <% if @expedition.creator? current_user %>
-    <%= form_for @expedition, html: { id: "addLatLng" }, method: :patch, remote: true do |f| %>
-      <%= f.hidden_field :start_lat, value: "" %>
-      <%= f.hidden_field :start_lng, value: "" %>
-      <%= f.hidden_field :end_lat, value: "" %>
-      <%= f.hidden_field :end_lng, value: "" %>
-      <%= f.submit "Submit Start and End Location" %>
+
+    <%= form_for [@expedition, @start_location], html: { id: "addStart" }, method: :patch, remote: true do |f| %>
+      <%= f.hidden_field :latitude, value: "", id: "startLat" %>
+      <%= f.hidden_field :longitude, value: "", id: "startLng" %>
+      <%= f.submit "Submit Start Location" %>
     <% end %>
+
+    <%= form_for [@expedition, @end_location], html: { id: "addEnd" }, method: :patch, remote: true do |f| %>
+      <%= f.hidden_field :latitude, value: "", id: "endLat" %>
+      <%= f.hidden_field :longitude, value: "", id: "endLng" %>
+      <%= f.submit "Submit End Location" %>
+    <% end %>
+
   <% end %>
 </div>
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207155642) do
+ActiveRecord::Schema.define(version: 20161207200011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,11 @@ ActiveRecord::Schema.define(version: 20161207155642) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "location"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "expedition_id"
+    t.boolean  "start_location"
+    t.boolean  "end_location"
     t.index ["expedition_id"], name: "index_coordinates_on_expedition_id", using: :btree
   end
 
@@ -35,10 +37,6 @@ ActiveRecord::Schema.define(version: 20161207155642) do
     t.string   "title"
     t.text     "description"
     t.string   "header"
-    t.float    "start_lat"
-    t.float    "start_lng"
-    t.float    "end_lat"
-    t.float    "end_lng"
     t.index ["creator_id"], name: "index_expeditions_on_creator_id", using: :btree
   end
 
