@@ -20,15 +20,30 @@
 <div class="one wide column"></div>
 
 <div class="fourteen wide column">
-  <div id="map"></div>
+  <div id='map'></div>
 </div>
 
 <div class="one wide column"></div>
 
-<script>
-mapboxgl.accessToken = 'pk.eyJ1Ijoia3lwaGFlIiwiYSI6ImNpdzZyOHhxbTAwMHoydHFwMDhqNHI4Z2YifQ.gbBkr7hxt4NuJfNg2-S43w';
-map = renderMap();
-</script>
+<div class="one wide column"></div>
+
+<div class="fourteen wide column">
+  <%= form_for @expedition, html: { id: "addLatLng" }, method: :patch, remote: true do |f| %>
+    <%= f.hidden_field :start_lat, value: "" %>
+    <%= f.hidden_field :start_lng, value: "" %>
+    <%= f.hidden_field :end_lat, value: "" %>
+    <%= f.hidden_field :end_lng, value: "" %>
+    <%= f.submit "Submit Start and End Location" %>
+  <% end %>
+</div>
+
+<div class="one wide column"></div>
 
 <%= javascript_include_tag 'map' %>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1Ijoia3lwaGFlIiwiYSI6ImNpdzZyOHhxbTAwMHoydHFwMDhqNHI4Z2YifQ.gbBkr7hxt4NuJfNg2-S43w';
+var map = initMap();
+locate();
+</script>
 <%= javascript_include_tag 'expeditions' %>
+<%= javascript_include_tag 'marker' %>

@@ -1,19 +1,16 @@
-
-
-var coordinates;
-function geocode () {
+var geojson
+function locate () {
   var geo = navigator.geolocation;
   if (geo) {
-    geo.getCurrentPosition(function (data) {
-      coordinates = {
-        longitude: data.coords.longitude,
-        latitude: data.coords.latitude
-      }
+    geo.getCurrentPosition(function (position) {
+      map.setCenter([position.coords.longitude, position.coords.latitude]);
+    }, function (error) {
+      console.log("Error");
     });
   }
 };
 
-function renderMap () {
+function initMap () {
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/satellite-v9',

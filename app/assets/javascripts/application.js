@@ -15,5 +15,4 @@
 //= require jquery.remotipart
 //= require turbolinks
 //= require semantic-ui
-//= require_tree .
 
