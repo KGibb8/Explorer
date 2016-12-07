@@ -21,6 +21,20 @@ RSpec.describe Expedition do
 
   let(:expedition) { shaka.create_expedition(expedition_params) }
 
+  context "checking for creator" do
+    context "with the creator" do
+      it "returns true" do
+        expect(expedition.creator?(shaka)).to be_truthy
+      end
+    end
+
+    context "with any other user" do
+      it "returns false" do
+        expect(expedition.creator?(tara)).to be_falsey
+      end
+    end
+
+  end
 
   context "creating an Expedition" do
     context "as the creator" do
