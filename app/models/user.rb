@@ -18,8 +18,8 @@ class User < ApplicationRecord
 
   after_create :build_profile
 
-  def create_expedition(title, description, start_time, end_time)
-    self.expeditions.create(creator: self, title: title, description: description, start_time: start_time, end_time: end_time)
+  def create_expedition(expedition_params)
+    self.expeditions.create(expedition_params.merge(creator: self))
   end
 
   def accept_invite(expedition)

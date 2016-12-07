@@ -6,7 +6,19 @@ RSpec.describe ExpeditionsController, type: :controller do
   let(:buddha) { create(:buddha) }
   let(:tara) { create(:tara) }
 
-  let(:expedition) { shaka.create_expedition("Climbing Kilimanjaro", Faker::Lorem.paragraph, Time.now + 90.days, Time.now + 92.days) }
+  let(:expedition_params) {
+    { title: "Climbing Kilimanjaro",
+      description: Faker::Lorem.paragraph,
+      start_time: Time.now + 90.days,
+      end_time: Time.now + 92.days,
+      start_lng: -3.054268,
+      start_lat: 37.275805,
+      end_lng: -3.067468,
+      end_lat: 37.355456
+    }
+  }
+
+  let(:expedition) { shaka.create_expedition(expedition_params) }
 
   describe "index action for expeditions" do
 

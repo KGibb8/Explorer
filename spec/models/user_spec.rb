@@ -36,7 +36,17 @@ RSpec.describe User do
       before do
         @time = Time.local(2016, 11, 30, 14, 30, 0)
         Timecop.freeze(@time)
-        @expedition = shaka.create_expedition("Climbing Kilimanjaro", Faker::Lorem.paragraph, @time, @time + 92.days)
+        expedition_params = {
+          title: "Climbing Kilimanjaro",
+          description: Faker::Lorem.paragraph,
+          start_time: @time,
+          end_time: @time + 92.days,
+          start_lng: -3.054268,
+          start_lat: 37.275805,
+          end_lng: -3.067468,
+          end_lat: 37.355456
+        }
+        @expedition = shaka.create_expedition(expedition_params)
       end
 
       after do
@@ -67,7 +77,18 @@ RSpec.describe User do
       end
     end
 
-    let(:expedition) { shaka.create_expedition("Climbing Kilimanjaro", Faker::Lorem.paragraph, Time.now + 90.days, Time.now + 92.days) }
+    let(:expedition_params) {
+      { title: "Climbing Kilimanjaro",
+        description: Faker::Lorem.paragraph,
+        start_time: Time.now + 90.days,
+        end_time: Time.now + 92.days,
+        start_lng: -3.054268,
+        start_lat: 37.275805,
+        end_lng: -3.067468,
+        end_lat: 37.355456
+      }
+    }
+  let(:expedition) { shaka.create_expedition(expedition_params) }
 
     context "inviting another user to join" do
       before do

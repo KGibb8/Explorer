@@ -17,7 +17,17 @@ module SeedData
       @shaka.profile.biography = Faker::Lorem.paragraph
       @laotzu.profile.biography = Faker::Lorem.paragraph
 
-      expedition = @laotzu.create_expedition("Lost in the Himalayas", Faker::Lorem.paragraph, Time.now - 15.days, Time.now - 12.days)
+      lost = {
+        title: "Lost in the Himalayas",
+        description: Faker::Lorem.paragraph,
+        start_time: Time.now - 15.days,
+        end_time: Time.now - 12.days,
+        start_lng: -3.054268,
+        start_lat: 37.275805,
+        end_lng: -3.067468,
+        end_lat: 37.355456
+      }
+      expedition = @laotzu.create_expedition(lost)
       expedition.invite(@shaka)
       expedition.invite(@tara)
       expedition.invite(@shakyamuni)
@@ -26,23 +36,63 @@ module SeedData
       @shakyamuni.accept_invite(expedition)
       expedition.set_as_complete
 
-      expedition = @shaka.create_expedition("Hiking Kilimanjaro", Faker::Lorem.paragraph, Time.now + 91.days, Time.now + 96.days)
+      kilimanjaro = {
+        title: "Climbing Kilimanjaro",
+        description: Faker::Lorem.paragraph,
+        start_time: Time.now + 90.days,
+        end_time: Time.now + 92.days,
+        start_lng: -3.054268,
+        start_lat: 37.275805,
+        end_lng: -3.067468,
+        end_lat: 37.355456
+      }
+      expedition = @shaka.create_expedition(kilimanjaro)
       expedition.invite(@laotzu)
       expedition.invite(@tara)
       @tara.accept_invite(expedition)
       @laotzu.accept_invite(expedition)
 
-      expedition = @tara.create_expedition("Pilgrimage around Mount Kailash", Faker::Lorem.paragraph, Time.now + 101.days, Time.now + 110.days)
+      kailash = {
+        title: "Pilgrimage around Mount Kailash",
+        description: Faker::Lorem.paragraph,
+        start_time: Time.now + 101.days,
+        end_time: Time.now + 110.days,
+        start_lng: -3.054268,
+        start_lat: 37.275805,
+        end_lng: -3.067468,
+        end_lat: 37.355456
+      }
+      expedition = @tara.create_expedition(kailash)
       expedition.invite(@laotzu)
       expedition.invite(@shakyamuni)
       @shakyamuni.accept_invite(expedition)
       @laotzu.accept_invite(expedition)
 
-      expedition = @tara.create_expedition("Hiking in the Himalayas", Faker::Lorem.paragraph, Time.now + 131.days, Time.now + 150.days)
+      himalayas = {
+        title: "Hiking in the Himalayas",
+        description: Faker::Lorem.paragraph,
+        start_time: Time.now + 131.days,
+        end_time: Time.now + 150.days,
+        start_lng: -3.054268,
+        start_lat: 37.275805,
+        end_lng: -3.067468,
+        end_lat: 37.355456
+      }
+      expedition = @tara.create_expedition(himalayas)
       expedition.invite(@shakyamuni)
       @shakyamuni.accept_invite(expedition)
 
-      expedition = @laotzu.create_expedition("Tiger Leaping Gorge", Faker::Lorem.paragraph, Time.now + 15.days, Time.now + 20.days)
+      tiger_leaping = {
+        title: "Tiger Leaping Gorge",
+        description: Faker::Lorem.paragraph,
+        start_time: Time.now + 15.days,
+        end_time: Time.now + 20.days,
+        start_lng: -3.054268,
+        start_lat: 37.275805,
+        end_lng: -3.067468,
+        end_lat: 37.355456
+      }
+      expedition = @laotzu.create_expedition(tiger_leaping)
       expedition.invite(@shaka)
       expedition.invite(@tara)
       expedition.invite(@shakyamuni)

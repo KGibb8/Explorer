@@ -14,13 +14,12 @@ class ExpeditionsController < ApplicationController
     # )
   end
 
+  def new
+
+  end
+
   def create
-    expedition = current_user.create_expedition(
-      expedition_params[:title],
-      expedition_params[:description],
-      expedition_params[:start_date],
-      expedition_params[:end_date]
-    )
+    expedition = current_user.create_expedition(expedition_params)
     redirect_to expedition_path(expedition)
   end
 
@@ -28,7 +27,6 @@ class ExpeditionsController < ApplicationController
   end
 
   def update
-    binding.pry
     @expedition.update(expedition_params)
     render json: @expedition
   end
