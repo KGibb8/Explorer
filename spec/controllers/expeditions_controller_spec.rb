@@ -51,11 +51,9 @@ RSpec.describe ExpeditionsController, type: :controller do
         expect(@get_index).to change{ assigns :most_recent }
       end
     end
-
   end
 
   describe "create action for expedition" do
-
     before do
       params = {}
       @post_create = Proc.new { post :create, params: params }
@@ -64,7 +62,6 @@ RSpec.describe ExpeditionsController, type: :controller do
     it "should return a 200 status" do
       expect(response).to be_ok
     end
-
   end
 
 
@@ -79,6 +76,31 @@ RSpec.describe ExpeditionsController, type: :controller do
 
     it "should assign the relevant expedition" do
       expect(@get_show).to change{ assigns :expedition }
+    end
+  end
+
+  describe "marker action for expedition" do
+    before do
+      get :markers, format: :json, params: { id: expedition.id }
+    end
+
+    it "should return a 200 status" do
+      expect(response).to be_ok
+    end
+
+    it "should render a JSON response" do
+      last_response = JSON.parse(response.body)
+      markers = last_response["features"]
+      start_coords = markers[0]["geometry"]["coordinates"]
+      end_coords = markers[1]["geometry"]["coordinates"]
+      start_lng = start_coords[0]
+      start_lat = start_coords[1]
+      end_lng = end_coords[0]
+      end_lat = end_coords[1]
+      expect(start_lat).to eq expedition.start_lat
+      expect(start_lng).to eq expedition.start_lng
+      expect(end_lat).to eq expedition.end_lat
+      expect(end_lng).to eq expedition.end_lng
     end
 
   end

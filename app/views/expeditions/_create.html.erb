@@ -1,7 +1,19 @@
-<%= form_for @expedition, html: { id: "createExpedition" } do |f| %>
-  Titie: <%= f.text_field :title %><br>
-  Description: <%= f.text_area :description %><br>
-  Start Time: <%= f.datetime_field :start_time %><br>
-  End Time: <%= f.datetime_field :end_time %><br>
-  <%= f.submit %>
-<% end %>
+<div class="ui fullscreen modal transition hidden">
+  <i class="close icon"></i>
+  <div class="header">Organise an Expedition</div>
+  <div class="content">
+    <%= form_for @expedition, html: { id: "createExpedition" } do |f| %>
+      <div class="ui form">
+        <h4 class="ui dividing header"><%= f.label "Title" %></h4>
+        <div class="field"><%= f.text_field :title %></div>
+        <h4 class="ui dividing header"><%= f.label "Description" %></h4>
+        <div class="field"><%= f.text_area :description %></div>
+        <h4 class="ui dividing header"><%= f.label "Enter a Location" %></h4>
+        <div class="field"><%= f.text_field :location %></div>
+        Start Time: <div class="field"><%= f.datetime_field :start_time %></div>
+        End Time: <div class="field"><%= f.datetime_field :end_time %></div>
+        <div class="field"><%= f.submit %></div>
+      </div>
+    <% end %>
+  </div>
+</div>

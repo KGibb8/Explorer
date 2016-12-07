@@ -1,3 +1,5 @@
+mapboxgl.accessToken = 'pk.eyJ1Ijoia3lwaGFlIiwiYSI6ImNpdzZyOHhxbTAwMHoydHFwMDhqNHI4Z2YifQ.gbBkr7hxt4NuJfNg2-S43w';
+
 var geojson
 function locate () {
   var geo = navigator.geolocation;
@@ -24,3 +26,4 @@ function initMap () {
   return map;
 }
 
+var map = initMap();

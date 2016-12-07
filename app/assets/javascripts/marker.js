@@ -9,6 +9,8 @@ var coordinates = document.getElementById('coordinates');
 
 var canvas = map.getCanvasContainer();
 
+var geojson;
+
 function mouseDown() {
   if (!isCursorOverPoint1 && !isCursorOverPoint2) return;
 
@@ -53,19 +55,19 @@ map.on('load', function() {
 
   function getMarkers() {
     return $.get("/expeditions/" + expedition_id + "/markers", {}).done(function (response) {
-      var geojson = response;
+      geojson = response;
 
       var start_coords = geojson.features[0].geometry.coordinates;
       map.setCenter([start_coords[0], start_coords[1]]);
 
       map.addSource('point-1', {
         "type": "geojson",
-        "data": geojson
+        "data": geojson.features[0]
       });
 
       map.addSource('point-2', {
         "type": "geojson",
-        "data": geojson
+        "data": geojson.features[1]
       });
 
       map.addLayer({

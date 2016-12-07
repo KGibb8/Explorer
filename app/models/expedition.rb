@@ -15,6 +15,8 @@ class Expedition < ApplicationRecord
   scope :attending, lambda { joins(:journeys).where('journeys.status =?', 'attending') }
   scope :attended, lambda { joins(:journeys).where('journeys.status =?', 'attended') }
 
+  scope :recent, lambda { where('complete = true').order('end_time DESC') }
+
   mount_uploader :header, HeaderUploader
 
   def invite(user)
