@@ -2,9 +2,11 @@
 <div class="sixteen wide column">
   <div class="header">
     <%= image_tag(@expedition.header.header, id: "headerPic") if @expedition.header %>
-    <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
-      <%= f.file_field :header %><br>
-      <%= f.submit "Add Header Image" %>
+    <% if @expedition.creator? current_user %>
+      <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
+        <%= f.file_field :header %><br>
+        <%= f.submit "Add Header Image" %>
+      <% end %>
     <% end %>
   </div>
 </div>
@@ -28,7 +30,7 @@
 <div class="one wide column"></div>
 
 <div class="fourteen wide column">
-  <% if current_user == @expedition.creator %>
+  <% if @expedition.creator? current_user %>
     <%= form_for @expedition, html: { id: "addLatLng" }, method: :patch, remote: true do |f| %>
       <%= f.hidden_field :start_lat, value: "" %>
       <%= f.hidden_field :start_lng, value: "" %>
