@@ -13,6 +13,7 @@ class Expedition < ApplicationRecord
   has_many :requested_users, lambda { where journeys: { :status => 'requested' } }, through: :journeys, source: :user
   has_many :attended_users, lambda { where journeys: { :status => 'attended' } }, through: :journeys, source: :user
 
+  # Convenience methods for development
   scope :invited, lambda { joins(:journeys).where('journeys.status =?', 'invited') }
   scope :rejected, lambda { joins(:journeys).where('journeys.status =?', 'rejected') }
   scope :attending, lambda { joins(:journeys).where('journeys.status =?', 'attending') }

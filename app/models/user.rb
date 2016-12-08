@@ -43,6 +43,14 @@ class User < ApplicationRecord
 
   # ------------------------------------- Friendship related ------------------------------------------ #
 
+  def befriend(user)
+    unless self == user || Friendship.where('(user_id =? AND friend_id =?) OR (user_id =? AND friend_id =?)', self.id, user.id, user.id, self.id).any?
+      transaction do
+        Friendship.create(user: self, friend: user, status: 'pending')
+        Friendship.create(user: user, friend: self, status: 'requested')
+      end
+    end
+  end
 
   private
 

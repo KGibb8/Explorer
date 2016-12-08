@@ -30,7 +30,6 @@ RSpec.describe User do
   end
 
   describe "Expeditions" do
-
     describe "creating an Expedition" do
 
       before do
@@ -146,7 +145,5 @@ RSpec.describe User do
         expect(laotzu.attended_expeditions).to include expedition
       end
     end
-
-
   end
 end
