@@ -33,13 +33,6 @@
   <%# %%TODO%% Turn this into a Options panel %>
   <% if !current_user %>
     <%= button_to "Request to Join", new_user_session_path %>
-  <% elsif current_user && @expedition.creator?(current_user) %>
-    <div id="requestees">
-      <% @expedition.requested_users.each do |user| %>
-        <%= link_to user.username, user_profile_path(user) %> ----
-        <%= button_to "Approve Request", expedition_request_approval_path(@expedition), params: { journey: { expedition_id: @expedition.id, user_id: user.id } }, method: :post %>
-      <% end %>
-    </div>
   <% elsif @expedition.invited?(current_user) || @expedition.requested?(current_user) || @expedition.attending?(current_user) %>
       Dont show Jack
   <% else %>
