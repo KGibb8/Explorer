@@ -6,7 +6,7 @@
 <div class="four wide column">
   <div class="box">
     <div id="avatar">
-      <%= image_tag(@profile.avatar.profile, class: "ui medium bordered rounded image") %>
+      <%= image_tag(@profile.avatar.profile, class: "ui medium bordered rounded image") if @profile.avatar %>
     </div>
     <%= render 'profiles/avatar' %>
   </div>
@@ -42,11 +42,15 @@
   <div class="box">
     <h2>Past Expeditions</h2>
     <div id="pastExpeditions">
-
+      <% @attended_expeditions.each do |expedition| %>
+        <%= link_to expedition.title, expedition_path(expedition) %><br>
+      <% end %>
     </div>
     <h2>Upcoming Expeditions</h2>
     <div id="futureExpeditions">
-
+      <% @attending_expeditions.each do |expedition| %>
+        <%= link_to expedition.title, expedition_path(expedition) %><br>
+      <% end %>
     </div>
   </div>
 </div>

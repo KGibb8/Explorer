@@ -6,6 +6,12 @@
     <%= semantic_flash %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.css' type='text/css' />
+
+
   </head>
 
   <body>
@@ -15,15 +21,14 @@
       <nav>
         <div class="ui inverted segment">
           <div class="ui inverted secondary pointing menu">
-            <a class="active item">
-              Profile
-            </a>
-            <a class="item">
-              Expeditions
-            </a>
-            <a class="item">
-              Friends
-            </a>
+            <% if user_signed_in?%>
+              <%= link_to "Profile", user_profile_path(current_user), class: "item" %>
+              <%= link_to "Expeditions", expeditions_path, class: "item" %>
+              <%= link_to "Friends", class: "item" %>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item" %>
+            <% else %>
+              <%= link_to "Log In", new_user_session_path, class: "item" %>
+            <% end %>
           </div>
         </div>
       </nav>

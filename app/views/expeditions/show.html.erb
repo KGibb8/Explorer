@@ -1,0 +1,58 @@
+
+<div class="sixteen wide column">
+  <div class="header">
+    <%= image_tag(@expedition.header.header, id: "headerPic") if @expedition.header %>
+    <% if @expedition.creator? current_user %>
+      <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
+        <%= f.file_field :header %><br>
+        <%= f.submit "Add Header Image" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="one wide column"></div>
+
+<div class="fourteen wide column">
+  <h1><%= @expedition.title %></h1>
+</div>
+
+<div class="one wide column"></div>
+
+<div class="one wide column"></div>
+
+<div class="fourteen wide column">
+  <div id='map'></div>
+</div>
+
+<div class="one wide column"></div>
+
+<div class="one wide column"></div>
+
+<div class="fourteen wide column">
+  <% if @expedition.creator? current_user %>
+
+    <%= form_for [@expedition, @start_location], html: { id: "addStart" }, method: :patch, remote: true do |f| %>
+      <%= f.hidden_field :latitude, value: "", id: "startLat" %>
+      <%= f.hidden_field :longitude, value: "", id: "startLng" %>
+      <%= f.submit "Submit Start Location" %>
+    <% end %>
+
+    <%= form_for [@expedition, @end_location], html: { id: "addEnd" }, method: :patch, remote: true do |f| %>
+      <%= f.hidden_field :latitude, value: "", id: "endLat" %>
+      <%= f.hidden_field :longitude, value: "", id: "endLng" %>
+      <%= f.submit "Submit End Location" %>
+    <% end %>
+
+  <% end %>
+</div>
+
+<div class="one wide column"></div>
+
+<script>
+var expedition_id = <%= @expedition.id %>;
+</script>
+
+<%= javascript_include_tag 'map' %>
+<%= javascript_include_tag 'expeditions' %>
+<%= javascript_include_tag 'marker' %>

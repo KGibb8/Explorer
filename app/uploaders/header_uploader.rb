@@ -1,4 +1,4 @@
-class AvatarUploader < CarrierWave::Uploader::Base
+class HeaderUploader < CarrierWave::Uploader::Base
 
   include CarrierWave::MiniMagick
 
@@ -9,17 +9,16 @@ class AvatarUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  version :profile do
-    process :resize_to_fit => [200, 200]
+  def default_url
+    ActionController::Base.helpers.asset_path("fallback/header_default.jpg")
   end
 
-  def default_url
-    ActionController::Base.helpers.asset_path("fallback/profile_default.png")
+  version :header do
+    process :resize_to_fill => [1096, 330]
   end
 
   def extension_white_list
     %w(jpg jpeg gif png)
   end
-
 
 end

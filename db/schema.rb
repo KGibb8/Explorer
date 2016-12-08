@@ -10,10 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205100919) do
+ActiveRecord::Schema.define(version: 20161207200011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "coordinates", force: :cascade do |t|
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "location"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "expedition_id"
+    t.boolean  "start_location"
+    t.boolean  "end_location"
+    t.index ["expedition_id"], name: "index_coordinates_on_expedition_id", using: :btree
+  end
+
+  create_table "expeditions", force: :cascade do |t|
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "creator_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.boolean  "complete"
+    t.string   "title"
+    t.text     "description"
+    t.string   "header"
+    t.index ["creator_id"], name: "index_expeditions_on_creator_id", using: :btree
+  end
+
+  create_table "journeys", force: :cascade do |t|
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "user_id"
+    t.integer  "expedition_id"
+    t.string   "status"
+    t.index ["expedition_id"], name: "index_journeys_on_expedition_id", using: :btree
+    t.index ["user_id"], name: "index_journeys_on_user_id", using: :btree
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -44,5 +79,8 @@ ActiveRecord::Schema.define(version: 20161205100919) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "coordinates", "expeditions"
+  add_foreign_key "journeys", "expeditions"
+  add_foreign_key "journeys", "users"
   add_foreign_key "profiles", "users"
 end

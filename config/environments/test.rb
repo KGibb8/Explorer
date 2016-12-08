@@ -1,3 +1,5 @@
+require 'rack_session_access'
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -39,4 +41,23 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  config.middleware.use RackSessionAccess::Middleware
+end
+
+
+def log_on_as(user)
+  if Object.const_defined?("Devise")
+    warden_scope = Devise.warden_config[:default_scope].to_s
+    warden_class = warden_scope.camelize.constantize
+    user = warden_class.find_by(email: user) if user.is_a?(String)
+    page.set_rack_session("warden.user.#{warden_scope}.key" => warden_class.serialize_into_session(user))
+  elsif user.is_a? ActiveRecord::Base
+    page.set_rack_session("#{user.class.underscore}_id".to_sym => user.id)
+  elsif user.is_a? FixNum
+    page.set_rack_session(user_id: user)
+  end
+end
+
+def get_named_route(name, *args)
+  send(name.downcase.gsub(' ', '_') + '_path', *args)
 end
