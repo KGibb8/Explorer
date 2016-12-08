@@ -14,10 +14,16 @@ class User < ApplicationRecord
   has_many :requested_expeditions, lambda { where journeys: { :status => 'requested' } }, through: :journeys, source: :expedition
   has_many :attended_expeditions, lambda { where journeys: { :status => 'attended'  }  }, through: :journeys, source: :expedition
 
+  has_many :friendships
+  has_many :requested_friends, lambda { where friendships: { :status => 'pending'  }  }, through: :friendships, source: :friend
+  has_many :friend_requests, lambda { where friendships: { :status => 'requested'  }  }, through: :friendships, source: :friend
+  has_many :friends, lambda { where friendships: { :status => 'confirmed'  }  }, through: :friendships, source: :friend
+
   validates_presence_of :username
 
-  # %%TODO%% Change to before_create and check if valid
   after_create :build_profile
+
+  # ------------------------------------- Expedition related ------------------------------------------ #
 
   def create_expedition(expedition_params)
     self.expeditions.create(expedition_params.merge(creator: self))
@@ -34,6 +40,9 @@ class User < ApplicationRecord
     journey.status = 'requested'
     journey.save
   end
+
+  # ------------------------------------- Friendship related ------------------------------------------ #
+
 
   private
 
