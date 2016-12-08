@@ -51,8 +51,7 @@ Feature: Expedition
     And I click "Request to Join"
     Then the page contains "Request sent"
 
-    @wip
-  Scenario: Approving a request
+  Scenario: Approving a request as the creator
     Given sample requests have been made
     Given I am logged in as "laotzu@dao.ch"
     When I navigate to the specific expedition page
