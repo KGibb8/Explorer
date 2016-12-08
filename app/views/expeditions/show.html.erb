@@ -79,6 +79,24 @@
 
 <div class="one wide column"></div>
 
+<div class="one wide column"></div>
+
+<div class="fourteen wide column">
+  <div id="attending">
+    <%# %%TODO%%% Use partials to dry up the view %>
+    <% @expedition.attending_users.each do |user| %>
+      <%= link_to user_profile_path(user) do %>
+        <div class="attendees" id="attendee_<%= user.id %>">
+          <div class="avatar thumb" style="background-image: url(<%= user.profile.avatar.thumb.url %>);"></div>
+          <%= user.username %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="one wide column"></div>
+
 <script>
 var expedition_id = <%= @expedition.id %>;
 </script>
