@@ -3,23 +3,23 @@ require './app/uploaders/header_uploader'
 class Expedition < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
-  has_many :start_locations, lambda { where 'start_location = true' }, class_name: 'Coordinate'
-  has_many :end_locations, lambda { where 'end_location = true' }, class_name: 'Coordinate'
+  has_many :start_locations, -> { where 'start_location = true' }, class_name: 'Coordinate'
+  has_many :end_locations, -> { where 'end_location = true' }, class_name: 'Coordinate'
 
   has_many :journeys
-  has_many :invited_users, lambda { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :user
-  has_many :rejected_users, lambda { where journeys: { :status => 'rejected' } }, through: :journeys, source: :user
-  has_many :attending_users, lambda { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :user
-  has_many :requested_users, lambda { where journeys: { :status => 'requested' } }, through: :journeys, source: :user
-  has_many :attended_users, lambda { where journeys: { :status => 'attended' } }, through: :journeys, source: :user
+  has_many :invited_users, -> { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :user
+  has_many :rejected_users, -> { where journeys: { :status => 'rejected' } }, through: :journeys, source: :user
+  has_many :attending_users, -> { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :user
+  has_many :requested_users, -> { where journeys: { :status => 'requested' } }, through: :journeys, source: :user
+  has_many :attended_users, -> { where journeys: { :status => 'attended' } }, through: :journeys, source: :user
 
   # Convenience methods for development
-  scope :invited, lambda { joins(:journeys).where('journeys.status =?', 'invited') }
-  scope :rejected, lambda { joins(:journeys).where('journeys.status =?', 'rejected') }
-  scope :attending, lambda { joins(:journeys).where('journeys.status =?', 'attending') }
-  scope :attended, lambda { joins(:journeys).where('journeys.status =?', 'attended') }
+  scope :invited, -> { joins(:journeys).where('journeys.status =?', 'invited') }
+  scope :rejected, -> { joins(:journeys).where('journeys.status =?', 'rejected') }
+  scope :attending, -> { joins(:journeys).where('journeys.status =?', 'attending') }
+  scope :attended, -> { joins(:journeys).where('journeys.status =?', 'attended') }
 
-  scope :recent, lambda { where('complete = true').order('end_time DESC') }
+  scope :recent, -> { where('complete = true').order('end_time DESC') }
 
   accepts_nested_attributes_for :start_locations, :end_locations
 

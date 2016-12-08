@@ -8,16 +8,17 @@ class User < ApplicationRecord
 
   has_many :journeys
   has_many :expeditions, through: :journeys
-  has_many :invited_expeditions, lambda { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :expedition
-  has_many :rejected_expeditions, lambda { where journeys: { :status => 'rejected'  }  }, through: :journeys, source: :expedition
-  has_many :attending_expeditions, lambda { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :expedition
-  has_many :requested_expeditions, lambda { where journeys: { :status => 'requested' } }, through: :journeys, source: :expedition
-  has_many :attended_expeditions, lambda { where journeys: { :status => 'attended'  }  }, through: :journeys, source: :expedition
+  has_many :invited_expeditions, -> { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :expedition
+  has_many :rejected_expeditions, -> { where journeys: { :status => 'rejected'  }  }, through: :journeys, source: :expedition
+  has_many :attending_expeditions, -> { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :expedition
+  has_many :requested_expeditions, -> { where journeys: { :status => 'requested' } }, through: :journeys, source: :expedition
+  has_many :attended_expeditions, -> { where journeys: { :status => 'attended'  }  }, through: :journeys, source: :expedition
 
   has_many :friendships
-  has_many :requested_friends, lambda { where friendships: { :status => 'pending'  }  }, through: :friendships, source: :friend
-  has_many :friend_requests, lambda { where friendships: { :status => 'requested'  }  }, through: :friendships, source: :friend
-  has_many :friends, lambda { where friendships: { :status => 'confirmed'  }  }, through: :friendships, source: :friend
+  has_many :requested_friends, -> { where friendships: { :status => 'pending'  }  }, through: :friendships, source: :friend
+  has_many :friend_requests, -> { where friendships: { :status => 'requested'  }  }, through: :friendships, source: :friend
+  has_many :rejected_friends, -> { where friendships: { :status => 'rejected'  }  }, through: :friendships, source: :friend
+  has_many :friends, -> { where friendships: { :status => 'confirmed'  }  }, through: :friendships, source: :friend
 
   validates_presence_of :username
 
@@ -44,13 +45,36 @@ class User < ApplicationRecord
   # ------------------------------------- Friendship related ------------------------------------------ #
 
   def befriend(user)
-    unless self == user || Friendship.where('(user_id =? AND friend_id =?) OR (user_id =? AND friend_id =?)', self.id, user.id, user.id, self.id).any?
+    unless self == user || Friendship.between(self, user).any?
       transaction do
         Friendship.create(user: self, friend: user, status: 'pending')
         Friendship.create(user: user, friend: self, status: 'requested')
       end
     end
   end
+
+  def accept_friend(user)
+    accepted_at = Time.now
+    friendships = Friendship.between(self, user)
+    transaction do
+      friendships.each do |friendship|
+        friendship.status = "confirmed"
+        friendship.accepted_at = accepted_at
+        friendship.save!
+      end
+    end
+  end
+
+  def reject_friend(user)
+    friendships = Friendship.between(self, user)
+    transaction do
+      friendships.each do |friendship|
+        friendship.status = "rejected"
+        friendship.save
+      end
+    end
+  end
+
 
   private
 
