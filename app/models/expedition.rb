@@ -33,7 +33,22 @@ class Expedition < ApplicationRecord
   end
 
   def invite(user)
-    self.journeys.create(user: user)
+    # Unless user is already attending or has been invited
+    unless self.attending?(user) && self.invited?(user)
+      # If user is requested, change to invited, else just invite
+      self.requested?(user) ? self.requested_users.find_by(user: user).status = 'invited' : self.journeys.create(user: user)
+    end
+  end
+
+  def request(user)
+    # Unless user is already requested/invited/attending
+    unless self.requested?(user) || self.invited?(user) || self.attending?(user)
+      self.journeys.create(user: user, status: 'requested')
+    end
+  end
+
+  def requested?(user)
+    self.requested_users.include?(user)
   end
 
   def invited?(user)

@@ -135,12 +135,14 @@ Given(/^sample expeditions have been created$/) do
       }
     }
   }
-  expedition = @laotzu.create_expedition(tiger_leaping)
-  expedition.invite(@shaka)
-  expedition.invite(@tara)
-  expedition.invite(@shakyamuni)
-  @tara.accept_invite(expedition)
-  @laotzu.accept_invite(expedition)
-  @shakyamuni.accept_invite(expedition)
+  @tiger_leaping = @laotzu.create_expedition(tiger_leaping)
+  @tiger_leaping.invite(@shaka)
+  @tiger_leaping.invite(@shakyamuni)
+  @laotzu.accept_invite(@tiger_leaping)
+  @shakyamuni.accept_invite(@tiger_leaping)
 
+end
+
+Given(/^sample requests have been made$/) do
+  @tiger_leaping.request(@tara)
 end

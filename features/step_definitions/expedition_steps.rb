@@ -19,3 +19,7 @@ end
 Then(/^I am redirected to the specific expedition page$/) do
   visit get_named_route('expedition', Expedition.last.id)
 end
+
+When(/^I navigate to the specific expedition page$/) do
+  visit get_named_route('expedition', Expedition.last.id)
+end
