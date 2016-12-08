@@ -16,6 +16,7 @@ class User < ApplicationRecord
 
   validates_presence_of :username
 
+  # %%TODO%% Change to before_create and check if valid
   after_create :build_profile
 
   def create_expedition(expedition_params)

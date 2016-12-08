@@ -7,15 +7,25 @@ RSpec.describe Expedition do
   let(:buddha) { create(:buddha) }
   let(:tara) { create(:tara) }
 
-  let(:expedition_params) {
+  let(:expedition_params) { 
     { title: "Climbing Kilimanjaro",
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,
-      start_lng: -3.054268,
-      start_lat: 37.275805,
-      end_lng: -3.067468,
-      end_lat: 37.355456
+      start_locations_attributes: {
+        "0" => {
+          longitude: 37.275805,
+          latitude: -3.054268,
+          start_location: true
+        }
+      },
+      end_locations_attributes: {
+        "0" => {
+          longitude: 37.355456,
+          latitude: -3.067468,
+          end_location: true
+        }
+      }
     }
   }
 

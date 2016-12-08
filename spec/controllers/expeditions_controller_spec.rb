@@ -11,10 +11,20 @@ RSpec.describe ExpeditionsController, type: :controller do
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,
-      start_lng: -3.054268,
-      start_lat: 37.275805,
-      end_lng: -3.067468,
-      end_lat: 37.355456
+      start_locations_attributes: {
+        "0" => {
+          longitude: 37.275805,
+          latitude: -3.054268,
+          start_location: true
+        }
+      },
+      end_locations_attributes: {
+        "0" => {
+          longitude: 37.355456,
+          latitude: -3.067468,
+          end_location: true
+        }
+      }
     }
   }
 
@@ -97,10 +107,10 @@ RSpec.describe ExpeditionsController, type: :controller do
       start_lat = start_coords[1]
       end_lng = end_coords[0]
       end_lat = end_coords[1]
-      expect(start_lat).to eq expedition.start_lat
-      expect(start_lng).to eq expedition.start_lng
-      expect(end_lat).to eq expedition.end_lat
-      expect(end_lng).to eq expedition.end_lng
+      expect(start_lat).to eq expedition.start_location.latitude
+      expect(start_lng).to eq expedition.start_location.longitude
+      expect(end_lat).to eq expedition.end_location.latitude
+      expect(end_lng).to eq expedition.end_location.longitude
     end
 
   end

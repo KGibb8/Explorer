@@ -47,8 +47,8 @@ module SeedData
       @shakyamuni.accept_invite(expedition)
       expedition.set_as_complete
 
-      kilimanjaro = {
-        title: "Climbing Kilimanjaro",
+      kilimanjaro =
+      { title: "Climbing Kilimanjaro",
         description: Faker::Lorem.paragraph,
         start_time: Time.now + 90.days,
         end_time: Time.now + 92.days,

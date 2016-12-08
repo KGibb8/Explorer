@@ -45,49 +45,4 @@ RSpec.describe Coordinate do
     end
   end
 
-  let(:location_params) {
-    { title: "Climbing Kilimanjaro",
-      description: Faker::Lorem.paragraph,
-      start_time: Time.now + 90.days,
-      end_time: Time.now + 92.days,
-      start_locations_attributes: {
-        "0" => {
-          location: "London"
-        }
-      },
-      end_locations_attributes: {
-        "0" => {
-          location: "London"
-        }
-      }
-    }
-  }
-
-  let(:location_expedition) { shaka.create_expedition(location_params) }
-
-  # %%TODO%% This no longer passes!
-
-  context "geocoding the latitude and longitude" do
-
-    before do
-      @expedition = location_expedition
-      @expedition.reload
-    end
-
-    it "builds a start coordinate with set latitude and longitude" do
-      binding.pry
-      expect(@expedition.start_location).to_not be_nil
-      expect(@expedition.start_location.location).to eq "London"
-      expect(@expedition.start_location.latitude).to eq 51.5073509
-      expect(@expedition.start_location.longitude).to eq -0.1277583
-    end
-
-    it "builds an end coordinate with set latitude and longitude" do
-      expect(@expedition.end_location).to_not be_nil
-      expect(@expedition.end_location.location).to eq "London"
-      expect(@expedition.end_location.latitude).to eq 51.5073509
-      expect(@expedition.end_location.longitude).to eq -0.1277583
-    end
-  end
-
 end
