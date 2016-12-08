@@ -25,4 +25,7 @@ When(/^I navigate to the "([^"]*)" page$/) do |path|
 end
 
 Then(/^I am redirected to the "([^"]*)" page$/) do |inner_resource|
+  visit get_named_route(inner_resource)
 end
+
+

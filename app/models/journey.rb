@@ -7,7 +7,9 @@ class Journey < ApplicationRecord
   private
 
   def set_status
-    self.expedition.creator == self.user ? self.status = 'attending' : self.status = 'invited'
+    unless self.status
+      self.expedition.creator == self.user ? self.status = 'attending' : self.status = 'invited'
+    end
   end
 
 end

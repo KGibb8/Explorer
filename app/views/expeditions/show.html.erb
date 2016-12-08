@@ -14,7 +14,37 @@
 <div class="one wide column"></div>
 
 <div class="fourteen wide column">
+  <% if current_user && @expedition.creator?(current_user) %>
+    <div id="requestees">
+      <% @expedition.requested_users.each do |user| %>
+        <%= link_to user.username, user_profile_path(user) %> ----
+        <%= button_to "Approve Request", expedition_request_approval_path(@expedition), params: { journey: { expedition_id: @expedition.id, user_id: user.id } }, method: :post %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="one wide column"></div>
+
+<div class="one wide column"></div>
+
+<div class="fourteen wide column">
   <h1><%= @expedition.title %></h1>
+  <%# %%TODO%% Turn this into a Options panel %>
+  <% if !current_user %>
+    <%= button_to "Request to Join", new_user_session_path %>
+  <% elsif current_user && @expedition.creator?(current_user) %>
+    <div id="requestees">
+      <% @expedition.requested_users.each do |user| %>
+        <%= link_to user.username, user_profile_path(user) %> ----
+        <%= button_to "Approve Request", expedition_request_approval_path(@expedition), params: { journey: { expedition_id: @expedition.id, user_id: user.id } }, method: :post %>
+      <% end %>
+    </div>
+  <% elsif @expedition.invited?(current_user) || @expedition.requested?(current_user) || @expedition.attending?(current_user) %>
+      Dont show Jack
+  <% else %>
+    <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { journey: { expedition_id: @expedition.id } }, id: 'request', method: :post %>
+  <% end %>
 </div>
 
 <div class="one wide column"></div>

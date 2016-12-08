@@ -63,14 +63,16 @@ RSpec.describe ExpeditionsController, type: :controller do
     end
   end
 
+
   describe "create action for expedition" do
     before do
-      params = {}
-      @post_create = Proc.new { post :create, params: params }
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      sign_in shaka
+      process :create, method: :post, params: { expedition: expedition_params }
     end
 
-    it "should return a 200 status" do
-      expect(response).to be_ok
+    it "should return a 302 status" do
+      expect(response.status).to eq 302
     end
   end
 
@@ -111,6 +113,47 @@ RSpec.describe ExpeditionsController, type: :controller do
       expect(start_lng).to eq expedition.start_location.longitude
       expect(end_lat).to eq expedition.end_location.latitude
       expect(end_lng).to eq expedition.end_location.longitude
+    end
+
+  end
+
+  let(:new_expedition_params) { 
+    { title: "Walking Kilimanjaro",
+      description: Faker::Lorem.paragraph,
+      start_time: Time.now + 90.days,
+      end_time: Time.now + 92.days,
+      start_locations_attributes: {
+        "0" => {
+          longitude: 37.275805,
+          latitude: -3.054268,
+          start_location: true
+        }
+      },
+      end_locations_attributes: {
+        "0" => {
+          longitude: 37.355456,
+          latitude: -3.067468,
+          end_location: true
+        }
+      }
+    }
+  }
+
+  describe "update action for expedition" do
+    before do
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      sign_in shaka
+      process :update, method: :patch, params: { id: expedition.id, expedition: new_expedition_params }
+    end
+
+    it "should return a 200 status" do
+      expect(response.status).to eq 200
+    end
+
+    it "should render a JSON response" do
+      expect(response.content_type).to eq 'application/json'
+      last_response = JSON.parse(response.body)
+      expect(last_response["title"]).to eq "Walking Kilimanjaro"
     end
 
   end

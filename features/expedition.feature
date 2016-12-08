@@ -40,3 +40,25 @@ Feature: Expedition
     Then I am redirected to the specific expedition page
     And the page contains "Going on a Bear Hunt"
 
+  Scenario: Requesting to join an expedition as a lurker
+    When I navigate to the specific expedition page
+    And I click "Request to Join"
+    Then I am redirected to the "new_user_session" page
+
+  Scenario: Requesting to join an expedition as a logged in user
+    Given I am logged in as "green_tara@enlightened.being"
+    When I navigate to the specific expedition page
+    And I click "Request to Join"
+    Then the page contains "Request sent"
+
+  Scenario: Approving a request as the creator
+    Given sample requests have been made
+    Given I am logged in as "laotzu@dao.ch"
+    When I navigate to the specific expedition page
+    And I click "Approve Request"
+    Then the page contains "Approved"
+    And the page contains "green_tara"
+
+
+
+

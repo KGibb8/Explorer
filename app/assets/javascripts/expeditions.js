@@ -15,3 +15,7 @@ $('#addStart').on('ajax:success', function (e, data) {
 $('#addEnd').on('ajax:success', function (e, data) {
   console.log(data);
 });
+
+$('#request').on('ajax:success', function (e, data) {
+  console.log(data);
+});

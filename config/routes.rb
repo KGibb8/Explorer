@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :expeditions do
     resources :coordinates, only: [:update]
+    post 'journeys/requesting' => 'journeys#requesting', as: :requesting
+    post 'journeys/approve' => 'journeys#approve', as: :request_approval
   end
 
   get 'expeditions/:id/markers' => 'expeditions#markers', as: :expedition_markers
