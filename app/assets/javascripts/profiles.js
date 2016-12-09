@@ -41,6 +41,16 @@ $(document).ready(function () {
     return false;
   });
 
+  $('.past_expeditions_pagination a').on("click", function (){
+    $.get(this.href, null, null, 'script');
+    return false;
+  });
+
+  $('.future_expeditions_pagination a').on("click", function (){
+    $.get(this.href, null, null, 'script');
+    return false;
+  });
+
   function createFriend (user, profile) {
     var friend = document.createElement('div');
     friend.className = 'friend'

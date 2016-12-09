@@ -55,8 +55,8 @@
     <div id="friends">
       <%= render :partial => 'friendships/user', :collection => @friends %>
     </div>
-    <div id="page_links">
-      <%= will_paginate @friends, :page_links => true, :param_name => :page, :class => 'friends_pagination' %>
+    <div id="friend_page_links">
+      <%= will_paginate @friends, :page_links => true, :param_name => :friends_page, :class => 'friends_pagination' %>
     </div>
   </div>
 </div>
@@ -67,9 +67,15 @@
     <div id="pastExpeditions">
       <%= render :partial => 'profiles/expedition', :collection => @past_expeditions %>
     </div>
-    <h2>Upcoming Expeditions</h2>
+    <div id="past_exped_page_links">
+      <%= will_paginate @past_expeditions, :page_links => true, :param_name => :past_expeds_page, :class => 'past_expeditions_pagination' %>
+    </div>
+    <h2>Future Expeditions</h2>
     <div id="futureExpeditions">
-      <%= render :partial => 'profiles/expedition', :collection => @upcoming_expeditions %>
+      <%= render :partial => 'profiles/expedition', :collection => @future_expeditions %>
+    </div>
+    <div id="future_exped_page_links">
+      <%= will_paginate @future_expeditions, :page_links => true, :param_name => :future_expeds_page, :class => 'future_expeditions_pagination' %>
     </div>
   </div>
 </div>
