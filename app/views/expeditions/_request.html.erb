@@ -1,0 +1,3 @@
+<% user = request %>
+<%= link_to user.username, user_profile_path(user) %>
+<%= button_to "Approve Request", expedition_request_approval_path(@expedition), params: { "expedition_id" => @expedition.id, journey: { user_id: user.id } }, method: :post %>

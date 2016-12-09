@@ -1,33 +1,26 @@
 
 
-<% if current_user == @profile.user %>
+<% if my_profile %>
   <div class="one wide column"></div>
 
   <div class="fourteen wide column">
     <div class="friendRequests">
     <h3>Pending Friend Requests</h3>
-      <% current_user.friend_requests.each do |user| %>
-        <div class="request" id="request_<%= user.id %>">
-          <%= link_to "#{user.username}", user_profile_path(user) %>
-          <div class="requestForm">
-            <%= button_to "Accept Request", accept_friend_path(user), method: :patch, params: { friendship: { user_id: user } }, remote: true, id: "acceptFriend" %>
-            <%= button_to "Reject Request", reject_friend_path(user), method: :patch, params: { friendship: { user_id: user } }, remote: true, id: "rejectFriend" %>
-          </div> 
-        </div>
-      <% end %>
+    <%= render :partial => 'friendships/request', :collection => @friend_requests %>
     </div>
   </div>
 
   <div class="one wide column"></div>
 <% end %>
 
-
 <div class="one wide column"></div>
 
 <div class="four wide column">
   <div class="box">
-    <div class="avatar profile" style="background-image: url(<%= @profile.avatar.profile %>);"></div>
-    <%= render 'profiles/avatar' %>
+    <div id="profile_picture" class="avatar profile" style="background-image: url(<%= @profile.avatar.profile %>);"></div>
+    <% if my_profile %>
+      <%= render 'profiles/avatar' %>
+    <% end %>
   </div>
 </div>
 
@@ -39,17 +32,17 @@
 
     <div id="biography">
       <p><%= @profile.biography %></p>
-      <%= render 'profiles/biography' %>
+      <% if my_profile %>
+        <%= render 'profiles/biography' %>
+      <% end %>
     </div>
   </div>
 </div>
 
 <div class="three wide column">
   <% if current_user %>
-    <% unless current_user == @profile.user  %>
-      <% unless Friendship.between(current_user, @profile.user).any? %>
-        <%= button_to "Add Friend", friendships_path(@profile.user), params: { friendship: { friend_id: @profile.user } }, remote: true, id: "requestFriend" %>
-      <% end %>
+    <% unless my_profile || friends? %>
+      <%= button_to "Add Friend", friendships_path(@profile.user), params: { friendship: { friend_id: @profile.user } }, remote: true, id: "requestFriend" %>
     <% end %>
   <% end %>
 </div>
@@ -60,14 +53,7 @@
   <div class="box">
     <h3>Friends</h3>
     <div id="friends">
-      <% @profile.user.friends.each do |user| %>
-        <%= link_to user_profile_path(user) do %>
-          <div class="friend" id="friend_<%= user.id %>">
-            <div class="avatar thumb" style="background-image: url(<%= user.profile.avatar.thumb.url %>);"></div>
-            <p><%= user.username %></p>
-          </div>
-        <% end %>
-      <% end %>
+      <%= render :partial => 'friendships/user', :collection => @friends %>
     </div>
   </div>
 </div>
@@ -76,15 +62,11 @@
   <div class="box">
     <h2>Past Expeditions</h2>
     <div id="pastExpeditions">
-      <% @attended_expeditions.each do |expedition| %>
-        <%= link_to expedition.title, expedition_path(expedition) %><br>
-      <% end %>
+      <%= render :partial => 'profiles/expedition', :collection => @past_expeditions %>
     </div>
     <h2>Upcoming Expeditions</h2>
     <div id="futureExpeditions">
-      <% @attending_expeditions.each do |expedition| %>
-        <%= link_to expedition.title, expedition_path(expedition) %><br>
-      <% end %>
+      <%= render :partial => 'profiles/expedition', :collection => @upcoming_expeditions %>
     </div>
   </div>
 </div>

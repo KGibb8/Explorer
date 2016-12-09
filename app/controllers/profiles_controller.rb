@@ -1,9 +1,13 @@
 class ProfilesController < ApplicationController
+  include ProfileHelper
+
   before_action :find_profile, only: [:show]
 
   def show
-    @attending_expeditions = @profile.user.attending_expeditions
-    @attended_expeditions = @profile.user.attended_expeditions
+    @friend_requests = my_profile ? current_user.friend_requests : []
+    @friends = @profile.user.friends
+    @upcoming_expeditions = @profile.user.attending_expeditions
+    @past_expeditions = @profile.user.attended_expeditions
   end
 
   def update

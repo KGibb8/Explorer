@@ -1,0 +1,19 @@
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Invite your Friends
+  </div>
+  <%= form_for :journeys, url: expedition_invite_friends_path(@expedition), method: :post do |f| %>
+    <%= f.collection_check_boxes(:user_ids, current_user.friends, :id, :username) do |b| %>
+      <%= render :partial => 'friendships/user', :locals => { user: b.object } %>
+      <% if @expedition.attending?(b.object) %>
+        <p>Already attending</p>
+      <% elsif @expedition.invited?(b.object) %>
+        <p>Already invited</p>
+      <% else %>
+        <%= b.check_box(class: "check_box") %>
+      <% end %>
+    <% end %>
+    <%= f.submit "Invite Selected" %>
+  <% end %>
+</div>
