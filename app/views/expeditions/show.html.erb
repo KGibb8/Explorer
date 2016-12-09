@@ -16,9 +16,9 @@
 <div class="fourteen wide column">
   <% if current_user && @expedition.creator?(current_user) %>
     <div id="requestees">
-      <% @expedition.requested_users.each do |user| %>
-        <%= link_to user.username, user_profile_path(user) %> ----
-        <%= button_to "Approve Request", expedition_request_approval_path(@expedition), params: { journey: { expedition_id: @expedition.id, user_id: user.id } }, method: :post %>
+      <% @requested_users.each do |user| %>
+        <%= link_to user.username, user_profile_path(user) %>
+        <%= button_to "Approve Request", expedition_request_approval_path(@expedition), params: { "expedition_id" => @expedition.id, journey: { user_id: user.id } }, method: :post %>
       <% end %>
     </div>
   <% end %>
@@ -31,12 +31,12 @@
 <div class="fourteen wide column">
   <h1><%= @expedition.title %></h1>
   <%# %%TODO%% Turn this into a Options panel %>
-  <% if !current_user %>
-    <%= button_to "Request to Join", new_user_session_path %>
-  <% elsif @expedition.invited?(current_user) || @expedition.requested?(current_user) || @expedition.attending?(current_user) %>
-      Dont show Jack
-  <% else %>
-    <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { journey: { expedition_id: @expedition.id } }, id: 'request', method: :post %>
+  <% unless @expedition.invited?(current_user) || @expedition.requested?(current_user) || @expedition.attending?(current_user) %>
+    <% if current_user %>
+      <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { expedition_id: @expedition.id }, id: 'request', method: :post %>
+    <% else %>
+      <%= button_to "Request to Join", new_user_session_path %>
+    <% end %>
   <% end %>
 </div>
 
@@ -44,7 +44,39 @@
 
 <div class="one wide column"></div>
 
-<div class="fourteen wide column">
+<div class="seven wide column">
+  <% if current_user %>
+    <% if @expedition.attending?(current_user) || @expedition.invited?(current_user) %>
+      <%= button_tag "Invite Friends", id: "inviteFriends" %>
+      <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Invite your Friends
+        </div>
+        <%= form_for :journeys, url: expedition_invite_friends_path(@expedition), method: :post do |f| %>
+          <%= f.collection_check_boxes(:user_ids, current_user.friends, :id, :username) do |b| %>
+            <%= link_to user_profile_path(b.object) do %>
+              <div class="attendees" id="attendee_<%= b.object.id %>">
+                <div class="avatar thumb" style="background-image: url(<%= b.object.profile.avatar.thumb.url %>);"></div>
+                <%= b.object.username %>
+              </div>
+              <% if @expedition.attending?(b.object) %>
+                <p>Already attending</p>
+              <% elsif @expedition.invited?(b.object) %>
+                <p>Already invited</p>
+              <% else %>
+                <%= b.check_box(class: "check_box") %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%= f.submit "Invite Selected" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="seven wide column">
   <div id='map'></div>
 </div>
 
@@ -52,7 +84,10 @@
 
 <div class="one wide column"></div>
 
-<div class="fourteen wide column">
+<div class="seven wide column">
+</div>
+
+<div class="seven wide column">
   <% if @expedition.creator? current_user %>
 
     <%= form_for [@expedition, @start_location], html: { id: "addStart" }, method: :patch, remote: true do |f| %>
@@ -74,21 +109,37 @@
 
 <div class="one wide column"></div>
 
-<div class="fourteen wide column">
+<div class="four wide column">
+  <h4>Attending</h4>
   <div id="attending">
-    <%# %%TODO%%% Use partials to dry up the view %>
-    <% @expedition.attending_users.each do |user| %>
-      <%= link_to user_profile_path(user) do %>
-        <div class="attendees" id="attendee_<%= user.id %>">
-          <div class="avatar thumb" style="background-image: url(<%= user.profile.avatar.thumb.url %>);"></div>
-          <%= user.username %>
-        </div>
-      <% end %>
+    <% @attending_users.each do |user| %>
+      <div class="user">
+        <%= link_to user_profile_path(user) do %>
+          <div class="attendees" id="attendee_<%= user.id %>">
+            <div class="avatar thumb" style="background-image: url(<%= user.profile.avatar.thumb.url %>);"></div>
+            <%= user.username %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <h4>Invited</h4>
+  <div id="invited">
+    <% @invited_users.each do |user| %>
+      <div class="user">
+        <%= link_to user_profile_path(user) do %>
+          <div class="attendees" id="attendee_<%= user.id %>">
+            <div class="avatar thumb" style="background-image: url(<%= user.profile.avatar.thumb.url %>);"></div>
+            <%= user.username %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
 
 <div class="one wide column"></div>
+
 
 <script>
 var expedition_id = <%= @expedition.id %>;
@@ -97,3 +148,5 @@ var expedition_id = <%= @expedition.id %>;
 <%= javascript_include_tag 'map' %>
 <%= javascript_include_tag 'expeditions' %>
 <%= javascript_include_tag 'marker' %>
+
+

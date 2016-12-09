@@ -13,9 +13,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 
-# gem 'capistrano-rails', group: :development
-
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+gem 'will_paginate', '~> 3.1.0'
 gem 'devise'
 gem 'figaro'
 gem 'geocoder'

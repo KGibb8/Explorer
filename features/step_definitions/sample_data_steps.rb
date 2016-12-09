@@ -146,3 +146,14 @@ end
 Given(/^sample requests have been made$/) do
   @tiger_leaping.request(@tara)
 end
+
+Given(/^sample friend requests have been created$/) do
+  @shakyamuni.befriend(@tara)
+end
+    
+Given(/^sample friendships have been confirmed$/) do
+  @shakyamuni.befriend(@tara)
+  @laotzu.befriend(@tara)
+  @tara.accept_friend(@laotzu)
+  @tara.accept_friend(@shakyamuni)
+end

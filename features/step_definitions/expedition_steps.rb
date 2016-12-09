@@ -1,5 +1,4 @@
 Then(/^the page contains a selection of the most recent expeditions$/) do
-  save_and_open_page
   within('#mostRecent') do
     expect(page.body).to have_content('by lao_tzu')
   end
@@ -23,3 +22,9 @@ end
 When(/^I navigate to the specific expedition page$/) do
   visit get_named_route('expedition', Expedition.last.id)
 end
+
+When(/^I tick "([^"]*)" for the user "([^"]*)"$/) do |element_id, username|
+  checkbox = element_id + User.find_by(username: username).id.to_s
+  find(:css, checkbox).set(true)
+end
+

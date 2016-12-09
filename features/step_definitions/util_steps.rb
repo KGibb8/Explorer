@@ -28,4 +28,6 @@ Then(/^I am redirected to the "([^"]*)" page$/) do |inner_resource|
   visit get_named_route(inner_resource)
 end
 
-
+Then(/^within "([^"]*)" the page contains "([^"]*)"$/) do |element, text|
+  expect(page).to have_css(element, :text => text)
+end
