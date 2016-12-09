@@ -19,3 +19,7 @@ $('#addEnd').on('ajax:success', function (e, data) {
 $('#request').on('ajax:success', function (e, data) {
   console.log(data);
 });
+
+$('#inviteFriends').on('click', function () {
+$('.modal').modal('show');
+});

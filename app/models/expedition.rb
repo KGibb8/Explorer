@@ -64,6 +64,10 @@ class Expedition < ApplicationRecord
     user == self.creator
   end
 
+  def rejected?(user)
+    self.rejected_users.include?(user)
+  end
+
   def permit_attendance(user)
     journey = self.journeys.find_by(user: user)
     journey.status = "attending"

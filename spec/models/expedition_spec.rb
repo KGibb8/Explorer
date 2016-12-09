@@ -127,18 +127,21 @@ RSpec.describe Expedition do
   end
 
   context "checking a user's status for the specific expedition" do
-    before do
-      expedition.invite(tara)
-      tara.accept_invite(expedition)
-      expedition.invite(buddha)
-    end
-
     it "returns true if invited" do
+      expedition.invite(buddha)
       expect(expedition.invited?(buddha)).to be_truthy
     end
 
     it "returns true if attending" do
+      expedition.invite(tara)
+      tara.accept_invite(expedition)
       expect(expedition.attending?(tara)).to be_truthy
+    end
+
+    it "returns true if rejected" do
+      shaka.request_attendance(expedition)
+      expedition.reject_attendance(shaka)
+      expect(expedition.rejected?(shaka)).to be_truthy
     end
   end
 end

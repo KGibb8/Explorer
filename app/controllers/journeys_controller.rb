@@ -1,9 +1,19 @@
 class JourneysController < ApplicationController
-  before_action :find_expedition, only: [:requesting, :approve]
+  before_action :find_expedition, only: [:inviting, :requesting, :approve]
+
+  def inviting
+    users = journeys_params[:user_ids][1..-1].inject([]) do |array, user_id|
+      user = User.find(user_id)
+      @expedition.invite(user)
+      array << user
+    end
+    redirect_to expedition_path(@expedition)
+    # render json: { success: true, users: users }
+  end
 
   def requesting
     request = @expedition.request(current_user)
-    request.status = "requested" ? flash[:notice] = "Request sent" : flash[:notice] = "Request failed"
+    flash[:notice] = request.status = "requested" ? "Request sent" : "Request failed"
     redirect_to expedition_path(@expedition)
   end
 
@@ -18,11 +28,15 @@ class JourneysController < ApplicationController
   private
 
   def find_expedition
-    @expedition = Expedition.find(journey_params[:expedition_id])
+    @expedition = Expedition.find(params[:expedition_id])
+  end
+
+  def journeys_params
+    params.require(:journeys).permit(user_ids: [])
   end
 
   def journey_params
-    params.require(:journey).permit(:user_id, :expedition_id)
+    params.require(:journey).permit(:user_id)
   end
 
 end

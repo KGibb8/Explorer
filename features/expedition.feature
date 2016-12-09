@@ -59,6 +59,14 @@ Feature: Expedition
     Then the page contains "Approved"
     And the page contains "green_tara"
 
-
+  Scenario: Inviting a friend
+    Given sample friendships have been confirmed
+    Given I am logged in as "laotzu@dao.ch"
+    When I navigate to the specific expedition page
+    And I click "Invite Friends"
+    And I tick "#journeys_user_ids_" for the user "green_tara"
+    And I click "Invite Selected"
+    Then I am redirected to the specific expedition page
+    And within "#invited" the page contains "green_tara"
 
 

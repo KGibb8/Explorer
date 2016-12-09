@@ -21,6 +21,9 @@ class ExpeditionsController < ApplicationController
   end
 
   def show
+    @attending_users = @expedition.attending_users
+    @invited_users = @expedition.invited_users
+    @requested_users = @expedition.requested_users if @expedition.creator? current_user
     @start_location = @expedition.start_location
     @end_location = @expedition.end_location
   end
