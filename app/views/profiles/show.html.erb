@@ -45,9 +45,11 @@
 </div>
 
 <div class="three wide column">
-  <% unless current_user == @profile.user  %>
-    <% unless Friendship.between(current_user, @profile.user).any? %>
-      <%= button_to "Add Friend", friendships_path(@profile.user), params: { friendship: { friend_id: @profile.user } }, remote: true, id: "requestFriend" %>
+  <% if current_user %>
+    <% unless current_user == @profile.user  %>
+      <% unless Friendship.between(current_user, @profile.user).any? %>
+        <%= button_to "Add Friend", friendships_path(@profile.user), params: { friendship: { friend_id: @profile.user } }, remote: true, id: "requestFriend" %>
+      <% end %>
     <% end %>
   <% end %>
 </div>

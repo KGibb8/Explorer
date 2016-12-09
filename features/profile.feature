@@ -14,3 +14,10 @@ Feature: Profile
     When I navigate to "green_tara@enlightened.being" profile page
     Then the page contains "green_tara"
 
+  Scenario: Editing my biography
+    Given I am logged in as "green_tara@enlightened.being"
+    When I navigate to "green_tara@enlightened.being" profile page
+    And I fill in the "profile[biography]" field with "I start fires"
+    And I click "Update Profile"
+    Then the page contains "I start fires"
+

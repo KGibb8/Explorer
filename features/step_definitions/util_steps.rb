@@ -16,10 +16,6 @@ When(/^I click "([^"]*)"$/) do |link|
   click_on link
 end
 
-When(/^I click "([^"]*)" within the element containing "([^"]*)"$/) do |arg1, arg2|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
 Then(/^the page contains "([^"]*)"$/) do |text|
   expect(page.body).to match(text)
 end
