@@ -55,6 +55,9 @@
     <div id="friends">
       <%= render :partial => 'friendships/user', :collection => @friends %>
     </div>
+    <div id="page_links">
+      <%= will_paginate @friends, :page_links => true, :param_name => :page, :class => 'friends_pagination' %>
+    </div>
   </div>
 </div>
 
@@ -71,4 +74,7 @@
   </div>
 </div>
 
+<script>
+var user_id = <%= @profile.user.id %>;
+</script>
 <%= javascript_include_tag 'profiles' %>
