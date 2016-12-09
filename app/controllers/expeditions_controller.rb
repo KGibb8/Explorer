@@ -1,4 +1,6 @@
 class ExpeditionsController < ApplicationController
+  include ExpeditionHelper
+
   before_action :find_expedition, only: [:show, :update, :markers]
   respond_to :json
 

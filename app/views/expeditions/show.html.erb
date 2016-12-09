@@ -2,7 +2,8 @@
 <div class="sixteen wide column">
   <div class="header">
     <%= image_tag(@expedition.header.header, id: "headerPic") if @expedition.header %>
-    <% if @expedition.creator? current_user %>
+
+    <% if organiser %>
       <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
         <%= f.file_field :header %><br>
         <%= f.submit "Add Header Image" %>
@@ -14,14 +15,13 @@
 <div class="one wide column"></div>
 
 <div class="fourteen wide column">
-  <% if current_user && @expedition.creator?(current_user) %>
-    <div id="requestees">
-      <% @requested_users.each do |user| %>
-        <%= link_to user.username, user_profile_path(user) %>
-        <%= button_to "Approve Request", expedition_request_approval_path(@expedition), params: { "expedition_id" => @expedition.id, journey: { user_id: user.id } }, method: :post %>
-      <% end %>
+
+  <% if organiser %>
+    <div id="requests">
+      <%= render :partial => 'expeditions/request', :collection => @requested_users %>
     </div>
   <% end %>
+
 </div>
 
 <div class="one wide column"></div>
@@ -30,14 +30,18 @@
 
 <div class="fourteen wide column">
   <h1><%= @expedition.title %></h1>
-  <%# %%TODO%% Turn this into a Options panel %>
-  <% unless @expedition.invited?(current_user) || @expedition.requested?(current_user) || @expedition.attending?(current_user) %>
+  <% if organiser %>
+    <p>You are the organiser of this event</p>
+  <% end %>
+
+  <% unless requestable %>
     <% if current_user %>
       <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { expedition_id: @expedition.id }, id: 'request', method: :post %>
     <% else %>
       <%= button_to "Request to Join", new_user_session_path %>
     <% end %>
   <% end %>
+
 </div>
 
 <div class="one wide column"></div>
@@ -46,32 +50,9 @@
 
 <div class="seven wide column">
   <% if current_user %>
-    <% if @expedition.attending?(current_user) || @expedition.invited?(current_user) %>
+    <% if involved %>
       <%= button_tag "Invite Friends", id: "inviteFriends" %>
-      <div class="ui modal">
-        <i class="close icon"></i>
-        <div class="header">
-          Invite your Friends
-        </div>
-        <%= form_for :journeys, url: expedition_invite_friends_path(@expedition), method: :post do |f| %>
-          <%= f.collection_check_boxes(:user_ids, current_user.friends, :id, :username) do |b| %>
-            <%= link_to user_profile_path(b.object) do %>
-              <div class="attendees" id="attendee_<%= b.object.id %>">
-                <div class="avatar thumb" style="background-image: url(<%= b.object.profile.avatar.thumb.url %>);"></div>
-                <%= b.object.username %>
-              </div>
-              <% if @expedition.attending?(b.object) %>
-                <p>Already attending</p>
-              <% elsif @expedition.invited?(b.object) %>
-                <p>Already invited</p>
-              <% else %>
-                <%= b.check_box(class: "check_box") %>
-              <% end %>
-            <% end %>
-          <% end %>
-          <%= f.submit "Invite Selected" %>
-        <% end %>
-      </div>
+      <%= render 'expeditions/invites' %>
     <% end %>
   <% end %>
 </div>
@@ -88,7 +69,7 @@
 </div>
 
 <div class="seven wide column">
-  <% if @expedition.creator? current_user %>
+  <% if organiser %>
 
     <%= form_for [@expedition, @start_location], html: { id: "addStart" }, method: :patch, remote: true do |f| %>
       <%= f.hidden_field :latitude, value: "", id: "startLat" %>
@@ -112,29 +93,11 @@
 <div class="four wide column">
   <h4>Attending</h4>
   <div id="attending">
-    <% @attending_users.each do |user| %>
-      <div class="user">
-        <%= link_to user_profile_path(user) do %>
-          <div class="attendees" id="attendee_<%= user.id %>">
-            <div class="avatar thumb" style="background-image: url(<%= user.profile.avatar.thumb.url %>);"></div>
-            <%= user.username %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <%= render :partial => 'friendships/user', :collection => @attending_users %>
   </div>
   <h4>Invited</h4>
   <div id="invited">
-    <% @invited_users.each do |user| %>
-      <div class="user">
-        <%= link_to user_profile_path(user) do %>
-          <div class="attendees" id="attendee_<%= user.id %>">
-            <div class="avatar thumb" style="background-image: url(<%= user.profile.avatar.thumb.url %>);"></div>
-            <%= user.username %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <%= render :partial => 'friendships/user', :collection => @invited_users %>
   </div>
 </div>
 

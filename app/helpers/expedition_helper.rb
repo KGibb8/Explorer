@@ -1,5 +1,17 @@
 module ExpeditionHelper
 
+  def organiser
+    current_user && @expedition.creator?(current_user)
+  end
+
+  def requestable
+    @expedition.invited?(current_user) || @expedition.requested?(current_user) || @expedition.attending?(current_user) || @expedition.rejected?(current_user)
+  end
+
+  def involved
+    @expedition.attending?(current_user) || @expedition.invited?(current_user)
+  end
+
   def self.build_markers(expedition)
     geojson = {}
     geojson["type"] = "FeatureCollection"
