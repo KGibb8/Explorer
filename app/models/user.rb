@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_many :friends, -> { where friendships: { :status => 'confirmed'  }  }, through: :friendships, source: :friend
 
   validates_presence_of :username
+  validates_uniqueness_of :username
 
   after_create :build_profile
 

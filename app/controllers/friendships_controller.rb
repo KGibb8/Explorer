@@ -9,11 +9,13 @@ class FriendshipsController < ApplicationController
   def accept_friend
     user = User.find(friendships_params[:user_id])
     current_user.accept_friend(user)
-    render json: { success: true, message: "Friend Accepted", user: user, profile: user.profile }
+    render json: { success: true, message: "Friendship Accepted", user: user, profile: user.profile }
   end
 
   def reject_friend
-
+    user = User.find(friendships_params[:user_id])
+    current_user.reject_friend(user)
+    render json: { success: true, message: "Friendship Rejected", user: user, profile: user.profile }
   end
 
   private

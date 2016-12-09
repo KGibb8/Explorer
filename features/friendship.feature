@@ -23,7 +23,14 @@ Feature: Friendship
     Given I am logged in as "green_tara@enlightened.being"
     Given sample friend requests have been created
     When I navigate to "green_tara@enlightened.being" profile page
-    And I click "Accept Friend" for the friend "shakyamuni@enlightened.being"
-    Then the page contains "Friend Accepted"
+    And I click "Accept Request" for the friend "shakyamuni@enlightened.being"
+    Then the page contains "Friendship Accepted"
     And the page contains "shakyamuni"
 
+    @wip
+  Scenario: Rejecting a friend
+    Given I am logged in as "green_tara@enlightened.being"
+    Given sample friend requests have been created
+    When I navigate to "green_tara@enlightened.being" profile page
+    And I click "Reject Request" for the friend "shakyamuni@enlightened.being"
+    Then the page contains "Friendship Rejected"

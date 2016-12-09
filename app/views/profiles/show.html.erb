@@ -10,7 +10,8 @@
         <div class="request" id="request_<%= user.id %>">
           <%= link_to "#{user.username}", user_profile_path(user) %>
           <div class="requestForm">
-            <%= button_to "Accept Friend", accept_friend_path(user), method: :patch, params: { friendship: { user_id: user } }, remote: true, id: "acceptFriend" %>
+            <%= button_to "Accept Request", accept_friend_path(user), method: :patch, params: { friendship: { user_id: user } }, remote: true, id: "acceptFriend" %>
+            <%= button_to "Reject Request", reject_friend_path(user), method: :patch, params: { friendship: { user_id: user } }, remote: true, id: "rejectFriend" %>
           </div> 
         </div>
       <% end %>

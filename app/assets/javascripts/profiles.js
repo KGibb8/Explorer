@@ -28,6 +28,14 @@ $($('#acceptFriend').parent()[0]).on('ajax:success', function (e, data) {
   $('#friends').append(friend);
 });
 
+$($('#rejectFriend').parent()[0]).on('ajax:success', function (e, data) {
+  var container = this.parentElement;
+  $(container).empty();
+  var ele = document.createElement('p');
+  ele.innerHTML = data.message;
+  container.appendChild(ele);
+});
+
 function createFriend (user, profile) {
   var friend = document.createElement('div');
   friend.className = 'friend'
