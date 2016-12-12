@@ -48,6 +48,8 @@ header {
 }
 
 .inviteBox {
+  padding-left: 1em;
+  padding-right: 1em;
   color: white;
   a {
     color: white;
@@ -68,6 +70,23 @@ header {
   margin-right: 1em;
 }
 
+#descriptionSubmit {
+  display: none;
+}
+
+.notEditing .descriptionBody {
+  display: block;
+}
+.notEditing .descriptionForm {
+  display: none;
+}
+.editing .descriptionBody {
+  display: none;
+}
+.editing .descriptionForm {
+  display: block;
+}
+
 .check_box {
   display: none;
 }
@@ -82,4 +101,17 @@ header {
   border-radius: 1em;
   padding: 1em;
   margin: 1em;
+}
+
+.notEditing .startTimeBody {
+  display: block;
+}
+.notEditing .startTimeForm {
+  display: none;
+}
+.editing .startTimeBody {
+  display: none;
+}
+.editing .startTimeForm {
+  display: block;
 }

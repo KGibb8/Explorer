@@ -13,11 +13,12 @@
  *= require_tree .
  *= require_self
  */
+@import "colours";
 @import "semantic-ui";
 @import "semantic-ui/collections/menu";
 
 body {
-  background-color: #EEEEEE;
+  background-color: $theme;
   margin: 0;
   padding: 0;
 }
@@ -61,20 +62,26 @@ nav {
   font-size: 16px;
 }
 
+.description {
+  textarea {
+    height: 120px;
+  }
+}
+
 .blue {
-  background-color: #3887be;
+  background-color: $blue;
 }
 
 .red {
-  background-color: #f44336;
+  background-color: $red;
 }
 
 .green {
-  background-color: #4CAF50;
+  background-color: $green;
 }
 
 .user {
-  width: 100%;
+  width: 30%;
   height: 100%;
   margin: 0.25em;
   display: inline-block;
@@ -83,3 +90,10 @@ nav {
   }
 }
 
+#editDesc {
+  float: right;
+}
+.content {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}

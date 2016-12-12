@@ -24,10 +24,10 @@ class ExpeditionsController < ApplicationController
   end
 
   def show
-    @attending_users = @expedition.attending_users.paginate(page: params[:friends_page], per_page: 9)
-    @invited_users = @expedition.invited_users.paginate(page: params[:friends_page], per_page: 9)
-    @requested_users = @expedition.requested_users if @expedition.creator? current_user
-    @attended_users = @expedition.attended_users if @expedition.complete?
+    @attending_users = @expedition.attending_users.paginate(page: params[:attending_page], per_page: 9)
+    @invited_users = @expedition.invited_users.paginate(page: params[:invited_page], per_page: 9)
+    @requested_users = @expedition.requested_users.paginate(page: params[:requesting_page], per_page: 9) if organiser
+    @attended_users = @expedition.attended_users.paginate(page: params[:attended_page], per_page: 9) if @expedition.complete?
     @start_location = @expedition.start_location
     @end_location = @expedition.end_location
   end

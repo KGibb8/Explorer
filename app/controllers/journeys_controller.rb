@@ -13,7 +13,7 @@ class JourneysController < ApplicationController
 
   def requesting
     request = @expedition.request(current_user)
-    flash[:notice] = request.status = "requested" ? "Request sent" : "Request failed"
+    flash[:notice] = (request.status = "requested") ? "Request sent" : "Request failed"
     redirect_to expedition_path(@expedition)
   end
 

@@ -34,6 +34,11 @@ class Expedition < ApplicationRecord
     self.end_locations.first
   end
 
+  def local_start_time
+    d = start_time.to_time.utc
+    "#{d.hour.to_i - d.zone.to_i}:#{d.min}"
+  end
+
   def days
     days = (Date.parse(end_time.to_s) - Date.parse(start_time.to_s)).truncate
     days == 0 ? 1 : days

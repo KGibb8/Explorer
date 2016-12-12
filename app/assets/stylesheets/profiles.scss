@@ -9,6 +9,14 @@ textarea {
   overflow: hidden;
 }
 
+#profilePicture {
+  cursor: pointer;
+}
+
+#submitAvatar {
+  display: none;
+}
+
 .profile {
   height: 200px;
   width: 200px;
