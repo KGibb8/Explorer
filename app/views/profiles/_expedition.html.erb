@@ -1,1 +1,15 @@
-<%= link_to expedition.title, expedition_path(expedition) %><br>
+<div class="showExpedition">
+  <%= link_to expedition_path(expedition) do %>
+    <div id="banner" style="width: 100%; height: 110px; background-image: url(<%= expedition.header.banner %>); overflow: hidden; background-repeat: no-repeat;"></div>
+    <h4><%= expedition.title %></h4>
+  <% end %>
+  <div id="expedLeft">
+    <p>Location: <%= expedition.start_location.location %></p>
+    <p>Organised by: <%= expedition.creator.username %></p>
+  </div>
+  <div id="expedRight">
+    <p>Duration: <%= expedition.days == 1 ? "#{expedition.days} day" : "#{expedition.days} days"%></p>
+    <p>Start date: <%= expedition.start_time %></p>
+  </div>
+</div>
+<br>

@@ -1,5 +1,5 @@
 class JourneysController < ApplicationController
-  before_action :find_expedition, only: [:inviting, :requesting, :approve]
+  before_action :find_expedition, only: [:inviting, :requesting, :approve, :accepting]
 
   def inviting
     users = journeys_params[:user_ids][1..-1].inject([]) do |array, user_id|
@@ -7,8 +7,8 @@ class JourneysController < ApplicationController
       @expedition.invite(user)
       array << user
     end
+    flash[:notice] = "Invited #{users.count} friends to #{@expedition.title}"
     redirect_to expedition_path(@expedition)
-    # render json: { success: true, users: users }
   end
 
   def requesting
@@ -21,6 +21,14 @@ class JourneysController < ApplicationController
     if @expedition.creator? current_user
       @expedition.permit_attendance(journey_params[:user_id])
       flash[:notice] = "Approved"
+    end
+    redirect_to expedition_path(@expedition)
+  end
+
+  def accepting
+    if @expedition.invited? current_user
+      current_user.accept_invite(@expedition)
+      flash[:notice] = "Invite Accepted"
     end
     redirect_to expedition_path(@expedition)
   end

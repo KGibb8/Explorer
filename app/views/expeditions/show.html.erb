@@ -1,7 +1,7 @@
 
 <div class="sixteen wide column">
   <div class="header">
-    <%= image_tag(@expedition.header.header, id: "headerPic") if @expedition.header %>
+    <%= image_tag(@expedition.header.header.url, id: "headerPic") if @expedition.header %>
 
     <% if organiser %>
       <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
@@ -55,6 +55,12 @@
       <%= render 'expeditions/invites' %>
     <% end %>
   <% end %>
+
+  <% if current_user %>
+    <% if @expedition.invited? current_user %>
+      <%= button_to "Accept Invite", expedition_accept_invite_path(@expedition), params: { expedition_id: @expedition.id }, id: 'acceptInvite', method: :patch %>
+    <% end %>
+  <% end %>
 </div>
 
 <div class="seven wide column">
@@ -91,14 +97,21 @@
 <div class="one wide column"></div>
 
 <div class="four wide column">
-  <h4>Attending</h4>
-  <div id="attending">
-    <%= render :partial => 'friendships/user', :collection => @attending_users %>
-  </div>
-  <h4>Invited</h4>
-  <div id="invited">
-    <%= render :partial => 'friendships/user', :collection => @invited_users %>
-  </div>
+  <% unless @expedition.complete? %>
+    <h4>Attending</h4>
+    <div id="attending">
+      <%= render :partial => 'friendships/user', :collection => @attending_users %>
+    </div>
+    <h4>Invited</h4>
+    <div id="invited">
+      <%= render :partial => 'friendships/user', :collection => @invited_users %>
+    </div>
+  <% else %>
+    <h4>Attended</h4>
+    <div id="invited">
+      <%= render :partial => 'friendships/user', :collection => @attended_users %>
+    </div>
+  <% end %>
 </div>
 
 <div class="one wide column"></div>

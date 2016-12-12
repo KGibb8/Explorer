@@ -3,6 +3,7 @@ require './app/uploaders/header_uploader'
 class Expedition < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
+  has_many :coordinates
   has_many :start_locations, -> { where 'start_location = true' }, class_name: 'Coordinate'
   has_many :end_locations, -> { where 'end_location = true' }, class_name: 'Coordinate'
 
@@ -31,6 +32,11 @@ class Expedition < ApplicationRecord
 
   def end_location
     self.end_locations.first
+  end
+
+  def days
+    days = (Date.parse(end_time.to_s) - Date.parse(start_time.to_s)).truncate
+    days == 0 ? 1 : days
   end
 
   def invite(user)
@@ -66,6 +72,10 @@ class Expedition < ApplicationRecord
 
   def rejected?(user)
     self.rejected_users.include?(user)
+  end
+
+  def complete?
+    self.complete == true
   end
 
   def permit_attendance(user)

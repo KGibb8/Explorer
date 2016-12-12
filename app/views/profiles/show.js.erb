@@ -1,3 +1,5 @@
+debugger;
+
 $("#friends").html("<%= escape_javascript(render :partial => 'friendships/user', :collection => @friends ) %>");
 $("#friend_page_links").html("<%= escape_javascript(will_paginate @friends, class_name: "friends_pagination") %>");
 

@@ -36,17 +36,20 @@ $(document).ready(function () {
     container.appendChild(ele);
   });
 
-  $('.friends_pagination a').on("click", function (){
+  $('.friends_pagination a').on("click", function (e){
+    e.preventDefault();
     $.get(this.href, null, null, 'script');
     return false;
   });
 
-  $('.past_expeditions_pagination a').on("click", function (){
+  $('.past_expeditions_pagination a').on("click", function (e){
+    e.preventDefault();
     $.get(this.href, null, null, 'script');
     return false;
   });
 
-  $('.future_expeditions_pagination a').on("click", function (){
+  $('.future_expeditions_pagination a').on("click", function (e){
+    e.preventDefault();
     $.get(this.href, null, null, 'script');
     return false;
   });

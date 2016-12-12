@@ -5,7 +5,7 @@ class ExpeditionsController < ApplicationController
   respond_to :json
 
   def index
-    if user_signed_in?
+    if current_user
       @expedition = Expedition.new
       @expeditions = current_user.expeditions
     end
@@ -23,9 +23,10 @@ class ExpeditionsController < ApplicationController
   end
 
   def show
-    @attending_users = @expedition.attending_users
-    @invited_users = @expedition.invited_users
+    @attending_users = @expedition.attending_users.paginate(page: params[:friends_page], per_page: 9)
+    @invited_users = @expedition.invited_users.paginate(page: params[:friends_page], per_page: 9)
     @requested_users = @expedition.requested_users if @expedition.creator? current_user
+    @attended_users = @expedition.attended_users if @expedition.complete?
     @start_location = @expedition.start_location
     @end_location = @expedition.end_location
   end
