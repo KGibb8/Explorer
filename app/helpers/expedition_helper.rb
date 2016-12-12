@@ -5,7 +5,7 @@ module ExpeditionHelper
   end
 
   def requestable
-    @expedition.invited?(current_user) || @expedition.requested?(current_user) || @expedition.attending?(current_user) || @expedition.rejected?(current_user)
+    @expedition.invited_users.exclude?(current_user) && @expedition.requested_users.exclude?(current_user) && @expedition.attending_users.exclude?(current_user) && @expedition.rejected_users.exclude?(current_user)
   end
 
   def involved

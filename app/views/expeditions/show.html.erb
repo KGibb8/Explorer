@@ -34,11 +34,13 @@
     <p>You are the organiser of this event</p>
   <% end %>
 
-  <% unless requestable %>
-    <% if current_user %>
-      <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { expedition_id: @expedition.id }, id: 'request', method: :post %>
-    <% else %>
-      <%= button_to "Request to Join", new_user_session_path %>
+  <% unless @expedition.complete? %>
+    <% if requestable %>
+      <% if current_user %>
+        <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { expedition_id: @expedition.id }, id: 'request', method: :post %>
+      <% else %>
+        <%= button_to "Request to Join", new_user_session_path %>
+      <% end %>
     <% end %>
   <% end %>
 
