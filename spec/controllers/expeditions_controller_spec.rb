@@ -7,7 +7,7 @@ RSpec.describe ExpeditionsController, type: :controller do
   let(:tara) { create(:tara) }
 
   let(:expedition_params) {
-    { name: "Climbing Kilimanjaro",
+    { name: "Walking Kilimanjaro",
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,

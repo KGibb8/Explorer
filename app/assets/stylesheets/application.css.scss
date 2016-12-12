@@ -17,13 +17,17 @@
 @import "semantic-ui/collections/menu";
 
 body {
-  background-color: #DEE3A0;
+  background-color: #EEEEEE;
   margin: 0;
   padding: 0;
 }
 
 nav {
   width: 100%;
+}
+
+.sidebar {
+  margin-left: 1em;
 }
 
 #friendBox {
@@ -42,3 +46,22 @@ nav {
   border-radius: 0.5em;
   background-color: white;
 }
+
+.btn {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.user {
+  width: 100%;
+  height: 100%;
+  margin: 0.25em;
+  display: inline-block;
+}
+

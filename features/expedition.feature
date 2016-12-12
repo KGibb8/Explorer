@@ -32,7 +32,7 @@ Feature: Expedition
     Given I am logged in as "green_tara@enlightened.being"
     When I navigate to the "root" page
     And I click "Organise your own Expedition"
-    And I fill in the "expedition[title]" field with "Going on a Bear Hunt"
+    And I fill in the "expedition[name]" field with "Going on a Bear Hunt"
     And I fill in the "expedition[description]" field with "Gonna catch a big one"
     And I fill in the "expedition[start_time]" field with "2017-03-10 12:58:41 +0000"
     And I fill in the "expedition[end_time]" field with "2017-08-10 12:58:41 +0000"

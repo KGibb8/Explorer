@@ -49,7 +49,7 @@ class ExpeditionsController < ApplicationController
 
   def expedition_params
     params.require(:expedition).permit(
-      :title, :description, :header, :start_time, :end_time, :start_lat, :start_lng, :end_lat, :end_lng,
+      :name, :description, :header, :start_time, :end_time, :start_lat, :start_lng, :end_lat, :end_lng,
       start_locations_attributes: [:latitude, :longitude, :location, :start_location], end_locations_attributes: [:latitude, :longitude, :location, :end_location]
     )
   end

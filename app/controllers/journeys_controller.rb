@@ -7,7 +7,7 @@ class JourneysController < ApplicationController
       @expedition.invite(user)
       array << user
     end
-    flash[:notice] = "Invited #{users.count} friends to #{@expedition.title}"
+    flash[:notice] = "Invited #{users.count} friends to #{@expedition.name}"
     redirect_to expedition_path(@expedition)
   end
 

@@ -92,7 +92,7 @@ map.on('load', function() {
         "source": "point-2",
         "paint": {
           "circle-radius": 10,
-          "circle-color": "red"
+          "circle-color": "#4CAF50"
         }
       });
 

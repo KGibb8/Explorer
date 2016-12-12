@@ -1,4 +1,12 @@
 
+$('.customBtn').on('click', function () {
+  $('#headerFile').click();
+});
+
+$('#headerFile').on('change', function () {
+  $('#hiddenHeader').click();
+});
+
 $('#organiseExpedition').on("click", function () {
   $('.fullscreen.modal').modal('toggle');
 });
@@ -20,6 +28,7 @@ $('#request').on('ajax:success', function (e, data) {
   console.log(data);
 });
 
-$('#inviteFriends').on('click', function () {
-$('.modal').modal('show');
+$('#inviteFriends').on('click', function (e) {
+  e.preventDefault();
+  $('.modal').modal('show');
 });
