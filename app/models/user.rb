@@ -1,10 +1,10 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable
 
   has_one :profile, dependent: :destroy
+  has_many :activities
 
   has_many :journeys, dependent: :destroy
   has_many :expeditions, through: :journeys
@@ -23,6 +23,10 @@ class User < ApplicationRecord
   validates :username, :presence => true, :uniqueness => { :case_sensitive => true }
 
   after_create :build_profile
+
+  def name
+    self.username
+  end
 
   # ------------------------------------- Expedition related ------------------------------------------ #
 
@@ -75,7 +79,17 @@ class User < ApplicationRecord
     end
   end
 
-  # -------------------------------------------------------------------------------------------------- #
+  # --------------------------------------- Activity related ------------------------------------------ #
+
+  def expedition_activities
+    Activity.find_by_sql(
+      "SELECT * FROM activities AS a
+        INNER JOIN users AS u ON a.user_id = u.id
+        INNER JOIN journeys AS j ON j.user_id = u.id
+        WHERE j.expedition_id = a.subject_id AND u.id = #{self.id}"
+    )
+
+  end
 
   private
 

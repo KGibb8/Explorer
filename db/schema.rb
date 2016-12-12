@@ -10,23 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212102012) do
+ActiveRecord::Schema.define(version: 20161212115819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "subject_id"
-    t.index ["subject_id"], name: "index_activities_on_subject_id", using: :btree
-  end
-
-  create_table "add_user_to_activities", force: :cascade do |t|
+    t.string   "subject_type"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_add_user_to_activities_on_user_id", using: :btree
+    t.string   "action"
+    t.index ["subject_id"], name: "index_activities_on_subject_id", using: :btree
+    t.index ["user_id"], name: "index_activities_on_user_id", using: :btree
   end
 
   create_table "coordinates", force: :cascade do |t|
@@ -48,9 +45,9 @@ ActiveRecord::Schema.define(version: 20161212102012) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "complete"
-    t.string   "title"
-    t.text     "description"
     t.string   "header"
+    t.string   "name"
+    t.text     "description"
     t.index ["creator_id"], name: "index_expeditions_on_creator_id", using: :btree
   end
 
@@ -104,7 +101,7 @@ ActiveRecord::Schema.define(version: 20161212102012) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "add_user_to_activities", "users"
+  add_foreign_key "activities", "users"
   add_foreign_key "coordinates", "expeditions"
   add_foreign_key "friendships", "users"
   add_foreign_key "journeys", "expeditions"

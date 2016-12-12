@@ -6,7 +6,7 @@ RSpec.describe JourneysController, type: :controller do
   let(:laotzu) { create(:laotzu) }
 
   let(:expedition_params) { 
-    { title: "Climbing Kilimanjaro",
+    { name: "Climbing Kilimanjaro",
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,

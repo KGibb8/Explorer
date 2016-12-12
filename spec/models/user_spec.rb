@@ -36,7 +36,7 @@ RSpec.describe User do
         @time = Time.local(2016, 11, 30, 14, 30, 0)
         Timecop.freeze(@time)
         expedition_params = {
-          title: "Climbing Kilimanjaro",
+          name: "Climbing Kilimanjaro",
           description: Faker::Lorem.paragraph,
           start_time: @time,
           end_time: @time + 92.days,
@@ -87,7 +87,7 @@ RSpec.describe User do
     end
 
   let(:expedition_params) {
-    { title: "Climbing Kilimanjaro",
+    { name: "Climbing Kilimanjaro",
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,

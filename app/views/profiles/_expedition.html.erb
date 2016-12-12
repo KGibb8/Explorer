@@ -1,7 +1,7 @@
 <div class="showExpedition">
   <%= link_to expedition_path(expedition) do %>
     <div id="banner" style="width: 100%; height: 110px; background-image: url(<%= expedition.header.banner %>); overflow: hidden; background-repeat: no-repeat;"></div>
-    <h4><%= expedition.title %></h4>
+    <h4><%= expedition.name %></h4>
   <% end %>
   <div id="expedLeft">
     <p>Location: <%= expedition.start_location.location %></p>

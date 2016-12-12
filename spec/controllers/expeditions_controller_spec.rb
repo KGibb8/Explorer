@@ -7,7 +7,7 @@ RSpec.describe ExpeditionsController, type: :controller do
   let(:tara) { create(:tara) }
 
   let(:expedition_params) {
-    { title: "Climbing Kilimanjaro",
+    { name: "Climbing Kilimanjaro",
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,
@@ -118,7 +118,7 @@ RSpec.describe ExpeditionsController, type: :controller do
   end
 
   let(:new_expedition_params) { 
-    { title: "Walking Kilimanjaro",
+    { name: "Walking Kilimanjaro",
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,
@@ -153,7 +153,7 @@ RSpec.describe ExpeditionsController, type: :controller do
     it "should render a JSON response" do
       expect(response.content_type).to eq 'application/json'
       last_response = JSON.parse(response.body)
-      expect(last_response["title"]).to eq "Walking Kilimanjaro"
+      expect(last_response["name"]).to eq "Walking Kilimanjaro"
     end
 
   end

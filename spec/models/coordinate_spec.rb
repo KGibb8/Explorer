@@ -5,7 +5,7 @@ RSpec.describe Coordinate do
   let(:shaka) { create(:shaka) }
 
   let(:lat_lng_params) {
-    { title: "Climbing Kilimanjaro",
+    { name: "Climbing Kilimanjaro",
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,

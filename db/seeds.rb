@@ -5,9 +5,11 @@ module SeedData
   def self.extended(object)
     object.instance_exec do
 
+      Activity.destroy_all
       Coordinate.destroy_all
       Journey.destroy_all
       Expedition.destroy_all
+      Friendship.destroy_all
       User.destroy_all
 
       @shaka = User.create(username: "shaka_zulu", email: "shaka@zulu.sa", password: "123456", password_confirmation: "123456")
@@ -19,7 +21,7 @@ module SeedData
       @laotzu.profile.biography = Faker::Lorem.paragraph
 
       lost = {
-        title: "Lost in the Himalayas",
+        name: "Lost in the Himalayas",
         description: Faker::Lorem.paragraph,
         start_time: Time.now - 15.days,
         end_time: Time.now - 12.days,
@@ -48,7 +50,7 @@ module SeedData
       expedition.set_as_complete
 
       kilimanjaro =
-      { title: "Climbing Kilimanjaro",
+      { name: "Climbing Kilimanjaro",
         description: Faker::Lorem.paragraph,
         start_time: Time.now + 90.days,
         end_time: Time.now + 92.days,
@@ -74,7 +76,7 @@ module SeedData
       @laotzu.accept_invite(expedition)
 
       kailash = {
-        title: "Pilgrimage around Mount Kailash",
+        name: "Pilgrimage around Mount Kailash",
         description: Faker::Lorem.paragraph,
         start_time: Time.now + 101.days,
         end_time: Time.now + 110.days,
@@ -100,7 +102,7 @@ module SeedData
       @laotzu.accept_invite(expedition)
 
       himalayas = {
-        title: "Hiking in the Himalayas",
+        name: "Hiking in the Himalayas",
         description: Faker::Lorem.paragraph,
         start_time: Time.now + 131.days,
         end_time: Time.now + 150.days,
@@ -124,7 +126,7 @@ module SeedData
       @shakyamuni.accept_invite(expedition)
 
       tiger_leaping = {
-        title: "Tiger Leaping Gorge",
+        name: "Tiger Leaping Gorge",
         description: Faker::Lorem.paragraph,
         start_time: Time.now + 15.days,
         end_time: Time.now + 20.days,

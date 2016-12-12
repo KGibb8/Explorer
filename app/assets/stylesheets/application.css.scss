@@ -17,6 +17,7 @@
 @import "semantic-ui/collections/menu";
 
 body {
+  background-color: #DEE3A0;
   margin: 0;
   padding: 0;
 }
@@ -31,4 +32,13 @@ nav {
   height: 200px;
   width: 200px;
   background-color: black;
+}
+
+.box {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  border: 2px solid #70716E;
+  border-radius: 0.5em;
+  background-color: white;
 }

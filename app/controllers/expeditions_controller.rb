@@ -6,6 +6,7 @@ class ExpeditionsController < ApplicationController
 
   def index
     if current_user
+      @expedition_activities = current_user.expedition_activities
       @expedition = Expedition.new
       @expeditions = current_user.expeditions
     end
