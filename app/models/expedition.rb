@@ -48,8 +48,8 @@ class Expedition < ApplicationRecord
   end
 
   def request(user)
-    # Unless user is already requested/invited/attending
-    unless self.requested?(user) || self.invited?(user) || self.attending?(user)
+    # If user is not already requested/invited/attending
+    unless self.requested?(user) && self.invited?(user) && self.attending?(user)
       self.journeys.create(user: user, status: 'requested')
     end
   end
