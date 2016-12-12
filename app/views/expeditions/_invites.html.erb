@@ -5,15 +5,24 @@
   </div>
   <%= form_for :journeys, url: expedition_invite_friends_path(@expedition), method: :post do |f| %>
     <%= f.collection_check_boxes(:user_ids, current_user.friends, :id, :username) do |b| %>
-      <%= render :partial => 'friendships/user', :locals => { user: b.object } %>
-      <% if @expedition.attending?(b.object) %>
-        <p>Already attending</p>
-      <% elsif @expedition.invited?(b.object) %>
-        <p>Already invited</p>
-      <% else %>
-        <%= b.check_box(class: "check_box") %>
-      <% end %>
+      <div class="inviteBox">
+        <div>
+          <%= render :partial => 'friendships/user', :locals => { user: b.object } %>
+        </div>
+        <div>
+          <% if @expedition.attending?(b.object) %>
+            <p>Already attending</p>
+          <% elsif @expedition.invited?(b.object) %>
+            <p>Already invited</p>
+          <% else %>
+            <p>Available</p>
+            <%= b.check_box(class: "check_box") %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-    <%= f.submit "Invite Selected" %>
+    <div class="actions">
+      <%= f.submit "Invite Selected", class: "btn green", id: "inviteSubmit" %>
+    </div>
   <% end %>
 </div>

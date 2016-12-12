@@ -3,11 +3,11 @@ require './app/uploaders/header_uploader'
 class Expedition < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
-  has_many :coordinates
+  has_many :coordinates, dependent: :destroy
   has_many :start_locations, -> { where 'start_location = true' }, class_name: 'Coordinate'
   has_many :end_locations, -> { where 'end_location = true' }, class_name: 'Coordinate'
 
-  has_many :journeys
+  has_many :journeys, dependent: :destroy
   has_many :invited_users, -> { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :user
   has_many :rejected_users, -> { where journeys: { :status => 'rejected' } }, through: :journeys, source: :user
   has_many :attending_users, -> { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :user

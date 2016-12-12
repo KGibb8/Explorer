@@ -4,7 +4,16 @@ header {
   text-align: center;
 }
 
+#headerPic {
+  width: 100%;
+  border-bottom: 3px solid #70716E;
+}
+
 #hiddenHeader {
+  display: none;
+}
+
+#headerForm {
   display: none;
 }
 
@@ -12,34 +21,61 @@ header {
   display: none;
 }
 
+#headerBtn {
+  top: 5em;
+  right: 1em;
+  z-index: 1;
+  position: absolute;
+}
+
 .mapbox {
+  margin-top: 1em;
+  margin-bottom: 1em;
   border: 2px solid #70716E;
   border-radius: 0.5em;
   background-color: white;
 }
 
-#headerPic {
-  width: 100%;
-}
-
 .mapBtn {
   position: absolute;
-  top: 27em;
-  left: 1.5em;
+  top: 27.5em;
+  left: 1.75em;
   z-index: 1;
 }
 
-.start {
+#addEnd {
+  left: 16em;
+}
+
+.inviteBox {
+  color: white;
+  a {
+    color: white;
+  }
+  a:hover {
+    color: white;
+  }
+  display: inline-block;
+  p {
+    text-align: center;
+    font-size: 10pt;
+  }
+}
+
+#inviteSubmit {
+  float: right;
+  margin-bottom: 1em;
+  margin-right: 1em;
+}
+
+.check_box {
+  display: none;
+}
+
+.checkedBlue {
   background-color: #3887be;
 }
 
-.end {
-  background-color: #4CAF50;
-}
-
-#addEnd {
-  left: 15em;
-}
 .activity {
   border: 3px solid #70716E;
   background-color: #ECE7B5;

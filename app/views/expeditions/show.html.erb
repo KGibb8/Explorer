@@ -5,36 +5,30 @@
       <%= image_tag(@expedition.header.header.url, id: "headerPic") if @expedition.header %>
     </div>
     <% if organiser %>
-      <%= button_tag "Change header", class: "customBtn" %>
-      <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
-        <%= f.file_field :header, class: "fileField", id: "headerFile" %><br>
-        <%= f.submit "Add Header Image", id: "hiddenHeader" %>
-      <% end %>
+      <%= button_tag "Change header", class: "customBtn btn green", id: "headerBtn" %>
+      <div id="headerForm">
+        <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
+          <%= f.file_field :header, class: "fileField", id: "headerFile" %><br>
+          <%= f.submit "Add Header Image", id: "hiddenHeader" %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </header>
 
-
-<div class="sixteen wide column">
-  <% if organiser %>
-    <div id="requests">
-      <%= render :partial => 'expeditions/request', :collection => @requested_users %>
-    </div>
-  <% end %>
-</div>
-
-
 <div class="four wide column">
-  <div class="box sidebar">
-    <% unless @expedition.complete? %>
+  <% unless @expedition.complete? %>
+    <div class="box sidebar">
       <h4>Attending</h4>
       <div id="attending">
         <% unless @attending_users.empty? %>
-        <%= render :partial => 'friendships/user', :collection => @attending_users %>
-      <% else %>
-        <p>There are currently no users attending</p>
-      <% end %>
+          <%= render :partial => 'friendships/user', :collection => @attending_users %>
+        <% else %>
+          <p>There are currently no users attending</p>
+        <% end %>
       </div>
+    </div>
+    <div class="box sidebar">
       <h4>Invited</h4>
       <div id="invited">
         <% unless @invited_users.empty? %>
@@ -42,20 +36,26 @@
         <% else %>
           <p>No-one is invited to this expedition</p>
         <% end %>
-        <% if current_user %>
-          <% if involved %>
+      </div>
+    </div>
+    <% if current_user %>
+      <% if involved %>
+        <div class="box sidebar">
+          <div id="inviteAction">
             <%= link_to "Invite Friends", "#", id: "inviteFriends" %>
             <%= render 'expeditions/invites' %>
-          <% end %>
-        <% end %>
-      </div>
-    <% else %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="box sidebar">
       <h4>Attended</h4>
       <div id="invited">
         <%= render :partial => 'friendships/user', :collection => @attended_users %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
 
 <div class="twelve wide column">
@@ -67,13 +67,13 @@
         <%= form_for [@expedition, @start_location], html: { id: "addStart", class: "mapBtn" }, method: :patch, remote: true do |f| %>
           <%= f.hidden_field :latitude, value: "", id: "startLat" %>
           <%= f.hidden_field :longitude, value: "", id: "startLng" %>
-          <%= f.submit "Submit Start Location", class: "btn start" %>
+          <%= f.submit "Submit Start Location", class: "btn blue" %>
         <% end %>
 
         <%= form_for [@expedition, @end_location], html: { id: "addEnd", class: "mapBtn" }, method: :patch, remote: true do |f| %>
           <%= f.hidden_field :latitude, value: "", id: "endLat" %>
           <%= f.hidden_field :longitude, value: "", id: "endLng" %>
-          <%= f.submit "Submit End Location", class: "btn end" %>
+          <%= f.submit "Submit End Location", class: "btn green" %>
         <% end %>
       <% end %>
     </div>
@@ -112,25 +112,13 @@
   <% end %>
 </div>
 
-
-<div class="one wide column"></div>
-
-<div class="one wide column"></div>
-
-<div class="seven wide column">
+<div class="sixteen wide column">
+  <% if organiser %>
+    <div id="requests">
+      <%= render :partial => 'expeditions/request', :collection => @requested_users %>
+    </div>
+  <% end %>
 </div>
-
-<div class="seven wide column">
-</div>
-
-<div class="one wide column"></div>
-
-<div class="one wide column"></div>
-
-<div class="four wide column">
-</div>
-
-<div class="one wide column"></div>
 
 
 <script>
