@@ -1,25 +1,4 @@
 
-<div class="twelve wide column">
-  <% if my_profile %>
-    <div class="box">
-      <h3>Pending Friend Requests</h3>
-      <div class="friendRequests">
-        <%= render :partial => 'friendships/request', :collection => @friend_requests %>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<div class="four wide column">
-  <% if current_user %>
-    <% unless my_profile || friends? %>
-      <div class="box">
-        <%= button_to "Add Friend", friendships_path(@profile.user), params: { friendship: { friend_id: @profile.user } }, remote: true, id: "requestFriend" %>
-      </div>
-    <% end %>
-  <% end %>
-</div>
-
 <div class="four wide column">
   <aside class="sidebar">
     <div class="box">
@@ -29,11 +8,16 @@
           <%= render 'profiles/avatar' %>
         <% end %>
       </div>
+      <% if current_user %>
+        <% unless my_profile || friends? %>
+          <%= button_to "Add Friend", friendships_path(@profile.user), params: { friendship: { friend_id: @profile.user } }, remote: true, id: "requestFriend", class: "btn green" %>
+        <% end %>
+      <% end %>
     </div>
     <div class="box">
       <div id="details">
         <div id="name">
-          <h2><% @profile.full_name || @profile.user.username %></h2>
+          <h2><%= @profile.full_name == " " ? @profile.user.username : @profile.full_name %></h2>
           <% if my_profile %>
             <%= render 'profiles/names' %>
           <% end %>

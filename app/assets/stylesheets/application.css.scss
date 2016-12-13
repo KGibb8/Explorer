@@ -31,14 +31,6 @@ nav {
   margin-left: 1em;
 }
 
-#friendBox {
-  z-index: 1;
-  display: none;
-  height: 200px;
-  width: 200px;
-  background-color: black;
-}
-
 .box {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -60,6 +52,50 @@ nav {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+}
+
+.btn-sml {
+  border: none;
+  border-radius: 2px;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+}
+
+.dropdown {
+  padding: 1em;
+  z-index: 99;
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  color: white;
+  background-color: #1B1C1D;
+  width: 100%;
+}
+
+#friendRequests {
+  display: inline-block;
+}
+
+.request {
+  padding: 1em;
+  width: 100%;
+  .requestForm {
+    form {
+      display: inline-block;
+    }
+  }
+}
+
+.notVisible {
+  display: none;
+}
+
+.visible {
+  display: block;
 }
 
 .description {

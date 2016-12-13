@@ -1,4 +1,3 @@
-
 module ProfileHelper
 
   def my_profile

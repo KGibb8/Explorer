@@ -27,12 +27,12 @@ Feature: Friendship
   Scenario: Accepting a friend
     Given sample friend requests have been created
     When I navigate to "green_tara@enlightened.being" profile page
-    And I click "Accept Request" for the friend "shakyamuni@enlightened.being"
+    And I click "Accept" for the friend "shakyamuni@enlightened.being"
     Then the page contains "Friendship Accepted"
     And the page contains "shakyamuni"
 
   Scenario: Rejecting a friend
     Given sample friend requests have been created
     When I navigate to "green_tara@enlightened.being" profile page
-    And I click "Reject Request" for the friend "shakyamuni@enlightened.being"
+    And I click "Reject" for the friend "shakyamuni@enlightened.being"
     Then the page contains "Friendship Rejected"
