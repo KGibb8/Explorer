@@ -2,6 +2,7 @@ class Journey < ApplicationRecord
   belongs_to :user
   belongs_to :expedition
   has_many :activities, as: :subject
+  has_many :messages
 
   before_create :set_status
   after_create :create_activity

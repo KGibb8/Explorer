@@ -71,6 +71,22 @@
       </div>
     </div>
   <% end %>
+
+  <% if current_user %>
+    <% if involved %>
+      <div class="box sidebar">
+        <h4>Chatrooms</h4>
+        <% @chats.each do |chat| %>
+          <div id="chat" class="chat_<%= chat.id %>">
+            <%= link_to chat do %>
+              <%= chat.topic %>: started by <%= chat.creator %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
 </div>
 
 <div class="twelve wide column">

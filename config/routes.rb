@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'expeditions/:id/markers' => 'expeditions#markers', as: :expedition_markers
   resources :expeditions do
     resources :coordinates, only: [:update]
+    resources :chats
     post 'journeys/requesting' => 'journeys#requesting', as: :requesting
     post 'journeys/approve' => 'journeys#approve', as: :request_approval
     post 'journeys/inviting' => 'journeys#inviting', as: :invite_friends

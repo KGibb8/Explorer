@@ -15,6 +15,9 @@ class User < ApplicationRecord
   has_many :requested_expeditions, -> { where journeys: { :status => 'requested' } }, through: :journeys, source: :expedition
   has_many :attended_expeditions, -> { where journeys: { :status => 'attended'  }  }, through: :journeys, source: :expedition
 
+  has_many :messages
+  has_many :chats, through: :messages
+
   has_many :friendships, dependent: :destroy
   has_many :requested_friends, -> { where friendships: { :status => 'pending'  }  }, through: :friendships, source: :friend
   has_many :friend_requests, -> { where friendships: { :status => 'requested'  }  }, through: :friendships, source: :friend

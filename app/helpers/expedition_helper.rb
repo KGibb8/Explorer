@@ -9,7 +9,7 @@ module ExpeditionHelper
   end
 
   def involved
-    @expedition.attending?(current_user) || @expedition.invited?(current_user)
+    @expedition.attending?(current_user) || @expedition.invited?(current_user) || @expedition.attended?(current_user)
   end
 
   def self.build_markers(expedition)
