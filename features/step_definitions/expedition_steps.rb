@@ -1,6 +1,6 @@
 Then(/^the page contains a selection of the most recent expeditions$/) do
   within('#mostRecent') do
-    expect(page.body).to have_content('by lao_tzu')
+    expect(page.body).to have_content('lao_tzu')
   end
 end
 
