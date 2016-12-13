@@ -23,6 +23,8 @@ class Friendship < ApplicationRecord
       "received a friend request from"
     when "confirmed"
       "confirmed friendship with"
+    when "rejected"
+      "rejected friendship with"
     else ""
     end
   end
@@ -31,9 +33,11 @@ class Friendship < ApplicationRecord
 
   def create_activity
     Activity.create(
-      subject: self,
+      subject: self.friend,
       user: self.user,
       action: self.inflection,
+      topic: self.class.to_s,
+      path: 'user_profile'
     )
   end
 

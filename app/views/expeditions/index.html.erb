@@ -19,10 +19,15 @@
   </div>
 
   <div class="eleven wide column">
-    <% @expedition_activities.each do |activity| %>
-      <div class="activity">
-        <p><%= link_to "#{activity.user.username}", user_profile_path(activity.user) %> <%= activity.action %> <%= link_to "#{activity.subject.name}", expedition_path(activity.subject) %></p>
-        <%= render 'profiles/expedition', expedition: activity.subject %>
+    <% @activities.reverse_each do |activity| %>
+      <div class="box">
+        <p>
+          <%= link_to "#{activity.user.username}", user_profile_path(activity.user) %>
+          <%= activity.action %> <%= link_to "#{activity.subject.name}",
+          Rails.application.routes.url_helpers.send(:"#{activity.path}_path", activity.subject) %>
+        </p>
+        <%= render "#{activity.subject_type.underscore}s/#{activity.subject_type.underscore}",
+        activity.subject_type.underscore.to_sym => activity.subject %>
       </div>
     <% end %>
   </div>

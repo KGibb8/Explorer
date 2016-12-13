@@ -32,7 +32,9 @@ class Journey < ApplicationRecord
     Activity.create(
       subject: self.expedition,
       user: self.user,
-      action: self.inflection
+      action: self.inflection,
+      topic: self.class.to_s,
+      path: 'expedition'
     )
   end
 
