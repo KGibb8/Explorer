@@ -2,9 +2,11 @@
 <% if current_user %>
   <div class="four wide column">
     <div id="mostRecent">
-      <h2>Most Recent</h2>
+      <div class="box sidebar">
+        <h2>Most Recent</h2>
+      </div>
       <% @most_recent.each do |expedition| %>
-        <div class="sideExped">
+        <div class="sideExped box sidebar">
           <%= render :partial => 'expeditions/expedition', locals: { expedition: expedition } %>
         </div>
       <% end %>

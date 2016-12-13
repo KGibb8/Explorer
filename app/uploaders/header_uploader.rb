@@ -8,7 +8,6 @@ class HeaderUploader < CarrierWave::Uploader::Base
 
   def default_url
     ActionController::Base.helpers.asset_path("fallback/header_default.jpg")
-    # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   end
 
   version :banner do

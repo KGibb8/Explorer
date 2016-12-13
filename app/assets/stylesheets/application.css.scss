@@ -18,9 +18,35 @@
 @import "semantic-ui/collections/menu";
 
 body {
+  height: 100%;
   background-color: $theme;
   margin: 0;
   padding: 0;
+}
+
+.grid {
+  min-height: 100%;
+}
+
+#content {
+  overflow: auto;
+  padding-bottom: 50px;
+}
+
+footer {
+  position: relative;
+  border-top: $border;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.7em;
+  padding-bottom: 0.5em;
+  height: 50px;
+  width: 100%;
+  clear: both;
+  background-color: $black;
+  img {
+    float: right;
+  }
 }
 
 nav {
@@ -29,6 +55,13 @@ nav {
 
 .sidebar {
   margin-left: 1em;
+}
+
+.center {
+  width: 30%;
+  position: fixed;
+  left: 15%;
+  top: 25%;
 }
 
 .box {
@@ -169,12 +202,3 @@ nav {
   margin-bottom: 1em;
 }
 
-footer {
-  padding: 1em;
-  height: 80px;
-  width: 100%;
-  background-color: $black;
-  img {
-    float: right;
-  }
-}
