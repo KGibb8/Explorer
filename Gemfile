@@ -24,11 +24,12 @@ gem 'carrierwave'
 gem 'remotipart'
 gem 'mini_magick'
 
+gem 'faker'
+
 group :test do
   gem 'tsuite'
   gem 'timecop'
   gem 'factory_girl_rails', '~> 4.0'
-  gem 'faker'
   gem 'rails-controller-testing'
 end
 

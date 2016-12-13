@@ -24,6 +24,8 @@ class Expedition < ApplicationRecord
 
   accepts_nested_attributes_for :start_locations, :end_locations
 
+  validates_presence_of :start_time, :end_time, :name, :description
+
   mount_uploader :header, HeaderUploader
 
   def start_location
@@ -34,9 +36,8 @@ class Expedition < ApplicationRecord
     self.end_locations.first
   end
 
-  def local_start_time
-    d = start_time.to_time.utc
-    "#{d.hour.to_i - d.zone.to_i}:#{d.min}"
+  def format_start_time
+    self.start_time.to_date.strftime('%b %e %Y, %H:%M:%S')
   end
 
   def days

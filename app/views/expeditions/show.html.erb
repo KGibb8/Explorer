@@ -124,7 +124,7 @@
         <p><strong>Duration:</strong> <%= @expedition.days == 1 ? "#{@expedition.days} day" : "#{@expedition.days} days"%></p>
       </div>
       <div class="content time notEditing">
-        <p class="startTimeBody"><strong>Start: </strong><%= @expedition.start_time.to_date.strftime('%b %e %Y, %H:%M:%S') %></p>
+        <p class="startTimeBody"><strong>Start: </strong><%= @expedition.format_start_time %></p>
         <% if organiser %>
           <div class="startTimeForm">
             <%= form_for @expedition, html: { id: "submitStartTime" }, remote: true,  method: :patch do |f| %> 
