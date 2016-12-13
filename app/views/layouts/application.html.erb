@@ -25,7 +25,7 @@
           <% if user_signed_in?%>
             <%= link_to "Profile", user_profile_path(current_user), class: "item green" %>
             <%= link_to "Expeditions", expeditions_path, class: "item green" %>
-            <a id="friendNav" class="item green">Friends</a>
+            <%= link_to "Friends", "#", id: "friendNav", class: "item green" %>
             <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item green" %>
             <p>Logged in as <%= current_user.username %></p>
           <% else %>
@@ -48,6 +48,7 @@
   </body>
   <script>
 $('#friendNav').on("click", function (e) {
+  e.preventDefault();
   var dropdown = $('.dropdown');
   if (dropdown.hasClass("visible")) {
     dropdown.removeClass("visible");
