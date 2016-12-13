@@ -1,7 +1,6 @@
 Rails.application.configure do
 
   CarrierWave.configure do |config|
-    config.fog_provider = 'fog/aws'
     config.fog_directory = ENV.fetch('S3_BUCKET_NAME')
     config.fog_credentials = {
       provider:              'AWS',
