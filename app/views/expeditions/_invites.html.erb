@@ -7,7 +7,7 @@
     <%= f.collection_check_boxes(:user_ids, current_user.friends, :id, :username) do |b| %>
       <div class="inviteBox">
         <div>
-          <%= render :partial => 'friendships/user', :locals => { user: b.object } %>
+          <%= render :partial => 'users/user', :locals => { user: b.object } %>
         </div>
         <div>
           <% if @expedition.attending?(b.object) %>

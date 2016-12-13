@@ -6,7 +6,7 @@ class ExpeditionsController < ApplicationController
 
   def index
     if current_user
-      @activities = Activity.all.order(:created_at)
+      @activities = current_user.related_activities
       @expedition = Expedition.new
       @expeditions = current_user.expeditions
     end

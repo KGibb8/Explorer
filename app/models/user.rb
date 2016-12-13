@@ -81,14 +81,8 @@ class User < ApplicationRecord
 
   # --------------------------------------- Activity related ------------------------------------------ #
 
-  def expedition_activities
-    Activity.find_by_sql(
-      "SELECT * FROM activities AS a
-        INNER JOIN users AS u ON a.user_id = u.id
-        INNER JOIN journeys AS j ON j.user_id = u.id
-        WHERE j.expedition_id = a.subject_id AND u.id = #{self.id}"
-    )
-
+  def related_activities
+    (self.friends.map(&:activities).flatten + self.activities.to_a).sort_by(&:created_at)
   end
 
   private

@@ -20,7 +20,7 @@
   <div class="box sidebar">
     <h4>Organiser</h4>
     <div id="organiser">
-      <%= render :partial => 'friendships/user', locals: { user: @expedition.creator } %>
+      <%= render :partial => 'users/user', locals: { user: @expedition.creator } %>
     </div>
   </div>
   <% unless @expedition.complete? %>
@@ -28,7 +28,7 @@
       <h4>Attending</h4>
       <div id="attending">
         <% unless @attending_users.empty? %>
-          <%= render :partial => 'friendships/user', :collection => @attending_users %>
+          <%= render :partial => 'users/user', :collection => @attending_users %>
         <% else %>
           <p>There are currently no users attending</p>
         <% end %>
@@ -41,7 +41,7 @@
       <h4>Invited</h4>
       <div id="invited">
         <% unless @invited_users.empty? %>
-          <%= render :partial => 'friendships/user', :collection => @invited_users %>
+          <%= render :partial => 'users/user', :collection => @invited_users %>
         <% else %>
           <p>No-one is invited to this expedition</p>
         <% end %>
@@ -64,7 +64,7 @@
     <div class="box sidebar">
       <h4>Attended</h4>
       <div id="invited">
-        <%= render :partial => 'friendships/user', :collection => @attended_users %>
+        <%= render :partial => 'users/user', :collection => @attended_users %>
       </div>
       <div id="attended_page_links">
         <%= will_paginate @attended_users, :page_links => true, :param_name => :attended_page, :class => 'attended_pagination' %>

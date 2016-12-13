@@ -1,8 +1,8 @@
-$("#friends").html("<%= escape_javascript(render :partial => 'friendships/user', :collection => @friends ) %>");
+$("#friends").html("<%= escape_javascript(render :partial => 'users/user', :collection => @friends ) %>");
 $("#friend_page_links").html("<%= escape_javascript(will_paginate @friends, class_name: "friends_pagination") %>");
 
-$('#pastExpeditions').html("<%= escape_javascript(render :partial => 'profiles/expedition', :collection => @past_expeditions) %>")
+$('#pastExpeditions').html("<%= escape_javascript(render :partial => 'expeditions/expedition', :collection => @past_expeditions) %>")
 $('#past_exped_page_links').html("<%= escape_javascript(will_paginate @past_expeditions, class_name: "past_expeditions_pagination") %>")
 
-$('#futureExpeditions').html("<%= escape_javascript(render :partial => 'profiles/expedition', :collection => @future_expeditions) %>")
+$('#futureExpeditions').html("<%= escape_javascript(render :partial => 'expeditions/expedition', :collection => @future_expeditions) %>")
 $('#future_exped_page_links').html("<%= escape_javascript(will_paginate @future_expeditions, class_name: "future_expeditions_pagination") %>")

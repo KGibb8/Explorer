@@ -1,15 +1,15 @@
-$('#attending').html("<%= escape_javascript(render :partial => 'friendships/user', :collection => @attending_users) %>")
+$('#attending').html("<%= escape_javascript(render :partial => 'users/user', :collection => @attending_users) %>")
 $('#attending_page_links').html("<%= escape_javascript(will_paginate @attending_users, class_name: "attending_pagination") %>")
 
-$('#invited').html("<%= escape_javascript(render :partial => 'friendships/user', :collection => @invited_users) %>")
+$('#invited').html("<%= escape_javascript(render :partial => 'users/user', :collection => @invited_users) %>")
 $('#invited_page_links').html("<%= escape_javascript(will_paginate @invited_users, class_name: "invited_pagination") %>")
 
 <% if organiser %>
-  $('#requested').html("<%= escape_javascript(render :partial => 'friendships/user', :collection => @requested_users) %>")
+  $('#requested').html("<%= escape_javascript(render :partial => 'users/user', :collection => @requested_users) %>")
   $('#requested_page_links').html("<%= escape_javascript(will_paginate @requested_users, class_name: "requested_pagination") %>")
 <% end %>
 
 <% if @expedition.complete %>
-  $('#attended').html("<%= escape_javascript(render :partial => 'friendships/user', :collection => @attended_users) %>")
+  $('#attended').html("<%= escape_javascript(render :partial => 'users/user', :collection => @attended_users) %>")
   $('#attended_page_links').html("<%= escape_javascript(will_paginate @attended_users, class_name: "attended_pagination") %>")
 <% end %>
