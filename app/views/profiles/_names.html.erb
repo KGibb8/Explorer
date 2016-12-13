@@ -1,0 +1,5 @@
+<%= form_for [current_user, @profile], html: { id: 'submitNames' }, remote: true do |f| %>
+  <%= f.text_field :first_name %><br>
+  <%= f.text_field :last_name %><br>
+  <%= f.submit %>
+<% end %>

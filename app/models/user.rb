@@ -26,7 +26,7 @@ class User < ApplicationRecord
   after_create :build_profile
 
   def name
-    self.username
+    self.profile.full_name || self.username
   end
 
   # --------------------------------------- Omniauth related ------------------------------------------ #
