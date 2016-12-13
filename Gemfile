@@ -18,6 +18,7 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'devise'
 gem 'figaro'
 gem 'geocoder'
+gem 'omniauth-facebook'
 
 gem 'carrierwave'
 gem 'remotipart'
