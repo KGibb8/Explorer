@@ -3,7 +3,7 @@ class CoordinatesController < ApplicationController
 
   def update
     @coordinate.update(coordinates_params)
-    render json: { success: true }
+    render json: { success: true, coordinate: @coordinate }
   end
 
   private

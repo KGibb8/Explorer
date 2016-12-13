@@ -20,3 +20,7 @@ $('#friendNav').on("click", function (e) {
   e.preventDefault();
   $('#friendBox').css("display", "block")
 });
+
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});

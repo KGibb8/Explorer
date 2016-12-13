@@ -1,14 +1,120 @@
+.showExpedition {
+  width: 100%;
+}
 
-.header {
+header {
   width: 100%;
   text-align: center;
 }
 
 #headerPic {
   width: 100%;
+  border-bottom: 3px solid #70716E;
 }
 
-.user {
-  margin: 0.25em;
+#hiddenHeader {
+  display: none;
+}
+
+#headerForm {
+  display: none;
+}
+
+#headerFile {
+  display: none;
+}
+
+#headerBtn {
+  top: 5em;
+  right: 1em;
+  z-index: 1;
+  position: absolute;
+}
+
+.mapbox {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: 2px solid #70716E;
+  border-radius: 0.5em;
+  background-color: white;
+}
+
+.mapBtn {
+  position: absolute;
+  top: 27.5em;
+  left: 1.75em;
+  z-index: 1;
+}
+
+#addEnd {
+  left: 16em;
+}
+
+.inviteBox {
+  padding-left: 1em;
+  padding-right: 1em;
+  color: white;
+  a {
+    color: white;
+  }
+  a:hover {
+    color: white;
+  }
   display: inline-block;
+  p {
+    text-align: center;
+    font-size: 10pt;
+  }
+}
+
+#inviteSubmit {
+  float: right;
+  margin-bottom: 1em;
+  margin-right: 1em;
+}
+
+#descriptionSubmit {
+  display: none;
+}
+
+.notEditing .descriptionBody {
+  display: block;
+}
+.notEditing .descriptionForm {
+  display: none;
+}
+.editing .descriptionBody {
+  display: none;
+}
+.editing .descriptionForm {
+  display: block;
+}
+
+.check_box {
+  display: none;
+}
+
+.checkedBlue {
+  background-color: #3887be;
+}
+
+.activity {
+  border: 3px solid #70716E;
+  background-color: #ECE7B5;
+  border-radius: 1em;
+  padding: 1em;
+  margin: 1em;
+}
+
+.notEditing .startTimeBody {
+  display: block;
+}
+.notEditing .startTimeForm {
+  display: none;
+}
+.editing .startTimeBody {
+  display: none;
+}
+.editing .startTimeForm {
+  display: block;
 }

@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208155258) do
+ActiveRecord::Schema.define(version: 20161213121939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "subject_id"
+    t.string   "subject_type"
+    t.integer  "user_id"
+    t.string   "action"
+    t.string   "topic"
+    t.string   "path"
+    t.index ["subject_id"], name: "index_activities_on_subject_id", using: :btree
+    t.index ["user_id"], name: "index_activities_on_user_id", using: :btree
+  end
 
   create_table "coordinates", force: :cascade do |t|
     t.float    "latitude"
@@ -34,9 +47,9 @@ ActiveRecord::Schema.define(version: 20161208155258) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.boolean  "complete"
-    t.string   "title"
-    t.text     "description"
     t.string   "header"
+    t.string   "name"
+    t.text     "description"
     t.index ["creator_id"], name: "index_expeditions_on_creator_id", using: :btree
   end
 
@@ -86,10 +99,14 @@ ActiveRecord::Schema.define(version: 20161208155258) do
     t.string   "username"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "fb_profile"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "activities", "users"
   add_foreign_key "coordinates", "expeditions"
   add_foreign_key "friendships", "users"
   add_foreign_key "journeys", "expeditions"

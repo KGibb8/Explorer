@@ -11,7 +11,7 @@ end
 
 Given(/^sample expeditions have been created$/) do
   lost = {
-    title: "Lost in the Himalayas",
+    name: "Lost in the Himalayas",
     description: Faker::Lorem.paragraph,
     start_time: Time.now - 15.days,
     end_time: Time.now - 12.days,
@@ -40,7 +40,7 @@ Given(/^sample expeditions have been created$/) do
   expedition.set_as_complete
 
   kilimanjaro = { 
-    title: "Climbing Kilimanjaro",
+    name: "Climbing Kilimanjaro",
     description: Faker::Lorem.paragraph,
     start_time: Time.now + 90.days,
     end_time: Time.now + 92.days,
@@ -66,7 +66,7 @@ Given(/^sample expeditions have been created$/) do
   @laotzu.accept_invite(expedition)
 
   kailash = {
-    title: "Pilgrimage around Mount Kailash",
+    name: "Pilgrimage around Mount Kailash",
     description: Faker::Lorem.paragraph,
     start_time: Time.now + 101.days,
     end_time: Time.now + 110.days,
@@ -92,7 +92,7 @@ Given(/^sample expeditions have been created$/) do
   @laotzu.accept_invite(expedition)
 
   himalayas = {
-    title: "Hiking in the Himalayas",
+    name: "Hiking in the Himalayas",
     description: Faker::Lorem.paragraph,
     start_time: Time.now + 131.days,
     end_time: Time.now + 150.days,
@@ -116,7 +116,7 @@ Given(/^sample expeditions have been created$/) do
   @shakyamuni.accept_invite(expedition)
 
   tiger_leaping = {
-    title: "Tiger Leaping Gorge",
+    name: "Tiger Leaping Gorge",
     description: Faker::Lorem.paragraph,
     start_time: Time.now + 15.days,
     end_time: Time.now + 20.days,

@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+  $('#profilePicture').click(function () {
+    $('#avatarFile').click();
+  });
+
+  $('#avatarFile').change(function () {
+    $('#avatarSubmit').click();
+  });
+
   $('#submitAvatar').on('ajax:remotipartComplete', function (e, data) {
     var profile = JSON.parse(data.responseText);
     $('.avatar')[0].style = "background-image: url(" + profile.avatar.profile.url + ")";
@@ -36,32 +44,38 @@ $(document).ready(function () {
     container.appendChild(ele);
   });
 
-  $('.friends_pagination a').on("click", function (){
+  $('.friends_pagination a').on("click", function (e){
+    e.preventDefault();
     $.get(this.href, null, null, 'script');
     return false;
   });
 
-  $('.past_expeditions_pagination a').on("click", function (){
+  $('.past_expeditions_pagination a').on("click", function (e){
+    e.preventDefault();
     $.get(this.href, null, null, 'script');
     return false;
   });
 
-  $('.future_expeditions_pagination a').on("click", function (){
+  $('.future_expeditions_pagination a').on("click", function (e){
+    e.preventDefault();
     $.get(this.href, null, null, 'script');
     return false;
   });
 
   function createFriend (user, profile) {
+    var a = document.createElement('a');
+    a.setAttribute("href", "/users/" + user.id + "/profile")
     var friend = document.createElement('div');
-    friend.className = 'friend'
-      var pic = document.createElement('div');
+    friend.className = 'user';
+    var pic = document.createElement('div');
     pic.className = "avatar thumb";
     pic.style = "background-image: url(" + profile.avatar.thumb.url + ");";
     friend.appendChild(pic);
     var p = document.createElement('p');
     p.innerHTML = user.username;
     friend.appendChild(p);
-    return friend
+    a.appendChild(friend);
+    return a
   }
 });
 

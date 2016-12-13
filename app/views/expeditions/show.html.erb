@@ -1,107 +1,163 @@
 
-<div class="sixteen wide column">
-  <div class="header">
-    <%= image_tag(@expedition.header.header, id: "headerPic") if @expedition.header %>
-
+<header>
+  <div class="sixteen wide column">
+    <div class="header">
+      <%= image_tag(@expedition.header.header.url, id: "headerPic") if @expedition.header %>
+    </div>
     <% if organiser %>
-      <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
-        <%= f.file_field :header %><br>
-        <%= f.submit "Add Header Image" %>
-      <% end %>
+      <%= button_tag "Change header", class: "customBtn btn green", id: "headerBtn" %>
+      <div id="headerForm">
+        <%= form_for @expedition, html: { id: "mountHeader" }, method: :patch, remote: true do |f| %>
+          <%= f.file_field :header, class: "fileField", id: "headerFile" %><br>
+          <%= f.submit "Add Header Image", id: "hiddenHeader" %>
+        <% end %>
+      </div>
     <% end %>
   </div>
+</header>
+
+<div class="four wide column">
+  <div class="box sidebar">
+    <h4>Organiser</h4>
+    <div id="organiser">
+      <%= render :partial => 'users/user', locals: { user: @expedition.creator } %>
+    </div>
+  </div>
+  <% unless @expedition.complete? %>
+    <div class="box sidebar">
+      <h4>Attending</h4>
+      <div id="attending">
+        <% unless @attending_users.empty? %>
+          <%= render :partial => 'users/user', :collection => @attending_users %>
+        <% else %>
+          <p>There are currently no users attending</p>
+        <% end %>
+      </div>
+      <div id="attending_page_links">
+        <%= will_paginate @attending_users, :page_links => true, :param_name => :attending_page, :class => 'attending_pagination' %>
+      </div>
+    </div>
+    <div class="box sidebar">
+      <h4>Invited</h4>
+      <div id="invited">
+        <% unless @invited_users.empty? %>
+          <%= render :partial => 'users/user', :collection => @invited_users %>
+        <% else %>
+          <p>No-one is invited to this expedition</p>
+        <% end %>
+      </div>
+      <div id="invited_page_links">
+        <%= will_paginate @invited_users, :page_links => true, :param_name => :invited_page, :class => 'invited_pagination' %>
+      </div>
+    </div>
+    <% if current_user %>
+      <% if involved %>
+        <div class="box sidebar">
+          <div id="inviteAction">
+            <%= link_to "Invite Friends", "#", id: "inviteFriends" %>
+            <%= render 'expeditions/invites' %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="box sidebar">
+      <h4>Attended</h4>
+      <div id="invited">
+        <%= render :partial => 'users/user', :collection => @attended_users %>
+      </div>
+      <div id="attended_page_links">
+        <%= will_paginate @attended_users, :page_links => true, :param_name => :attended_page, :class => 'attended_pagination' %>
+      </div>
+    </div>
+  <% end %>
 </div>
 
-<div class="one wide column"></div>
+<div class="twelve wide column">
+  <article class="main">
+    <div class="mapbox">
+      <div id='map'></div>
+      <% if organiser %>
+        <%= form_for [@expedition, @start_location], html: { id: "addStart", class: "mapBtn" }, method: :patch, remote: true do |f| %>
+          <%= f.hidden_field :latitude, value: "", id: "startLat" %>
+          <%= f.hidden_field :longitude, value: "", id: "startLng" %>
+          <%= f.submit "Submit Start Location", class: "btn blue" %>
+        <% end %>
+        <%= form_for [@expedition, @end_location], html: { id: "addEnd", class: "mapBtn" }, method: :patch, remote: true do |f| %>
+          <%= f.hidden_field :latitude, value: "", id: "endLat" %>
+          <%= f.hidden_field :longitude, value: "", id: "endLng" %>
+          <%= f.submit "Submit End Location", class: "btn green" %>
+        <% end %>
+      <% end %>
+    </div>
 
-<div class="fourteen wide column">
+    <div class="box">
+      <h1><%= @expedition.name %></h1>
+      <% unless @expedition.complete? %>
+        <% if requestable %>
+          <% if current_user %>
+            <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { expedition_id: @expedition.id }, id: 'request', method: :post %>
+          <% else %>
+            <%= button_to "Request to Join", new_user_session_path %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p>This expedition is complete</p>
+      <% end %>
+      <div class="content description notEditing">
+        <p class="descriptionBody"><%= @expedition.description %></p>
+        <% if organiser %>
+          <div class="descriptionForm">
+            <%= form_for @expedition, html: { id: "submitDescription" }, remote: true,  method: :patch do |f| %> 
+              <%= f.text_area :description %>
+              <%= f.submit "Submit", id: "descriptionSubmit" %>
+            <% end %>
+          </div>
+          <%= link_to "Edit Description", "#", id: "editDesc" %>
+        <% end %>
+      </div>
+      <div class="content location">
+        <p><strong>Begins:</strong>   <%= @expedition.start_location.location %></p>
+        <p><strong>Ends:</strong>     <%= @expedition.end_location.location %></p>
+      </div>
+      <div class="content duration">
+        <p><strong>Duration:</strong> <%= @expedition.days == 1 ? "#{@expedition.days} day" : "#{@expedition.days} days"%></p>
+      </div>
+      <div class="content time notEditing">
+        <p class="startTimeBody"><strong>Start: </strong><%= @expedition.start_time.to_date.strftime('%b %e %Y, %H:%M:%S') %></p>
+        <% if organiser %>
+          <div class="startTimeForm">
+            <%= form_for @expedition, html: { id: "submitStartTime" }, remote: true,  method: :patch do |f| %> 
+              <%= f.datetime_field :start_time %>
+              <%= f.submit "Submit", id: "startTimeSubmit" %>
+            <% end %>
+          </div>
+          <%= link_to "Edit Start Time", "#", id: "editStartTime" %>
+        <% end %>
+      </div>
+    </div>
+  </article>
+</div>
 
+<div class="seven wide column">
+
+  <% if current_user %>
+    <% if @expedition.invited? current_user %>
+      <%= button_to "Accept Invite", expedition_accept_invite_path(@expedition), params: { expedition_id: @expedition.id }, id: 'acceptInvite', method: :patch %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="sixteen wide column">
   <% if organiser %>
     <div id="requests">
       <%= render :partial => 'expeditions/request', :collection => @requested_users %>
     </div>
-  <% end %>
-
-</div>
-
-<div class="one wide column"></div>
-
-<div class="one wide column"></div>
-
-<div class="fourteen wide column">
-  <h1><%= @expedition.title %></h1>
-  <% if organiser %>
-    <p>You are the organiser of this event</p>
-  <% end %>
-
-  <% unless requestable %>
-    <% if current_user %>
-      <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { expedition_id: @expedition.id }, id: 'request', method: :post %>
-    <% else %>
-      <%= button_to "Request to Join", new_user_session_path %>
-    <% end %>
-  <% end %>
-
-</div>
-
-<div class="one wide column"></div>
-
-<div class="one wide column"></div>
-
-<div class="seven wide column">
-  <% if current_user %>
-    <% if involved %>
-      <%= button_tag "Invite Friends", id: "inviteFriends" %>
-      <%= render 'expeditions/invites' %>
-    <% end %>
+    <div id="requested_page_links">
+      <%= will_paginate @requested_users, :page_links => true, :param_name => :requested_page, :class => 'requested_pagination' %>
+    </div>
   <% end %>
 </div>
-
-<div class="seven wide column">
-  <div id='map'></div>
-</div>
-
-<div class="one wide column"></div>
-
-<div class="one wide column"></div>
-
-<div class="seven wide column">
-</div>
-
-<div class="seven wide column">
-  <% if organiser %>
-
-    <%= form_for [@expedition, @start_location], html: { id: "addStart" }, method: :patch, remote: true do |f| %>
-      <%= f.hidden_field :latitude, value: "", id: "startLat" %>
-      <%= f.hidden_field :longitude, value: "", id: "startLng" %>
-      <%= f.submit "Submit Start Location" %>
-    <% end %>
-
-    <%= form_for [@expedition, @end_location], html: { id: "addEnd" }, method: :patch, remote: true do |f| %>
-      <%= f.hidden_field :latitude, value: "", id: "endLat" %>
-      <%= f.hidden_field :longitude, value: "", id: "endLng" %>
-      <%= f.submit "Submit End Location" %>
-    <% end %>
-
-  <% end %>
-</div>
-
-<div class="one wide column"></div>
-
-<div class="one wide column"></div>
-
-<div class="four wide column">
-  <h4>Attending</h4>
-  <div id="attending">
-    <%= render :partial => 'friendships/user', :collection => @attending_users %>
-  </div>
-  <h4>Invited</h4>
-  <div id="invited">
-    <%= render :partial => 'friendships/user', :collection => @invited_users %>
-  </div>
-</div>
-
-<div class="one wide column"></div>
 
 
 <script>

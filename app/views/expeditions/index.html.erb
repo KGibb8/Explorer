@@ -4,42 +4,50 @@
 
   <div class="four wide column">
     <div class="organise">
-      <%= button_tag "Organise your own Expedition", id: "organiseExpedition" %>
+      <%= button_tag "Organise an Expedition", class: "btn green", id: "organiseExpedition" %>
       <%= render 'expeditions/create' %>
     </div>
     <div id="mostRecent">
+      <h2>Most Recent</h2>
       <% @most_recent.each do |expedition| %>
         <div class="sideExped">
-          <p><%= link_to "#{expedition.title}", expedition_path(expedition) %></p>
+          <p><%= link_to "#{expedition.name}", expedition_path(expedition) %></p>
           <p>Organised by <%= link_to "#{expedition.creator.username}", user_profile_path(expedition.creator) %></p>
         </div>
       <% end %>
     </div>
   </div>
 
-  <div class="eleven wide column"></div>
+  <div class="eleven wide column">
+    <% @activities.reverse_each do |activity| %>
+      <div class="box">
+        <p>
+          <%= link_to "#{activity.user.username}", user_profile_path(activity.user) %>
+          <%= activity.action %> <%= link_to "#{activity.subject.name}",
+          Rails.application.routes.url_helpers.send(:"#{activity.path}_path", activity.subject) %>
+        </p>
+        <%= render "#{activity.subject_type.underscore}s/#{activity.subject_type.underscore}",
+        activity.subject_type.underscore.to_sym => activity.subject %>
+      </div>
+    <% end %>
+  </div>
 
-  <div class="one wide column"></div>
-
-  <div class="four wide column"></div>
-
-  <div class="eleven wide column"></div>
 <% else %>
 
-  <div class="one wide column"></div>
+  <div class="four wide column">
 
-  <div class="fourteen wide column">
+  </div>
+
+  <div class="twelve wide column">
     <div id="mostRecent">
       <% @most_recent.each do |expedition| %>
-        <div class="sideExped">
-          <p><%= link_to "#{expedition.title}", expedition_path(expedition) %></p>
-          <p>Organised by <%= link_to "#{expedition.creator.username}", user_profile_path(expedition.creator) %></p>
+        <div class="four wide column">
+          <%= render :partial => 'expeditions/expedition', locals: { expedition: expedition } %>
         </div>
       <% end %>
     </div>
   </div>
 
-  <div class="one wide column"></div>
 <% end %>
 
 <%= javascript_include_tag 'expeditions' %>

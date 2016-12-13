@@ -6,6 +6,7 @@
     <%= semantic_flash %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src='https://momentjs.com/downloads/moment.min.js'></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.0.1/mapbox-gl-geocoder.js'></script>
@@ -19,19 +20,17 @@
     <p class="alert"><%= alert %></p>
     <div class="ui grid">
       <nav>
-        <div class="ui inverted segment">
-          <div class="ui inverted secondary pointing menu">
+          <div class="ui inverted menu">
             <% if user_signed_in?%>
-              <%= link_to "Profile", user_profile_path(current_user), class: "item" %>
-              <%= link_to "Expeditions", expeditions_path, class: "item" %>
-              <a class="item" id="friendNav">Friends</a>
-              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item" %>
+              <%= link_to "Profile", user_profile_path(current_user), class: "item green" %>
+              <%= link_to "Expeditions", expeditions_path, class: "item green" %>
+              <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item green" %>
               <p>Logged in as <%= current_user.username %></p>
             <% else %>
-              <%= link_to "Log In", new_user_session_path, class: "item" %>
+              <%= link_to "Log In", new_user_session_path, class: "item green" %>
+              <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, class: "item green" %>
             <% end %>
           </div>
-        </div>
       </nav>
       <%= yield %>
     </div>

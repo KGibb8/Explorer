@@ -1,6 +1,6 @@
 <%= form_for [current_user, @profile], html: { id: 'submitAvatar' }, remote: true do |f| %>
-  <%= f.file_field :avatar %><br>
-  <%= f.submit "Change Avatar" %>
+  <%= f.file_field :avatar, id: "avatarFile" %><br>
+  <%= f.submit "Change Avatar", id: "avatarSubmit" %>
 <% end %>
 
 

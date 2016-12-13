@@ -3,10 +3,11 @@ require './app/uploaders/header_uploader'
 class Expedition < ApplicationRecord
   belongs_to :creator, class_name: 'User'
 
+  has_many :coordinates, dependent: :destroy
   has_many :start_locations, -> { where 'start_location = true' }, class_name: 'Coordinate'
   has_many :end_locations, -> { where 'end_location = true' }, class_name: 'Coordinate'
 
-  has_many :journeys
+  has_many :journeys, dependent: :destroy
   has_many :invited_users, -> { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :user
   has_many :rejected_users, -> { where journeys: { :status => 'rejected' } }, through: :journeys, source: :user
   has_many :attending_users, -> { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :user
@@ -33,17 +34,24 @@ class Expedition < ApplicationRecord
     self.end_locations.first
   end
 
+  def local_start_time
+    d = start_time.to_time.utc
+    "#{d.hour.to_i - d.zone.to_i}:#{d.min}"
+  end
+
+  def days
+    days = (Date.parse(end_time.to_s) - Date.parse(start_time.to_s)).truncate
+    days == 0 ? 1 : days
+  end
+
   def invite(user)
-    # Unless user is already attending or has been invited
     unless self.attending?(user) && self.invited?(user)
-      # If user is requested, change to invited, else just invite
       self.requested?(user) ? self.requested_users.find_by(user: user).status = 'invited' : self.journeys.create(user: user)
     end
   end
 
   def request(user)
-    # Unless user is already requested/invited/attending
-    unless self.requested?(user) || self.invited?(user) || self.attending?(user)
+    unless self.requested?(user) && self.invited?(user) && self.attending?(user)
       self.journeys.create(user: user, status: 'requested')
     end
   end
@@ -66,6 +74,10 @@ class Expedition < ApplicationRecord
 
   def rejected?(user)
     self.rejected_users.include?(user)
+  end
+
+  def complete?
+    self.complete == true
   end
 
   def permit_attendance(user)

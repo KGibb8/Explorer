@@ -9,6 +9,14 @@ textarea {
   overflow: hidden;
 }
 
+#profilePicture {
+  cursor: pointer;
+}
+
+#submitAvatar {
+  display: none;
+}
+
 .profile {
   height: 200px;
   width: 200px;
@@ -19,7 +27,14 @@ textarea {
   width: 75px;
 }
 
-.friend {
-  margin: 0.25em;
+.main {
+  margin-right: 1em;
+}
+
+.expedRight {
+  display: inline-block;
+}
+
+.expedLeft {
   display: inline-block;
 }

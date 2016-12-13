@@ -5,16 +5,12 @@ class ExpeditionsController < ApplicationController
   respond_to :json
 
   def index
-    if user_signed_in?
+    if current_user
+      @activities = current_user.related_activities
       @expedition = Expedition.new
       @expeditions = current_user.expeditions
     end
     @most_recent = Expedition.recent
-    # @most_popular = Expedition.find_by_sql(
-    #   "SELECT DISTINCT * FROM expeditions AS e
-    #     INNER JOIN journeys AS j ON j.expedition_id = e.id
-    #     ORDER BY COUNT(j.id) DESC;"
-    # )
   end
 
   def create
@@ -23,9 +19,10 @@ class ExpeditionsController < ApplicationController
   end
 
   def show
-    @attending_users = @expedition.attending_users
-    @invited_users = @expedition.invited_users
-    @requested_users = @expedition.requested_users if @expedition.creator? current_user
+    @attending_users = @expedition.attending_users.paginate(page: params[:attending_page], per_page: 9)
+    @invited_users = @expedition.invited_users.paginate(page: params[:invited_page], per_page: 9)
+    @requested_users = @expedition.requested_users.paginate(page: params[:requesting_page], per_page: 9) if organiser
+    @attended_users = @expedition.attended_users.paginate(page: params[:attended_page], per_page: 9) if @expedition.complete?
     @start_location = @expedition.start_location
     @end_location = @expedition.end_location
   end
@@ -47,7 +44,7 @@ class ExpeditionsController < ApplicationController
 
   def expedition_params
     params.require(:expedition).permit(
-      :title, :description, :header, :start_time, :end_time, :start_lat, :start_lng, :end_lat, :end_lng,
+      :name, :description, :header, :start_time, :end_time, :start_lat, :start_lng, :end_lat, :end_lng,
       start_locations_attributes: [:latitude, :longitude, :location, :start_location], end_locations_attributes: [:latitude, :longitude, :location, :end_location]
     )
   end

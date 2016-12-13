@@ -6,7 +6,7 @@ RSpec.describe JourneysController, type: :controller do
   let(:laotzu) { create(:laotzu) }
 
   let(:expedition_params) { 
-    { title: "Climbing Kilimanjaro",
+    { name: "Climbing Kilimanjaro",
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,
@@ -27,6 +27,7 @@ RSpec.describe JourneysController, type: :controller do
     }
   }
 
+
   let(:expedition) { shaka.create_expedition(expedition_params) }
 
   let(:request_journey_params) { { expedition_id: expedition.id, journey: { expedition_id: expedition.id } } }
@@ -34,6 +35,8 @@ RSpec.describe JourneysController, type: :controller do
   let(:approve_journey_params) { { expedition_id: expedition.id, journey: { expedition_id: expedition.id, user_id: laotzu.id } } }
 
   let(:inviting_journeys_params) { { expedition_id: expedition.id, journeys: { user_ids: [laotzu.id] } } }
+
+  let(:accepting_invite_params) { { expedition_id: expedition.id, journey: { user_id: laotzu.id } } }
 
   describe "requesting action for journey" do
     before do
@@ -60,8 +63,6 @@ RSpec.describe JourneysController, type: :controller do
 
   describe "inviting action for journey" do
     before do
-      shaka.befriend(laotzu)
-      laotzu.accept_friend(shaka)
       @request.env["devise.mapping"] = Devise.mappings[:user]
       sign_in shaka
       post :inviting, params: inviting_journeys_params
@@ -71,5 +72,18 @@ RSpec.describe JourneysController, type: :controller do
       expect(response.status).to eq 302
     end
 
+  end
+
+  describe "accepting action for journey" do
+    before do
+      expedition.invite(laotzu)
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      sign_in laotzu
+      patch :accepting, params: accepting_invite_params
+    end
+
+    it "should return a 302 status" do
+      expect(response.status).to eq 302
+    end
   end
 end
