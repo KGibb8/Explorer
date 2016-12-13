@@ -107,7 +107,7 @@ nav {
   top: 40px;
   left: 0px;
   color: white;
-  background-color: #1B1C1D;
+  background-color: $black;
   width: 100%;
 }
 
@@ -167,4 +167,14 @@ nav {
 .content {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+footer {
+  padding: 1em;
+  height: 80px;
+  width: 100%;
+  background-color: $black;
+  img {
+    float: right;
+  }
 }
