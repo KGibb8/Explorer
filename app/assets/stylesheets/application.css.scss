@@ -38,9 +38,27 @@ nav {
   padding-bottom: 1em;
   padding-left: 0.5em;
   padding-right: 0.5em;
-  border: 2px solid #70716E;
+  border: 2px solid $border;
   border-radius: 0.5em;
   background-color: white;
+}
+
+.banner {
+  overflow: hidden;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 400px;
+}
+
+#cycler div {
+  border-bottom: 2px solid $border;
+  position: absolute;
+  z-index: 1
+}
+#cycler div.active {
+  z-index: 3
 }
 
 .btn {
@@ -63,6 +81,23 @@ nav {
   text-decoration: none;
   display: inline-block;
   font-size: 10px;
+}
+
+.btn-med {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+
+.organise {
+  position: absolute;
+  right: 3px;
+  top: 3px;
 }
 
 .dropdown {

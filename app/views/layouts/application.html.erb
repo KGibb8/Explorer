@@ -19,16 +19,21 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <div class="ui grid">
-      <br><br>
+      <br>
       <nav>
         <div class="ui inverted menu fixed">
           <% if user_signed_in?%>
             <%= link_to "Profile", user_profile_path(current_user), class: "item green" %>
-            <%= link_to "Expeditions", expeditions_path, class: "item green" %>
+            <%= link_to "Expeditions", root_path, class: "item green" %>
             <%= link_to "Friends", "#", id: "friendNav", class: "item green" %>
             <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item green" %>
             <p>Logged in as <%= current_user.username %></p>
+            <div class="organise">
+              <%= button_tag "Organise an Expedition", class: "btn-med green", id: "organiseExpedition" %>
+              <%= render 'expeditions/create' %>
+            </div>
           <% else %>
+            <%= link_to "Home", root_path, class: "item green" %>
             <%= link_to "Log In", new_user_session_path, class: "item green" %>
             <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, class: "item green" %>
           <% end %>

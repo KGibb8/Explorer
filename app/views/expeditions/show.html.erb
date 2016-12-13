@@ -92,18 +92,20 @@
     </div>
 
     <div class="box">
-      <h1><%= @expedition.name %></h1>
-      <% unless @expedition.complete? %>
-        <% if requestable %>
-          <% if current_user %>
-            <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { expedition_id: @expedition.id }, id: 'request', method: :post %>
-          <% else %>
-            <%= button_to "Request to Join", new_user_session_path %>
+      <div class="top-section" style="display: inline-block;">
+        <h1><%= @expedition.name %></h1>
+        <% unless @expedition.complete? %>
+          <% if requestable %>
+            <% if current_user %>
+              <%= button_to "Request to Join", expedition_requesting_path(@expedition), params: { expedition_id: @expedition.id }, id: 'request', class: "btn green", method: :post %>
+            <% else %>
+              <%= button_to "Request to Join", new_user_session_path, class: "btn green" %>
+            <% end %>
           <% end %>
+        <% else %>
+          <p>This expedition is complete</p>
         <% end %>
-      <% else %>
-        <p>This expedition is complete</p>
-      <% end %>
+      </div>
       <div class="content description notEditing">
         <p class="descriptionBody"><%= @expedition.description %></p>
         <% if organiser %>

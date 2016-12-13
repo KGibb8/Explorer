@@ -1,5 +1,26 @@
+@import "colours";
+
 .showExpedition {
   width: 100%;
+}
+
+.banner {
+  height: 110px; 
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+.mostRecent {
+  padding: 1em;
+}
+
+.front-page {
+  width: 20%;
+  display: inline-block;
+  margin: 1em;
+  div {
+    background-position: center;
+  }
 }
 
 header {
@@ -94,6 +115,25 @@ header {
   display: none;
 }
 
+.top-section {
+  position: relative;
+  width: 100%;
+  form {
+    top: 3px;
+    right: 5px;
+    position: absolute;
+  }
+}
+
+.title {
+  text-shadow: -2px 0 $border, 0 2px $border, 2px 0 $border, 0 -2px $border;
+  font-size: 30pt;
+  position: absolute;
+  bottom: 0px;
+  left: 30px;
+  color: white;
+  z-index: 95;
+}
 .checkedBlue {
   background-color: #3887be;
 }
