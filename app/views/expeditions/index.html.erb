@@ -32,24 +32,20 @@
     <% end %>
   </div>
 
-
-
 <% else %>
 
-  <div class="one wide column"></div>
+  <div class="four wide column">
 
-  <div class="fourteen wide column">
-    <div id="mostRecent">
-      <% @most_recent.each do |expedition| %>
-        <div class="sideExped">
-          <p><%= link_to "#{expedition.name}", expedition_path(expedition) %></p>
-          <p>Organised by <%= link_to "#{expedition.creator.username}", user_profile_path(expedition.creator) %></p>
-        </div>
-      <% end %>
-    </div>
   </div>
 
-  <div class="one wide column"></div>
+  <div class="twelve wide column">
+    <% @most_recent.each do |expedition| %>
+      <div class="four wide column">
+        <%= render :partial => 'expeditions/expedition', locals: { expedition: expedition } %>
+      </div>
+    <% end %>
+  </div>
+
 <% end %>
 
 <%= javascript_include_tag 'expeditions' %>

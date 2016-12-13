@@ -95,11 +95,11 @@ $(document).ready(function () {
   });
 
   $('#addStart').on('ajax:success', function (e, data) {
-    $('.location').children()[0].innerHTML = data.coordinate.location;
+    $('.location').children()[0].innerHTML = "<strong>Begins: </strong>" + data.coordinate.location;
   });
 
   $('#addEnd').on('ajax:success', function (e, data) {
-    console.log(data);
+    $('.location').children()[1].innerHTML = "<strong>Ends: </strong>" + data.coordinate.location;
   });
 
   $('#request').on('ajax:success', function (e, data) {

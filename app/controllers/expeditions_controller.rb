@@ -11,11 +11,6 @@ class ExpeditionsController < ApplicationController
       @expeditions = current_user.expeditions
     end
     @most_recent = Expedition.recent
-    # @most_popular = Expedition.find_by_sql(
-    #   "SELECT DISTINCT * FROM expeditions AS e
-    #     INNER JOIN journeys AS j ON j.expedition_id = e.id
-    #     ORDER BY COUNT(j.id) DESC;"
-    # )
   end
 
   def create
