@@ -1,4 +1,4 @@
-class AddBodyToMessage < ActiveRecord::Migration[5.0]
+jlass AddBodyToMessage < ActiveRecord::Migration[5.0]
   def change
     add_column :messages, :body, :text
   end

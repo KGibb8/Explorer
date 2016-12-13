@@ -26,6 +26,7 @@ class ExpeditionsController < ApplicationController
     @start_location = @expedition.start_location
     @end_location = @expedition.end_location
     @chats = @expedition.chats
+    @chat = Chat.new
   end
 
   def update
