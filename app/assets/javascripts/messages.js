@@ -1,5 +1,20 @@
 
 $(document).ready(function () {
+
+  $('.toggleChat').on('click', function (e) {
+    var id = this.id.substring(11, 99999);
+    var chats = $('.outerContainer');
+    var thisChat = $('#container_' + id);
+    if (thisChat.is(':visible')) {
+      // Do nought!
+    } else {
+      for (var i = 0 ; i < chats.length ; ++i) {
+        $(chats[i]).fadeOut().delay(1000);
+      }
+      thisChat.fadeIn();
+    }
+  })
+
   $('#submitNew').on("keydown", function (e) {
     if (e.which == 13) {
       $('#submitBtn').click();

@@ -1,12 +1,20 @@
 
 <div class="four wide column">
-  <ul class="messageboard box">
+  <div class="box">
+    <%= link_to "Return to #{@expedition.name}", expedition_path(@expedition), class: "btn-med green" %>
+  </div>
+</div>
+<div class="eight wide column"></div>
+<div class="four wide column"></div>
+
+<div class="four wide column">
+  <ul class="messageboard">
     <% @chats.each do |chat| %>
-      <li class="topic chat">
+      <li class="topic chat sidebar box toggleChat" id="toggleChat_<%= chat.id %>">
         <%= link_to "#{chat.topic}", expedition_chat_path(chat.expedition, chat) %> by <%= link_to "#{chat.creator.username}", user_profile_path(chat.creator) %><br>
         <strong>Last Message:</strong> <%= chat.messages.last.body.html_safe %> posted by <%= link_to "#{chat.messages.last.user.username}", user_profile_path(chat.messages.last.user) %>
-      </li>
-    <% end %>
+    </li>
+  <% end %>
   </ul>
 </div>
 
@@ -26,8 +34,7 @@
         <% end %>
       </div>
     </div>
-    </div>
   <% end %>
 </div>
 
-<%= javascript_include_tag 'messages' %>
+  <%= javascript_include_tag 'messages' %>
