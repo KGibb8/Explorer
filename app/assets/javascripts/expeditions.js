@@ -118,9 +118,11 @@ $(document).ready(function () {
     console.log(data);
   });
 
+  // %%TODO%% FIX MODAL CONFLICT
+
   $('#inviteFriends').on('click', function (e) {
     e.preventDefault();
-    $('.modal').modal('show');
+    $('#modal-1').modal('show');
   });
 
   $('.attending_pagination a').on("click", function (e){
