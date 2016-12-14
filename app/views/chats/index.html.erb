@@ -14,7 +14,7 @@
   <% @chats.each do |chat| %>
     <div class="outerContainer" id="container_<%= chat.id %>">
       <div class="box">
-        <%= form_for @message, remote: true do |f| %>
+        <%= form_for @message, html: { id: "submitNew" }, remote: true do |f| %>
           <%= f.text_area :body %><br>
           <%= f.submit "Reply", id: "submitSecret" %>
         <% end %>

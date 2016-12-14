@@ -6,13 +6,12 @@ App.message = App.cable.subscriptions.create("MessageChannel", {
 
   },
   received: function (data) {
-    debugger;
     if (data.action == "create") {
       $('#chat_' + data.chat_id).prepend(data.message);
     } else if (data.action == "update") {
       $('#message_' + data.message.id).children()[1].innerHTML = data.message.body;
     } else if (data.action == "destroy") {
-
+      $('#message_' + data.message_id).remove();
     };
   },
   create: function (message) {

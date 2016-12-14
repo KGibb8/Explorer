@@ -9,47 +9,10 @@
     <div class="messageForm" id="messageForm_<%= message.id %>">
       <%= form_for message, html: { class: "submitMessage", id: "submitMessage_#{message.id}" }, method: :patch do |f| %>
         <%= f.text_area :body %>
-        <%# <%= f.submit "Edit", class: "msgEditSecret btn-sml blue" %1> %>
       <% end %>
     </div>
     <%= button_tag "Edit Message", class: "msgEditSubmit btn-sml blue", id: "msgEditSubmit_#{message.id}" %>
+    <%= button_tag "Delete Message", class: "msgDeleteSubmit btn-sml red", id: "msgDeleteSubmit_#{message.id}" %>
   <% end %>
 </div>
 
-<script>
-$('.msgEditSubmit').on('click', function () {
-  var id = $(this).parent()[0].id.substring(8, 9999999);
-  var container = $('#message_' + id);
-  if (container.hasClass("notEditing")) {
-    container.addClass("editing").removeClass("notEditing");
-    $(this).fadeOut();
-  } else {
-    container.addClass("notEditing").removeClass("editing");
-  };
-});
-
-$('.submitMessage').on("keydown", function (e) {
-  if (e.which == 13) {
-    var id = this.id.substring(14, 999999);
-    var body = $(this).children()[3].value;
-    var chat_id = this.parentElement.parentElement.parentElement.id.substring(10, 999);
-    App.message.update({
-      message: {
-        id: id,
-        chat_id: chat_id,
-        body: body
-      }
-    });
-    $('#msgEditSubmit_' + id).fadeIn();
-    var container = $('#message_' + id);
-    container.addClass("notEditing").removeClass("editing");
-  };
-});
-
-
-
-<%#   var id = this.parentElement.id.substring(12, 999); %>
-<%#   var body = $(this).parent().children()[1].value; %>
-<%#   debugger; %>
-
-</script>
