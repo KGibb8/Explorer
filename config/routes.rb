@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     resource :profile, only: [:show, :update]
   end
 
+  resources :messages
+  get 'messages/subscribe' => 'messages#subscribe', as: :pubnub_subscribe
+
   resources :friendships, only: [:create], defaults: { format: :json }
   patch 'friendships/accept_friend' => 'friendships#accept_friend', as: :accept_friend
   patch 'friendships/reject_friend' => 'friendships#reject_friend', as: :reject_friend

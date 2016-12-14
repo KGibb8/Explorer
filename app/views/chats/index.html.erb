@@ -1,1 +1,32 @@
-All the chats
+
+<div class="four wide column">
+  <ul class="messageboard box">
+    <% @chats.each do |chat| %>
+      <li class="topic chat">
+        <%= link_to "#{chat.topic}", expedition_chat_path(chat.expedition, chat) %> by <%= link_to "#{chat.creator.username}", user_profile_path(chat.creator) %><br>
+        <strong>Last Message:</strong> <%= chat.messages.last.body.html_safe %> posted by <%= link_to "#{chat.messages.last.user.username}", user_profile_path(chat.messages.last.user) %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="twelve wide column">
+  <% @chats.each do |chat| %>
+    <div class="outerContainer" id="container_<%= chat.id %>">
+      <div class="box">
+        <%= form_for @message, remote: true do |f| %>
+          <%= f.text_area :body %><br>
+          <%= f.submit "Reply", class: "submitBtn" %>
+        <% end %>
+      </div>
+      <div class="innerContainer box" id="chat_<%= chat.id %>">
+        <% chat.messages.each do |message| %>
+          <%= render 'messages/message', message: message %>
+        <% end %>
+      </div>
+    </div>
+    </div>
+  <% end %>
+</div>
+
+<%= javascript_include_tag 'messages' %>

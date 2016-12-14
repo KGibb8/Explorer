@@ -98,7 +98,7 @@
   <% if current_user %>
     <% if involved %>
       <div class="box sidebar">
-        <h4>Message Board</h4>
+        <h4><%= link_to "Message Board", expedition_chats_path(@expedition) %></h4>
         <ul style="padding-left: 1.5em;">
           <% @chats.each do |chat| %>
             <li id="chat" class="chat_<%= chat.id %>">
