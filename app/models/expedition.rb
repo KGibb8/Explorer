@@ -14,6 +14,9 @@ class Expedition < ApplicationRecord
   has_many :requested_users, -> { where journeys: { :status => 'requested' } }, through: :journeys, source: :user
   has_many :attended_users, -> { where journeys: { :status => 'attended' } }, through: :journeys, source: :user
 
+  has_many :chats
+  has_many :messages, through: :chats
+
   # Convenience methods for development
   scope :invited, -> { joins(:journeys).where('journeys.status =?', 'invited') }
   scope :rejected, -> { joins(:journeys).where('journeys.status =?', 'rejected') }
@@ -67,6 +70,10 @@ class Expedition < ApplicationRecord
 
   def attending?(user)
     self.attending_users.include?(user)
+  end
+
+  def attended?(user)
+    self.attended_users.include?(user)
   end
 
   def creator?(user)

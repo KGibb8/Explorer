@@ -25,6 +25,8 @@ class ExpeditionsController < ApplicationController
     @attended_users = @expedition.attended_users.paginate(page: params[:attended_page], per_page: 9) if @expedition.complete?
     @start_location = @expedition.start_location
     @end_location = @expedition.end_location
+    @chats = @expedition.chats
+    @chat = Chat.new
   end
 
   def update

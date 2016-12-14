@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213121939) do
+ActiveRecord::Schema.define(version: 20161213162624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20161213121939) do
     t.string   "path"
     t.index ["subject_id"], name: "index_activities_on_subject_id", using: :btree
     t.index ["user_id"], name: "index_activities_on_user_id", using: :btree
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.integer  "expedition_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "topic"
+    t.integer  "creator_id"
+    t.index ["creator_id"], name: "index_chats_on_creator_id", using: :btree
+    t.index ["expedition_id"], name: "index_chats_on_expedition_id", using: :btree
   end
 
   create_table "coordinates", force: :cascade do |t|
@@ -74,6 +84,16 @@ ActiveRecord::Schema.define(version: 20161213121939) do
     t.index ["user_id"], name: "index_journeys_on_user_id", using: :btree
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer  "chat_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text     "body"
+    t.index ["chat_id"], name: "index_messages_on_chat_id", using: :btree
+    t.index ["user_id"], name: "index_messages_on_user_id", using: :btree
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -107,9 +127,12 @@ ActiveRecord::Schema.define(version: 20161213121939) do
   end
 
   add_foreign_key "activities", "users"
+  add_foreign_key "chats", "expeditions"
   add_foreign_key "coordinates", "expeditions"
   add_foreign_key "friendships", "users"
   add_foreign_key "journeys", "expeditions"
   add_foreign_key "journeys", "users"
+  add_foreign_key "messages", "chats"
+  add_foreign_key "messages", "users"
   add_foreign_key "profiles", "users"
 end

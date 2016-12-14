@@ -1,0 +1,29 @@
+
+#submitBtn {
+  display: none;
+}
+
+.msgEditSubmit {
+  float: right;
+}
+
+.msgEditSecret {
+  display: none;
+}
+
+.hiddenMsgForm {
+  display: none;
+}
+
+.notEditing .messageBody {
+  display: block;
+}
+.notEditing .messageForm {
+  display: none;
+}
+.editing .messageBody {
+  display: none;
+}
+.editing .messageForm {
+  display: block;
+}

@@ -1,0 +1,18 @@
+<div id="message_<%= message.id %>" class="message notEditing">
+  <div class="userInfo">
+    <%= render 'users/user', user: message.user %>
+  </div>
+  <div class="messageBody">
+    <%= message.body %>
+  </div>
+  <% if current_user == message.user %>
+    <div class="messageForm" id="messageForm_<%= message.id %>">
+      <%= form_for message, html: { class: "submitMessage", id: "submitMessage_#{message.id}" }, method: :patch do |f| %>
+        <%= f.text_area :body %>
+      <% end %>
+    </div>
+    <%= button_tag "Edit Message", class: "msgEditSubmit btn-sml blue", id: "msgEditSubmit_#{message.id}" %>
+    <%= button_tag "Delete Message", class: "msgDeleteSubmit btn-sml red", id: "msgDeleteSubmit_#{message.id}" %>
+  <% end %>
+</div>
+

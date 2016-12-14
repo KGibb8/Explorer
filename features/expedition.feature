@@ -16,7 +16,7 @@ Feature: Expedition
 
   Background:
     Given sample users have been created
-    Given sample expeditions have been created
+    And sample expeditions have been created
 
   Scenario: Visiting the root page as a lurker
     When I navigate to the "root" page
