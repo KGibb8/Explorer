@@ -19,7 +19,7 @@ $(document).ready(function () {
       });
   });
 
-  $('.msgDeleteSubmit').on('click', function () {
+  $('.outerContainer').on('click', '.msgDeleteSubmit',  function () {
     var id = this.id.substring(16, 999999);
     var chat_id = this.parentElement.parentElement.parentElement.id.substring(10, 999);
     App.message.destroy({
@@ -30,7 +30,7 @@ $(document).ready(function () {
     });
   });
 
-  $('.msgEditSubmit').on('click', function () {
+  $('.outerContainer').on('click', '.msgEditSubmit', function () {
     var id = $(this).parent()[0].id.substring(8, 9999999);
     var container = $('#message_' + id);
     if (container.hasClass("notEditing")) {
@@ -41,7 +41,7 @@ $(document).ready(function () {
     };
   });
 
-  $('.submitMessage').on("keydown", function (e) {
+  $('.outerContainer').on("keydown", '.submitMessage', function (e) {
     if (e.which == 13) {
       var id = this.id.substring(14, 999999);
       var body = $(this).children()[3].value;
