@@ -6,4 +6,9 @@ test:
 
 production:
   adapter: redis
-  url: redis://localhost:6379/1
+  url: redis://redistogo:46a04f14b379d0fce8a97d1b975b2042@crestfish.redistogo.com:11227/
+  host: crestfish.redistogo.com
+  port: 11227
+  password: 46a04f14b379d0fce8a97d1b975b2042
+  inline: true
+  timeout: 1

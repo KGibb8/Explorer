@@ -12,6 +12,10 @@ Rails.application.configure do
 
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Configure ActionCable for use with Redis on Heroku
+  config.web_socket_server_url = "wss://stillness-in-motion.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://stillness-in-motion.herokuapp.com', 'http://stillness-in-motion.herokuapp.com']
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
