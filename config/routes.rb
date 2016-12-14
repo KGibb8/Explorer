@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   resources :expeditions do
     resources :coordinates, only: [:update]
     post 'journeys/requesting' => 'journeys#requesting', as: :requesting
-    post 'journeys/approve' => 'journeys#approve', as: :request_approval
+    patch 'journeys/approve' => 'journeys#approve', as: :request_approval
+    patch 'journeys/deny' => 'journeys#deny', as: :request_denial
     post 'journeys/inviting' => 'journeys#inviting', as: :invite_friends
     patch 'journeys/accepting' => 'journeys#accepting', as: :accept_invite
   end

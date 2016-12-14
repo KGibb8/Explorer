@@ -21,7 +21,7 @@
     <div class="ui grid">
       <br>
       <nav>
-        <div class="ui inverted menu fixed">
+        <div class="ui inverted menu">
           <% if user_signed_in?%>
             <%= link_to "Profile", user_profile_path(current_user), class: "item green" %>
             <%= link_to "Expeditions", root_path, class: "item green" %>
@@ -39,7 +39,7 @@
           <% end %>
         </div>
       </nav>
-      <div class="dropdown notVisible">
+      <div class="dropdown notVisible top-menu">
         <% if current_user %>
           <div class="friendRequests">
             <h4>Pending Friend Requests</h4>
@@ -58,7 +58,7 @@
   <script>
 $('#friendNav').on("click", function (e) {
   e.preventDefault();
-  var dropdown = $('.dropdown');
+  var dropdown = $('.dropdown.top-menu');
   if (dropdown.hasClass("visible")) {
     dropdown.removeClass("visible");
     dropdown.addClass("notVisible");

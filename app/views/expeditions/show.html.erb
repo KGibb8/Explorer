@@ -12,6 +12,18 @@
           <%= f.submit "Add Header Image", id: "hiddenHeader" %>
         <% end %>
       </div>
+      <div class="ui inverted menu" id="adminMenu">
+        <a class="teal item">Invites</a>
+        <a class="teal item" id="adminMenuRequests">Requests</a>
+      </div>
+      <div class="dropdown notVisible admin-menu">
+        <div id="requests">
+          <%= render :partial => 'expeditions/request', :collection => @requested_users %>
+        </div>
+        <div id="requested_page_links">
+          <%= will_paginate @requested_users, :page_links => true, :param_name => :requested_page, :class => 'requested_pagination' %>
+        </div>
+      </div>
     <% end %>
   </div>
 </header>
@@ -151,14 +163,6 @@
 </div>
 
 <div class="sixteen wide column">
-  <% if organiser %>
-    <div id="requests">
-      <%= render :partial => 'expeditions/request', :collection => @requested_users %>
-    </div>
-    <div id="requested_page_links">
-      <%= will_paginate @requested_users, :page_links => true, :param_name => :requested_page, :class => 'requested_pagination' %>
-    </div>
-  <% end %>
 </div>
 
 

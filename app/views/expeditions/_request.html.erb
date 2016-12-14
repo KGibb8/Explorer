@@ -1,3 +1,8 @@
 <% user = request %>
-<%= render :partial => 'users/user', locals: { user: user } %>
-<%= button_to "Approve Request", expedition_request_approval_path(@expedition), params: { "expedition_id" => @expedition.id, journey: { user_id: user.id } }, method: :post %>
+<div class="request" id="request_<%= user.id %>">
+  <%= render :partial => 'users/user', locals: { user: user } %>
+  <div class="requestForm">
+    <%= button_to "Approve", expedition_request_approval_path(@expedition), params: { "expedition_id" => @expedition.id, journey: { user_id: user.id } }, method: :patch, class: "btn-sml green" %>
+    <%= button_to "Deny", expedition_request_denial_path(@expedition), params: { "expedition_id" => @expedition.id, journey: { user_id: user.id } }, method: :patch, class: "btn-sml red" %>
+  </div> 
+</div>

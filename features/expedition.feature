@@ -55,9 +55,16 @@ Feature: Expedition
     Given sample requests have been made
     Given I am logged in as "laotzu@dao.ch"
     When I navigate to the specific expedition page
-    And I click "Approve Request"
+    And I click "Approve"
     Then the page contains "Approved"
     And the page contains "green_tara"
+
+  Scenario: Denying a request as the creator
+    Given sample requests have been made
+    Given I am logged in as "laotzu@dao.ch"
+    When I navigate to the specific expedition page
+    And I click "Deny"
+    Then the page contains "Denied"
 
   Scenario: Inviting a friend
     Given sample friendships have been confirmed

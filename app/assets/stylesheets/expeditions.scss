@@ -25,7 +25,6 @@
 
 header {
   width: 100%;
-  text-align: center;
 }
 
 #headerPic {
@@ -46,10 +45,30 @@ header {
 }
 
 #headerBtn {
-  top: 5em;
+  top: 4em;
   right: 1em;
   z-index: 1;
   position: absolute;
+}
+
+#adminMenu {
+  margin-top: -4px;
+  width: 100%;
+}
+
+.admin-menu.dropdown {
+  position: absolute;
+  top: 473px;
+  border-bottom: 2px solid white;
+  border-bottom: 2px solid $border;
+}
+
+#requests {
+  display: inline-block;
+}
+
+.request {
+  text-align: center;
 }
 
 .mapbox {

@@ -33,6 +33,10 @@ body {
   padding-bottom: 50px;
 }
 
+.ui.menu {
+  border-radius: 0px !important;
+}
+
 footer {
   position: relative;
   border-top: $border;
@@ -142,9 +146,10 @@ nav {
   color: white;
   background-color: $black;
   width: 100%;
+  border-bottom: 2px solid white;
 }
 
-#friendRequests {
+.friendRequests {
   display: inline-block;
 }
 
@@ -185,7 +190,7 @@ nav {
 }
 
 .user {
-  width: 30%;
+  // width: 30%;
   height: 100%;
   margin: 0.25em;
   display: inline-block;

@@ -53,6 +53,29 @@ $(document).ready(function () {
     };
   });
 
+  var lastActive;
+  $('#adminMenu').on('click', '.item', function () {
+    if (this == lastActive) {
+      $(this).removeClass("active");
+      lastActive = null;
+    } else {
+      $(lastActive).removeClass("active");
+      $(this).addClass("active");
+      lastActive = this;
+    };
+  });
+
+  $('#adminMenuRequests').on("click", function (e) {
+    e.preventDefault();
+    var dropdown = $('.dropdown.admin-menu');
+    if (dropdown.hasClass("visible")) {
+      dropdown.removeClass("visible");
+      dropdown.addClass("notVisible");
+    } else {
+      dropdown.addClass("visible");
+      dropdown.removeClass("notVisible");
+    };
+  });
   // %%TODO%% Refactor below into a function to switch classes over
 
   $('#editDesc').on('click', function (e) {
