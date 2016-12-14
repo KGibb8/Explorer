@@ -16,8 +16,9 @@
       <div class="box">
         <%= form_for @message, remote: true do |f| %>
           <%= f.text_area :body %><br>
-          <%= f.submit "Reply", class: "submitBtn" %>
+          <%= f.submit "Reply", id: "submitSecret" %>
         <% end %>
+        <%= button_tag "Reply", id: "submitBtn" %>
       </div>
       <div class="innerContainer box" id="chat_<%= chat.id %>">
         <% chat.messages.each do |message| %>
@@ -29,4 +30,17 @@
   <% end %>
 </div>
 
+<script>
+$('#submitBtn').on("click", function () {
+  var form = $(this).prev()
+  var body = form.children()[1].value
+  var chat_id = this.parentElement.parentElement.id.substring(10, 999)
+    App.message.create({
+      message: {
+        chat_id: chat_id,
+        body: body
+      }
+    });
+});
+</script>
 <%= javascript_include_tag 'messages' %>
