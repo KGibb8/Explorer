@@ -4,15 +4,13 @@ class JourneysController < ApplicationController
   def approve
     if @expedition.creator? current_user
       @expedition.permit_attendance(journey_params[:user_id])
-      flash[:notice] = "Approved"
     end
     redirect_to expedition_path(@expedition)
   end
 
-  def reject
+  def deny
     if @expedition.creator? current_user
       @expedition.reject_attendance(journey_params[:user_id])
-      flash[:notice] = "Rejected"
     end
     redirect_to expedition_path(@expedition)
   end
