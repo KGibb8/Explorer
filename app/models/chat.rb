@@ -6,6 +6,7 @@ class Chat < ApplicationRecord
 
   accepts_nested_attributes_for :messages
 
+  validates :topic, presence: true
   validate :journey_status
 
   private
