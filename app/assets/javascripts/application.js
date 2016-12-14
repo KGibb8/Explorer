@@ -15,7 +15,5 @@
 //= require jquery.remotipart
 //= require turbolinks
 //= require semantic-ui
-//= require action_cable
 //= require cable
-//= require_tree ./channels
 
