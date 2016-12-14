@@ -4,8 +4,9 @@ RSpec.describe Coordinate do
 
   let(:shaka) { create(:shaka) }
 
-  let(:lat_lng_params) {
-    { name: "Climbing Kilimanjaro",
+  let(:lat_lng_expedition) { 
+    shaka.create_expedition(
+      name: "Climbing Kilimanjaro",
       description: Faker::Lorem.paragraph,
       start_time: Time.now + 90.days,
       end_time: Time.now + 92.days,
@@ -18,15 +19,13 @@ RSpec.describe Coordinate do
       },
       end_locations_attributes: {
         "0" => {
-          longitude: -3.067468,
           latitude: 37.355456,
+          longitude: -3.067468,
           end_location: true
         }
       }
-    }
+    )
   }
-
-  let(:lat_lng_expedition) { shaka.create_expedition(lat_lng_params) }
 
   context "creating an expedition" do
     it "builds a start coordinate with set latitude and longitude" do

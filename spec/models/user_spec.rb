@@ -40,20 +40,6 @@ RSpec.describe User do
           description: Faker::Lorem.paragraph,
           start_time: @time,
           end_time: @time + 92.days,
-          start_locations_attributes: {
-            "0" => {
-              longitude: 37.275805,
-              latitude: -3.054268,
-              start_location: true
-            }
-          },
-          end_locations_attributes: {
-            "0" => {
-              longitude: 37.355456,
-              latitude: -3.067468,
-              end_location: true
-            }
-          }
         }
         @expedition = shaka.create_expedition(expedition_params)
       end
@@ -86,29 +72,7 @@ RSpec.describe User do
       end
     end
 
-  let(:expedition_params) {
-    { name: "Climbing Kilimanjaro",
-      description: Faker::Lorem.paragraph,
-      start_time: Time.now + 90.days,
-      end_time: Time.now + 92.days,
-      start_locations_attributes: {
-        "0" => {
-          longitude: 37.275805,
-          latitude: -3.054268,
-          start_location: true
-        }
-      },
-      end_locations_attributes: {
-        "0" => {
-          longitude: 37.355456,
-          latitude: -3.067468,
-          end_location: true
-        }
-      }
-    }
-  }
-
-  let(:expedition) { shaka.create_expedition(expedition_params) }
+  let(:expedition) { create(:expedition) }
 
     context "inviting another user to join" do
       before do

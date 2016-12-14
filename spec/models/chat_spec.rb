@@ -7,32 +7,44 @@ RSpec.describe Chat do
   let(:buddha) { create(:buddha) }
   let(:tara) { create(:tara) }
 
-  let(:expedition_params) { 
-    { name: "Climbing Kilimanjaro",
-      description: Faker::Lorem.paragraph,
-      start_time: Time.now + 90.days,
-      end_time: Time.now + 92.days,
-      start_locations_attributes: {
-        "0" => {
-          longitude: 37.275805,
-          latitude: -3.054268,
-          start_location: true
-        }
-      },
-      end_locations_attributes: {
-        "0" => {
-          longitude: 37.355456,
-          latitude: -3.067468,
-          end_location: true
-        }
-      }
-    }
+  let(:expedition) { create(:expedition) }
+
+  let(:attending) {
+    expedition.request(buddha)
+    expedition.permit_attendance(buddha)
   }
 
-  let(:expedition) { shaka.create_expedition(expedition_params) }
+  context "starting a chat" do
+    context "with valid creation criteria" do
+      before do
+        attending
+        @chat = expedition.chats.create(topic: "Smashing pumpkins", creator: buddha)
+      end
 
-  it "" do
-    binding.pry
+      it "has a topic" do
+        expect(@chat).to be_valid
+      end
+    end
+
+    context "with invalid creation criteria" do
+      it "is invalid if the creator is not a part of the expedition" do
+        chat = expedition.chats.create(topic: "Smashing pumpkins", creator: buddha)
+        expect(chat).to_not be_valid
+      end
+
+      it "is invalid without a creator" do
+        attending
+        chat = expedition.chats.create(topic: "Smashing pumpkins")
+        expect(chat).to_not be_valid
+      end
+
+      it "is invalid with no topic" do
+        attending
+        chat = expedition.chats.create
+        expect(chat).to_not be_valid
+      end
+
+    end
   end
 
 end
