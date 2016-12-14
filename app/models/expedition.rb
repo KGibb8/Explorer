@@ -40,7 +40,7 @@ class Expedition < ApplicationRecord
   end
 
   def format_start_time
-    self.start_time.to_date.strftime('%b %e %Y, %H:%M:%S')
+    self.start_time.to_date.strftime('%b %e %Y, %H:%M')
   end
 
   def days

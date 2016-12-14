@@ -20,6 +20,10 @@ Then(/^the page contains "([^"]*)"$/) do |text|
   expect(page.body).to match(text)
 end
 
+Then(/^the page does not contain "([^"]*)"$/) do |text|
+  expect(page.body).to_not match(text)
+end
+
 When(/^I navigate to the "([^"]*)" page$/) do |path|
   visit get_named_route(path)
 end

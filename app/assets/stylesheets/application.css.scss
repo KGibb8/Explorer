@@ -18,9 +18,39 @@
 @import "semantic-ui/collections/menu";
 
 body {
+  height: 100%;
   background-color: $theme;
   margin: 0;
   padding: 0;
+}
+
+.grid {
+  min-height: 100%;
+}
+
+#content {
+  overflow: auto;
+  padding-bottom: 50px;
+}
+
+.ui.menu {
+  border-radius: 0px !important;
+}
+
+footer {
+  position: relative;
+  border-top: $border;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.7em;
+  padding-bottom: 0.5em;
+  height: 50px;
+  width: 100%;
+  clear: both;
+  background-color: $black;
+  img {
+    float: right;
+  }
 }
 
 nav {
@@ -31,6 +61,13 @@ nav {
   margin-left: 1em;
 }
 
+.center {
+  width: 30%;
+  position: fixed;
+  left: 15%;
+  top: 25%;
+}
+
 .box {
   margin-top: 1em;
   margin-bottom: 1em;
@@ -38,9 +75,27 @@ nav {
   padding-bottom: 1em;
   padding-left: 0.5em;
   padding-right: 0.5em;
-  border: 2px solid #70716E;
+  border: 2px solid $border;
   border-radius: 0.5em;
   background-color: white;
+}
+
+.banner {
+  overflow: hidden;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 400px;
+}
+
+#cycler div {
+  border-bottom: 2px solid $border;
+  position: absolute;
+  z-index: 1
+}
+#cycler div.active {
+  z-index: 3
 }
 
 .btn {
@@ -65,6 +120,23 @@ nav {
   font-size: 10px;
 }
 
+.btn-med {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 6px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+
+.organise {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+}
+
 .dropdown {
   padding: 1em;
   z-index: 99;
@@ -72,11 +144,12 @@ nav {
   top: 40px;
   left: 0px;
   color: white;
-  background-color: #1B1C1D;
+  background-color: $black;
   width: 100%;
+  border-bottom: 2px solid white;
 }
 
-#friendRequests {
+.friendRequests {
   display: inline-block;
 }
 
@@ -117,7 +190,7 @@ nav {
 }
 
 .user {
-  width: 30%;
+  // width: 30%;
   height: 100%;
   margin: 0.25em;
   display: inline-block;
@@ -133,3 +206,4 @@ nav {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+

@@ -36,7 +36,7 @@ Feature: Expedition
     And I fill in the "expedition[description]" field with "Gonna catch a big one"
     And I fill in the "expedition[start_time]" field with "2017-03-10 12:58:41 +0000"
     And I fill in the "expedition[end_time]" field with "2017-08-10 12:58:41 +0000"
-    And I click "Create Expedition"
+    And I click "Create"
     Then I am redirected to the specific expedition page
     And the page contains "Going on a Bear Hunt"
 
@@ -55,9 +55,15 @@ Feature: Expedition
     Given sample requests have been made
     Given I am logged in as "laotzu@dao.ch"
     When I navigate to the specific expedition page
-    And I click "Approve Request"
-    Then the page contains "Approved"
-    And the page contains "green_tara"
+    And I click "Approve"
+    Then the page contains "green_tara"
+
+  Scenario: Denying a request as the creator
+    Given sample requests have been made
+    Given I am logged in as "laotzu@dao.ch"
+    When I navigate to the specific expedition page
+    And I click "Deny"
+    Then the page does not contain "green_tara"
 
   Scenario: Inviting a friend
     Given sample friendships have been confirmed

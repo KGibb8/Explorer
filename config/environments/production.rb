@@ -1,4 +1,15 @@
 Rails.application.configure do
+
+  CarrierWave.configure do |config|
+    config.fog_directory = ENV.fetch('S3_BUCKET_NAME')
+    config.fog_credentials = {
+      provider:              'AWS',
+      aws_access_key_id:     ENV.fetch('AWS_ACCESS_KEY_ID'),
+      aws_secret_access_key: ENV.fetch('AWS_SECRET_KEY_ID'),
+      region:                ENV.fetch('S3_BUCKET_REGION')                  # optional, defaults to 'us-east-1'
+    }
+  end
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

@@ -1,6 +1,6 @@
 <%= link_to user_profile_path(user) do %>
   <div class="user" id="user_<%= user.id %>">
-    <div class="avatar thumb" style="background-image: url(<%= user.profile.avatar.thumb.url %>);"></div>
+    <div class="avatar thumb" style="margin: auto; background-image: url(<%= user.profile.avatar.thumb.url %>);"></div>
     <p ><%= user.username %></p>
   </div>
 <% end %>

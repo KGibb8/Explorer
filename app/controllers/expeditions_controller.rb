@@ -6,7 +6,7 @@ class ExpeditionsController < ApplicationController
 
   def index
     if current_user
-      @activities = current_user.related_activities
+      @activities = current_user.related_activities.paginate(page: params[:activities_page], per_page: 10)
       @expedition = Expedition.new
       @expeditions = current_user.expeditions
     end

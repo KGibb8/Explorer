@@ -97,7 +97,7 @@ class User < ApplicationRecord
   # --------------------------------------- Activity related ------------------------------------------ #
 
   def related_activities
-    (self.friends.map(&:activities).flatten + self.activities.to_a).sort_by(&:created_at)
+    (self.friends.map(&:activities).flatten + self.activities.to_a).sort_by(&:created_at).reverse
   end
 
   private

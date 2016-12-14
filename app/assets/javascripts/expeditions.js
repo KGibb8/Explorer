@@ -1,4 +1,16 @@
+function cycleImages () {
+  var active = $('#cycler .active');
+  var next = (active.next().length > 0) ? active.next() : $('#cycler div:first');
+  next.css('z-index', 2); //move the next image up the pile
+  active.fadeOut(1500, function () { //fade out the top image
+    active.css('z-index', 1).show().removeClass('active'); //reset the z-index and unhide the image
+    next.css('z-index', 3).addClass('active'); //make the next image the top one
+  });
+}
+
 $(document).ready(function () {
+
+  setInterval('cycleImages()', 5000);
 
   $('#headerBtn').on('click', function () {
     $('#headerFile').click();
@@ -41,6 +53,29 @@ $(document).ready(function () {
     };
   });
 
+  var lastActive;
+  $('#adminMenu').on('click', '.item', function () {
+    if (this == lastActive) {
+      $(this).removeClass("active");
+      lastActive = null;
+    } else {
+      $(lastActive).removeClass("active");
+      $(this).addClass("active");
+      lastActive = this;
+    };
+  });
+
+  $('#adminMenuRequests').on("click", function (e) {
+    e.preventDefault();
+    var dropdown = $('.dropdown.admin-menu');
+    if (dropdown.hasClass("visible")) {
+      dropdown.removeClass("visible");
+      dropdown.addClass("notVisible");
+    } else {
+      dropdown.addClass("visible");
+      dropdown.removeClass("notVisible");
+    };
+  });
   // %%TODO%% Refactor below into a function to switch classes over
 
   $('#editDesc').on('click', function (e) {
@@ -106,9 +141,11 @@ $(document).ready(function () {
     console.log(data);
   });
 
+  // %%TODO%% FIX MODAL CONFLICT
+
   $('#inviteFriends').on('click', function (e) {
     e.preventDefault();
-    $('.modal').modal('show');
+    $('#modal-1').modal('show');
   });
 
   $('.attending_pagination a').on("click", function (e){
