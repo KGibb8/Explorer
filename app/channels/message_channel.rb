@@ -15,13 +15,15 @@ class MessageChannel < ApplicationCable::Channel
   end
 
   def update(data)
-    message = current_user.messages.find(data["message"]["id"])
+    chat = Chat.find(data["message"]["chat_id"])
+    message = chat.messages.find(data["message"]["id"])
     message.update(body: data["message"]["body"])
     ActionCable.server.broadcast("messages_channel", action: "update", message: message, chat_id: data["message"]["chat_id"], id: message.id)
   end
 
   def destroy(data)
-    message = current_user.messages.find(data["message"]["id"])
+    chat = Chat.find(data["message"]["chat_id"])
+    message = chat.messages.find(data["message"]["id"])
     message_id = message.id
     message.destroy
     ActionCable.server.broadcast("messages_channel", action: "destroy", message_id: message_id, chat_id: data["message"]["chat_id"])

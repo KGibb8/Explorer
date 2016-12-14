@@ -9,9 +9,6 @@ Rails.application.routes.draw do
     resource :profile, only: [:show, :update]
   end
 
-  resources :messages
-  get 'messages/subscribe' => 'messages#subscribe', as: :pubnub_subscribe
-
   resources :friendships, only: [:create], defaults: { format: :json }
   patch 'friendships/accept_friend' => 'friendships#accept_friend', as: :accept_friend
   patch 'friendships/reject_friend' => 'friendships#reject_friend', as: :reject_friend
@@ -19,7 +16,7 @@ Rails.application.routes.draw do
   get 'expeditions/:id/markers' => 'expeditions#markers', as: :expedition_markers
   resources :expeditions do
     resources :coordinates, only: [:update]
-    resources :chats
+    resources :chats, only: [:index, :create]
     post 'journeys/requesting' => 'journeys#requesting', as: :requesting
     patch 'journeys/approve' => 'journeys#approve', as: :request_approval
     patch 'journeys/deny' => 'journeys#deny', as: :request_denial

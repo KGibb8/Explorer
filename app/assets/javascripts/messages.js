@@ -15,23 +15,24 @@ $(document).ready(function () {
     }
   })
 
-  $('#submitNew').on("keydown", function (e) {
+  $('.submitNew').on("keydown", function (e) {
     if (e.which == 13) {
-      $('#submitBtn').click();
+      var id = this.parentElement.parentElement.id.substring(10, 9999);
+      $('#submitBtn_' + id).click();
       $(this).children()[1].value = "";
     };
   });
 
-  $('#submitBtn').on("click", function () {
-    var form = $(this).prev()
-      var body = form.children()[1].value
-      var chat_id = this.parentElement.parentElement.id.substring(10, 999)
-      App.message.create({
-        message: {
-          chat_id: parseInt(chat_id),
-          body: body
-        }
-      });
+  $('.submitNewMessage').on("click", function () {
+    var form = $(this).prev();
+    var body = form.children()[1].value;
+    var chat_id = this.parentElement.parentElement.id.substring(10, 999);
+    App.message.create({
+      message: {
+        chat_id: parseInt(chat_id),
+        body: body
+      }
+    });
   });
 
   $('.outerContainer').on('click', '.msgDeleteSubmit',  function () {
@@ -60,7 +61,7 @@ $(document).ready(function () {
     if (e.which == 13) {
       var id = this.id.substring(14, 999999);
       var body = $(this).children()[3].value;
-      var chat_id = this.parentElement.parentElement.parentElement.id.substring(10, 999);
+      var chat_id = this.parentElement.parentElement.parentElement.id.substring(5, 9999);
       App.message.update({
         message: {
           id: id,

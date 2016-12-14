@@ -1,4 +1,3 @@
-
 <div class="four wide column">
   <div class="box">
     <%= link_to "Return to #{@expedition.name}", expedition_path(@expedition), class: "btn-med green" %>
@@ -11,7 +10,7 @@
   <ul class="messageboard">
     <% @chats.each do |chat| %>
       <li class="topic chat sidebar box toggleChat" id="toggleChat_<%= chat.id %>">
-        <%= link_to "#{chat.topic}", expedition_chat_path(chat.expedition, chat) %> by <%= link_to "#{chat.creator.username}", user_profile_path(chat.creator) %><br>
+        <strong><%= chat.topic %></strong> by <%= link_to "#{chat.creator.username}", user_profile_path(chat.creator) %><br>
         <strong>Last Message:</strong> <%= chat.messages.last.body.html_safe %> posted by <%= link_to "#{chat.messages.last.user.username}", user_profile_path(chat.messages.last.user) %>
     </li>
   <% end %>
@@ -22,11 +21,10 @@
   <% @chats.each do |chat| %>
     <div class="outerContainer" id="container_<%= chat.id %>">
       <div class="box">
-        <%= form_for @message, html: { id: "submitNew" }, remote: true do |f| %>
+        <%= form_for @message, html: { class: "submitNew" }, remote: true do |f| %>
           <%= f.text_area :body %><br>
-          <%= f.submit "Reply", id: "submitSecret" %>
         <% end %>
-        <%= button_tag "Reply", id: "submitBtn" %>
+        <%= button_tag "Reply", class: "submitNewMessage", id: "submitBtn_#{chat.id}" %>
       </div>
       <div class="innerContainer box" id="chat_<%= chat.id %>">
         <% chat.messages.reverse_each do |message| %>
@@ -37,4 +35,4 @@
   <% end %>
 </div>
 
-  <%= javascript_include_tag 'messages' %>
+<%= javascript_include_tag 'messages' %>

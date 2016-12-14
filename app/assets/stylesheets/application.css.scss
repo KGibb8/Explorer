@@ -92,6 +92,7 @@ nav {
 #cycler div {
   border-bottom: 2px solid $border;
   position: absolute;
+  top: 0px;
   z-index: 1
 }
 #cycler div.active {

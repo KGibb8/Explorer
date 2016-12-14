@@ -5,7 +5,7 @@
   <div class="messageBody">
     <%= message.body %>
   </div>
-  <% if current_user == message.user %>
+  <% if current_user == message.user || current_user == @expedition.creator %>
     <div class="messageForm" id="messageForm_<%= message.id %>">
       <%= form_for message, html: { class: "submitMessage", id: "submitMessage_#{message.id}" }, method: :patch do |f| %>
         <%= f.text_area :body %>

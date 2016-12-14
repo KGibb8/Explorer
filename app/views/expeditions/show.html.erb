@@ -102,7 +102,7 @@
         <ul style="padding-left: 1.5em;">
           <% @chats.each do |chat| %>
             <li id="chat" class="chat_<%= chat.id %>">
-              <%= link_to "#{chat.topic}", expedition_chat_path(@expedition, chat) %> by <%= chat.creator.username %>
+              <%= chat.topic.html_safe %> by <%= link_to "#{chat.creator.username}", user_profile_path(chat.creator) %>
             </li>
           <% end %>
         </ul>
