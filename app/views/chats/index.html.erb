@@ -1,9 +1,15 @@
 
-<div class="eight wide column">
+<div class="sixteen wide column">
+  <div class="header">
+    <%= image_tag(@expedition.header.header.url, id: "headerPic", style: "margin-top: -1em;") if @expedition.header %>
+  </div>
+</div>
+
+<div class="ten wide column">
   <h1 class="bordered sidebar" id="boardName"><%= @expedition.name %> Message Board</h1>
 </div>
 
-<div class="four wide column"></div>
+<div class="two wide column"></div>
 
 <div class="four wide column">
   <div>
@@ -23,6 +29,9 @@
       <% end %>
       <%= f.submit "Chat" %>
     <% end %>
+  </div>
+  <div class="bordered sidebar">
+    <p>Click on a chatroom below</p>
   </div>
   <ul class="messageboard sidebar" style="padding: 0;">
     <% @chats.each do |chat| %>
