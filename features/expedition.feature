@@ -22,11 +22,6 @@ Feature: Expedition
     When I navigate to the "root" page
     Then the page contains a selection of the most recent expeditions
 
-  Scenario: Visiting the root page as a user
-    Given I am logged in as "green_tara@enlightened.being"
-    When I navigate to the "root" page
-    Then the page contains the activities of the users I follow
-
   @poltergeist
   Scenario: Creating an expedition
     Given I am logged in as "green_tara@enlightened.being"

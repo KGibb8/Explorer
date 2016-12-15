@@ -16,6 +16,12 @@ require 'capybara/cucumber'
 require 'rack_session_access/capybara'
 
 
+Capybara.register_server :puma do |app, port, host|
+  require 'puma'
+  Puma::Server.new(app).tap do |s|
+    s.add_tcp_listener host, port
+  end.run.join
+end
 
 # Include FactoryGirl
 World(FactoryGirl::Syntax::Methods)

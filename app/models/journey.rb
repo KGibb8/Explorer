@@ -4,7 +4,7 @@ class Journey < ApplicationRecord
   has_many :activities, as: :subject
 
   before_create :set_status
-  after_create :create_activity
+  after_save :create_activity
 
   def inflection
     case self.status
@@ -16,6 +16,8 @@ class Journey < ApplicationRecord
       "#{self.status}"
     when "rejected"
       "was #{self.status} from"
+    when "requested"
+      "#{self.status} to join"
     else ""
     end
   end

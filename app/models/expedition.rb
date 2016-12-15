@@ -29,6 +29,8 @@ class Expedition < ApplicationRecord
 
   validates_presence_of :start_time, :end_time, :name, :description
 
+  validate :correct_timeframe
+
   mount_uploader :header, HeaderUploader
 
   def start_location
@@ -107,6 +109,14 @@ class Expedition < ApplicationRecord
     end
     self.complete = true
     self.save
+  end
+
+  private
+
+  def correct_timeframe
+    if self.start_time > self.end_time
+      self.errors.add(:invalid_timeframe, "start time must preceed end time")
+    end
   end
 
 end

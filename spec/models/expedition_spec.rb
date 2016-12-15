@@ -32,6 +32,22 @@ RSpec.describe Expedition do
   end
 
   context "creating an Expedition" do
+
+    context "with invalid criteria" do
+      before do
+        @invalid_times = shaka.create_expedition(
+          name: "climbing kilimanjaro",
+          description: Faker::Lorem.paragraph,
+          start_time: Time.now + 92.days,
+          end_time: Time.now + 90.days,
+         )
+      end
+
+      it "is invalid if start time exceeds end time" do
+        expect(@invalid_times).to_not be_valid
+      end
+
+    end
     context "as the creator" do
       it "has attending users" do
         expect(expedition.attending_users).to include shaka

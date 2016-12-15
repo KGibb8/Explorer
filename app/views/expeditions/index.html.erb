@@ -13,7 +13,7 @@
   </div>
 
   <div class="eight wide column">
-    <h2>Timeline</h2>
+    <h2 class="sidebar">Timeline</h2>
     <% @activities.each do |activity| %>
       <div class="bordered">
         <p>
@@ -25,11 +25,11 @@
       </p>
       </div>
     <% end %>
-    <%= will_paginate @activities, :page_links => true, :param_name => :activities_page, :class => 'activites_pagination' %>
+    <%= will_paginate @activities, :page_links => false, :param_name => :activities_page, :class => 'activites_pagination' %>
   </div>
 
   <div class="four wide column">
-    <h2>My Expeditions</h2>
+    <h2 class="sidebar">My Expeditions</h2>
     <div id="myExpeds">
       <% @created.each do |expedition| %>
         <div class="bordered rightbar">
