@@ -76,6 +76,7 @@ $(document).ready(function () {
       dropdown.removeClass("notVisible");
     };
   });
+
   // %%TODO%% Refactor below into a function to switch classes over
 
   $('#editDesc').on('click', function (e) {

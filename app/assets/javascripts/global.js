@@ -1,24 +1,4 @@
-function setActiveNav () {
-  var path = window.location.pathname;
-  var nav = ["users", "expeditions", "friends"];
-  nav.forEach(function (btn) { 
-    if (path.match(btn)) {
-      $("#" + btn + "Nav").addClass("active");
-    } else if (path == "/" || path == undefined) {
-      $("#expeditionsNav").addClass("active")
-    };
-  });
-}
-window.onload = function () {
-  setActiveNav();
-};
-
-$(document).ready(function () {
-
-  $('body').on("click", "#organiseExpedition", function () {
-    $('.fullscreen.modal').modal('toggle');
-  });
-
+addEventListener("load", function () {
   $('#friendNav').on("click", function (e) {
     e.preventDefault();
     var dropdown = $('.dropdown.top-menu');
@@ -29,6 +9,14 @@ $(document).ready(function () {
       dropdown.addClass("visible");
       dropdown.removeClass("notVisible");
     };
+    return false;
+  });
+});
+
+$(document).ready(function () {
+
+  $('body').on("click", "#organiseExpedition", function () {
+    $('.fullscreen.modal').modal('toggle');
   });
 
   $($('#acceptFriend').parent()[0]).on('ajax:success', function (e, data) {

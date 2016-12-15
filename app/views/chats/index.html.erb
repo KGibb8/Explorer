@@ -27,22 +27,26 @@
       <%= f.fields_for :messages, @chat.messages.build do |b| %>
         <%= b.text_area :body %>
       <% end %>
-      <%= f.submit "Chat" %>
+      <%= f.submit "Chat", class: "btn-med blue" %>
     <% end %>
   </div>
   <div class="bordered sidebar">
     <p>Click on a chatroom below</p>
   </div>
   <ul class="messageboard sidebar" style="padding: 0;">
-    <% @chats.each do |chat| %>
-      <li class="bordered toggleChat" id="toggleChat_<%= chat.id %>">
-        <ul style="padding: 0;list-style-type: none">
-          <li><strong><%= chat.topic %></strong> by <%= link_to "#{chat.creator.username}", user_profile_path(chat.creator) %></li><br>
-          <% unless chat.messages.empty? %>
-            <li><strong>Last Message:</strong> "<%= chat.messages.last.body.html_safe %>" posted by <%= link_to "#{chat.messages.last.user.username}", user_profile_path(chat.messages.last.user) %></li>
-          <% end %>
-        </ul>
-      </li>
+    <% unless @chats.empty? %>
+      <% @chats.each do |chat| %>
+        <li class="bordered toggleChat" id="toggleChat_<%= chat.id %>">
+          <ul style="padding: 0;list-style-type: none">
+            <li><strong><%= chat.topic %></strong> by <%= link_to "#{chat.creator.username}", user_profile_path(chat.creator) %></li><br>
+            <% unless chat.messages.empty? %>
+              <li><strong>Last Message:</strong> "<%= chat.messages.last.body.html_safe %>" posted by <%= link_to "#{chat.messages.last.user.username}", user_profile_path(chat.messages.last.user) %></li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    <% else %>
+      <p class="bordered">There are currently no chatrooms</p>
     <% end %>
   </ul>
 </div>
