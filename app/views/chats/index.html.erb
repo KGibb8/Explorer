@@ -47,20 +47,24 @@
 
 <div class="twelve wide column">
   <div class="chatBox">
-    <% @chats.each do |chat| %>
-      <div class="outerContainer" id="container_<%= chat.id %>">
-        <div>
-          <%= form_for @message, html: { class: "submitNew bordered" }, remote: true do |f| %>
-            <%= f.text_area :body %><br>
-          <% end %>
-          <%= button_tag "Reply", class: "submitNewMessage btn green", id: "submitBtn_#{chat.id}" %>
+    <% unless @chats.empty? %>
+      <% @chats.each do |chat| %>
+        <div class="outerContainer" id="container_<%= chat.id %>">
+          <div>
+            <%= form_for @message, html: { class: "submitNew bordered" }, remote: true do |f| %>
+              <%= f.text_area :body %><br>
+            <% end %>
+            <%= button_tag "Reply", class: "submitNewMessage btn green", id: "submitBtn_#{chat.id}" %>
+          </div>
+          <div class="innerContainer" id="chat_<%= chat.id %>">
+            <% unless chat.messages.empty? %>
+              <% chat.messages.reverse_each do |message| %>
+                <%= render 'messages/message', message: message %>
+              <% end %>
+            <% end %>
+          </div>
         </div>
-        <div class="innerContainer" id="chat_<%= chat.id %>">
-          <% chat.messages.reverse_each do |message| %>
-            <%= render 'messages/message', message: message %>
-          <% end %>
-        </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>
