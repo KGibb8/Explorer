@@ -1,6 +1,48 @@
 $(document).ready(function () {
 
-  $('#profilePicture').click(function () {
+  $('#bioEdit').click(function () {
+    var bio = $(this).parent();
+    if (bio.hasClass("notEditing")) {
+      bio.addClass("editing").removeClass("notEditing");
+      $(this).fadeOut();
+    } else {
+      bio.addClass("notEditing").removeClass("editing");
+    };
+  });
+
+  $('#submitBiography').on("keydown", function (e) {
+    if (e.which == 13) {
+      $('#bioSubmit').click();
+      $('#bioEdit').fadeIn();
+      var description = $(this).parent().parent();
+      description.addClass("notEditing").removeClass("editing");
+    };
+  }).on('ajax:success', function (e, data) {
+    $('.bioBody').html(data.biography);
+  });
+
+  $('#nameEdit').click(function () {
+    var name = $(this).parent();
+    if (name.hasClass("notEditing")) {
+      name.addClass("editing").removeClass("notEditing");
+      $(this).fadeOut();
+    } else {
+      name.addClass("notEditing").removeClass("editing");
+    }
+  });
+
+  $('#submitNames').on("keydown", function (e) {
+    if (e.which == 13) {
+      $('#nameSubmit').click();
+      $('#nameEdit').fadeIn();
+      var description = $(this).parent().parent();
+      description.addClass("notEditing").removeClass("editing");
+    };
+  }).on('ajax:success', function (e, data) {
+    $('.nameBody').html(data.first_name + ' ' + data.last_name)
+  });
+
+  $('#avatar').click(function () {
     $('#avatarFile').click();
   });
 

@@ -1,7 +1,20 @@
 
 .outerContainer {
   display: none;
+  textarea {
+    width: 90%;
+    height: 100px;
+    opacity: 0.5;
+
+  }
 }
+
+.innerContainer {
+  max-height: 600px;
+  overflow-y:auto;
+}
+
+
 #submitBtn {
   display: none;
 }

@@ -2,7 +2,7 @@
   <i class="close icon"></i>
   <div class="header">Organise an Expedition</div>
   <div class="content">
-    <%= form_for @expedition, html: { id: "createExpedition" } do |f| %>
+    <%= form_for @new_expedition, html: { id: "createExpedition" } do |f| %>
       <div class="ui form">
 
         <h4 class="ui dividing header"><%= f.label "Name" %></h4>
@@ -11,13 +11,13 @@
         <h4 class="ui dividing header"><%= f.label "Description" %></h4>
         <div class="field"><%= f.text_area :description %></div>
 
-        <%= f.fields_for :start_locations, @expedition.start_locations.build do |b| %>
+        <%= f.fields_for :start_locations, @new_expedition.start_locations.build do |b| %>
           <h4 class="ui dividing header"><%= b.label "Enter a starting location" %></h4>
           <div class="field"><%= b.text_field :location %></div>
           <%= b.hidden_field :start_location, value: true %>
         <% end %>
 
-        <%= f.fields_for :end_locations, @expedition.start_locations.build do |b| %>
+        <%= f.fields_for :end_locations, @new_expedition.start_locations.build do |b| %>
           <h4 class="ui dividing header"><%= b.label "Enter an ending location" %></h4>
           <div class="field"><%= b.text_field :location %></div>
           <%= b.hidden_field :end_location, value: true %>

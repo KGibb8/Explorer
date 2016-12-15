@@ -1,6 +1,10 @@
 
 $(document).ready(function () {
 
+  $('#organiseExpedition').on("click", function () {
+    $('.fullscreen.modal').modal('toggle');
+  });
+
   var lastActive;
   var url = window.location.href;
   // $('#adminMenu').on('click', '.item', function () {

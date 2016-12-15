@@ -9,6 +9,7 @@ class ExpeditionsController < ApplicationController
       @activities = current_user.related_activities.paginate(page: params[:activities_page], per_page: 10)
       @expedition = Expedition.new
       @expeditions = current_user.expeditions
+      @created = current_user.created_expeditions
     end
     @most_recent = Expedition.recent
   end

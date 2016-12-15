@@ -1,12 +1,17 @@
-<%= link_to expedition_path(expedition) do %>
-  <div id="banner" style="height: 110px; background-image: url(<%= expedition.header.banner %>); overflow: hidden; background-repeat: no-repeat;"></div>
-  <h4><%= expedition.name %></h4>
-<% end %>
-<div id="expedLeft">
-  <p><strong>Location: </strong> <%= expedition.start_location.location %></p>
-  <p><strong>Organiser:</strong> <%= link_to "#{expedition.creator.username}", user_profile_path(expedition.creator) %></p>
-</div>
-<div id="expedRight">
-  <p><strong>Duration:</strong> <%= expedition.days == 1 ? "#{expedition.days} day" : "#{expedition.days} days"%></p>
-  <p><%= expedition.format_start_time %></p>
+<div class="expedition">
+  <%= link_to expedition_path(expedition) do %>
+    <%# <div id="banner" style="background-image: url(<%= expedition.header.banner %1>); background-repeat: no-repeat;"></div> %>
+    <div id="banner">
+      <img src="<%= expedition.header.banner %>" alt="">
+    </div>
+    <h4><%= expedition.name %></h4>
+  <% end %>
+  <div id="expedLeft">
+    <p><strong>Location: </strong> <%= expedition.start_location.location %></p>
+    <p><strong>Organiser:</strong> <%= link_to "#{expedition.creator.username}", user_profile_path(expedition.creator) %></p>
+  </div>
+  <div id="expedRight">
+    <p><strong>Duration:</strong> <%= expedition.days == 1 ? "#{expedition.days} day" : "#{expedition.days} days"%></p>
+    <p><strong>Date:</strong> <%= expedition.format_start_time %></p>
+  </div>
 </div>

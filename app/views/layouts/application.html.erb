@@ -20,6 +20,7 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <div class="ui grid">
+      <div class="sixteen wide column nav">
       <nav>
         <div class="ui inverted menu">
           <% if user_signed_in?%>
@@ -46,6 +47,7 @@
             <%= render :partial => 'friendships/request', :collection => @friend_requests %>
           </div>
         <% end %>
+      </div>
       </div>
       <%= yield %>
     </div>

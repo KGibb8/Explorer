@@ -1,9 +1,9 @@
 <div class="four wide column">
-  <div class="box">
-    <%= link_to "Return to #{@expedition.name}", expedition_path(@expedition), class: "btn-med green" %>
-  </div>
+  <%= link_to "Return to #{@expedition.name}", expedition_path(@expedition), class: "btn-med green" %>
 </div>
+
 <div class="eight wide column"></div>
+
 <div class="four wide column"></div>
 
 <div class="four wide column">
@@ -18,21 +18,23 @@
 </div>
 
 <div class="twelve wide column">
-  <% @chats.each do |chat| %>
-    <div class="outerContainer" id="container_<%= chat.id %>">
-      <div class="box">
-        <%= form_for @message, html: { class: "submitNew" }, remote: true do |f| %>
-          <%= f.text_area :body %><br>
-        <% end %>
-        <%= button_tag "Reply", class: "submitNewMessage", id: "submitBtn_#{chat.id}" %>
+  <div class="chatBox">
+    <% @chats.each do |chat| %>
+      <div class="outerContainer" id="container_<%= chat.id %>">
+        <div class="box">
+          <%= form_for @message, html: { class: "submitNew" }, remote: true do |f| %>
+            <%= f.text_area :body %><br>
+          <% end %>
+          <%= button_tag "Reply", class: "submitNewMessage", id: "submitBtn_#{chat.id}" %>
+        </div>
+        <div class="innerContainer box" id="chat_<%= chat.id %>">
+          <% chat.messages.reverse_each do |message| %>
+            <%= render 'messages/message', message: message %>
+          <% end %>
+        </div>
       </div>
-      <div class="innerContainer box" id="chat_<%= chat.id %>">
-        <% chat.messages.reverse_each do |message| %>
-          <%= render 'messages/message', message: message %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
 
 <%= javascript_include_tag 'messages' %>

@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def new_expedition
-    @expedition = Expedition.new
+    @new_expedition = Expedition.new
   end
 
   def friend_requests

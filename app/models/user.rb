@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :journeys, dependent: :destroy
   has_many :expeditions, through: :journeys
+  has_many :created_expeditions, class_name: 'Expedition', foreign_key: :creator_id, inverse_of: :creator
   has_many :invited_expeditions, -> { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :expedition
   has_many :rejected_expeditions, -> { where journeys: { :status => 'rejected'  }  }, through: :journeys, source: :expedition
   has_many :attending_expeditions, -> { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :expedition

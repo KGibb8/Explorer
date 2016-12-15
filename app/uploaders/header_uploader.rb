@@ -11,7 +11,7 @@ class HeaderUploader < CarrierWave::Uploader::Base
   end
 
   version :banner do
-    process :resize_to_fill => [366, 110]
+    process :resize_to_fill => [460, 130]
   end
 
   version :header do

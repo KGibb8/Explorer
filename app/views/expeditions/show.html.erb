@@ -40,14 +40,14 @@
 </header>
 
 <div class="four wide column">
-  <div class="box sidebar">
+  <div class="bordered sidebar">
     <h4>Organiser</h4>
     <div id="organiser">
       <%= render :partial => 'users/user', locals: { user: @expedition.creator } %>
     </div>
   </div>
   <% unless @expedition.complete? %>
-    <div class="box sidebar">
+    <div class="bordered sidebar">
       <h4>Attending</h4>
       <div id="attending">
         <% unless @attending_users.empty? %>
@@ -60,7 +60,7 @@
         <%= will_paginate @attending_users, :page_links => true, :param_name => :attending_page, :class => 'attending_pagination' %>
       </div>
     </div>
-    <div class="box sidebar">
+    <div class="bordered sidebar">
       <h4>Invited</h4>
       <div id="invited">
         <% unless @invited_users.empty? %>
@@ -75,7 +75,7 @@
     </div>
     <% if current_user %>
       <% if involved %>
-        <div class="box sidebar">
+        <div class="bordered sidebar">
           <div id="inviteAction">
             <%= link_to "Invite Friends", "#", id: "inviteFriends" %>
             <%= render 'expeditions/invites' %>
@@ -84,7 +84,7 @@
       <% end %>
     <% end %>
   <% else %>
-    <div class="box sidebar">
+    <div class="bordered sidebar">
       <h4>Attended</h4>
       <div id="invited">
         <%= render :partial => 'users/user', :collection => @attended_users %>
@@ -97,7 +97,7 @@
 
   <% if current_user %>
     <% if involved %>
-      <div class="box sidebar">
+      <div class="bordered sidebar">
         <h4><%= link_to "Message Board", expedition_chats_path(@expedition) %></h4>
         <ul style="padding-left: 1.5em;">
           <% @chats.each do |chat| %>
@@ -107,7 +107,7 @@
           <% end %>
         </ul>
       </div>
-      <div class="box sidebar">
+      <div class="bordered sidebar">
         <h3>Post to the Board</h3>
         <%= form_for [@expedition, @chat], method: :post do |f| %>
           <p>Enter a topic:</p>
@@ -126,7 +126,7 @@
 
 <div class="twelve wide column">
   <article class="main">
-    <div class="mapbox">
+    <div class="mapbordered">
       <div id='map'></div>
       <% if organiser %>
         <%= form_for [@expedition, @start_location], html: { id: "addStart", class: "mapBtn" }, method: :patch, remote: true do |f| %>
@@ -142,7 +142,7 @@
       <% end %>
     </div>
 
-    <div class="box">
+    <div class="bordered">
       <div class="top-section" style="display: inline-block;">
         <h1><%= @expedition.name %></h1>
         <% unless @expedition.complete? %>

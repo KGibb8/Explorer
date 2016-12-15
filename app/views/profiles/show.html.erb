@@ -1,69 +1,71 @@
 
 <div class="four wide column">
   <aside class="sidebar">
-    <div class="box">
+    <div class="profile">
       <div id="picture">
-        <div id="profilePicture" class="avatar profile" style="background-image: url(<%= @profile.avatar.profile %>);"></div>
+        <div id="avatar" class="avatar profile bordered" style="background-image: url(<%= @profile.avatar.profile %>);"></div>
         <% if my_profile %>
           <%= render 'profiles/avatar' %>
         <% end %>
       </div>
-      <% if current_user %>
+    </div>
+    <% if current_user %>
+      <div class="button">
         <% unless my_profile || friends? %>
           <%= button_to "Add Friend", friendships_path(@profile.user), params: { friendship: { friend_id: @profile.user } }, remote: true, id: "requestFriend", class: "btn green" %>
         <% end %>
-      <% end %>
-    </div>
-    <div class="box">
-      <div id="details">
-        <div id="name">
-          <h2><%= @profile.full_name == " " ? @profile.user.username : @profile.full_name %></h2>
-          <% if my_profile %>
-            <%= render 'profiles/names' %>
-          <% end %>
-        </div>
-
-        <div id="biography">
-          <p><%= @profile.biography %></p>
-          <% if my_profile %>
-            <%= render 'profiles/biography' %>
-          <% end %>
-        </div>
+      </div>
+    <% end %>
+    <div class="details bordered">
+      <div class="name notEditing">
+        <h1 class="nameBody"><%= @profile.full_name == " " ? "@#{@profile.user.username}" : @profile.full_name %></h1>
+        <% if my_profile %>
+          <%= render 'profiles/names' %>
+        <% end %>
+      </div>
+      <div class="biography notEditing">
+        <p><strong>About me:</strong></p>
+        <p class="bioBody"><%= @profile.biography == "" ? "This person hasn't entered any details" : @profile.biography %></p>
+        <% if my_profile %>
+          <%= render 'profiles/biography' %>
+        <% end %>
       </div>
     </div>
-    <div class="box">
-      <div id="friends">
-        <h3>Friends</h3>
-        <%= render :partial => 'users/user', :collection => @friends %>
-      </div>
-      <div id="friend_page_links">
-        <%= will_paginate @friends, :page_links => true, :param_name => :friends_page, :class => 'friends_pagination' %>
-      </div>
+    <div class="friends bordered">
+      <h3>Friends</h3>
+      <%= render :partial => 'users/user', :collection => @friends %>
+    </div>
+    <div id="friend_page_links">
+      <%= will_paginate @friends, :page_links => true, :param_name => :friends_page, :class => 'friends_pagination' %>
     </div>
   </aside>
 </div>
 
 <div class="six wide column">
-  <div class="box">
-    <h2>Future Expeditions</h2>
+    <h2 class="expedTitle">Future Expeditions</h2>
     <div id="futureExpeditions">
-      <%= render :partial => 'expeditions/expedition', :collection => @future_expeditions %>
+      <% @future_expeditions.each do |expedition| %>
+        <div class="bordered">
+          <%= render :partial => 'expeditions/expedition', locals: {expedition: expedition} %>
+        </div>
+      <% end %>
     </div>
     <div id="future_exped_page_links">
       <%= will_paginate @future_expeditions, :page_links => true, :param_name => :future_expeds_page, :class => 'future_expeditions_pagination' %>
     </div>
-  </div>
 </div>
 <div class="six wide column">
-  <div class="box">
-    <h2>Past Expeditions</h2>
+    <h2 class="expedTitle">Past Expeditions</h2>
     <div id="pastExpeditions">
-      <%= render :partial => 'expeditions/expedition', :collection => @past_expeditions %>
+      <% @past_expeditions.each do |expedition| %>
+        <div class="bordered">
+          <%= render :partial => 'expeditions/expedition', locals: {expedition: expedition} %>
+        </div>
+      <% end %>
     </div>
     <div id="past_exped_page_links">
       <%= will_paginate @past_expeditions, :page_links => true, :param_name => :past_expeds_page, :class => 'past_expeditions_pagination' %>
     </div>
-  </div>
 </div>
 
 <script>

@@ -1,4 +1,7 @@
-<%= form_for [current_user, @profile], html: { id: 'submitBiography' }, remote: true do |f| %>
-  <%= f.text_area :biography, rows: 10 %><br>
-  <%= f.submit %>
-<% end %>
+<div class="bioForm">
+  <%= form_for [current_user, @profile], html: { id: 'submitBiography' }, remote: true do |f| %>
+    <%= f.text_area :biography, rows: 10 %><br>
+    <%= f.submit "Submit Bio", id: "bioSubmit" %>
+  <% end %>
+</div>
+<i class="edit icon name" id="bioEdit"></i>

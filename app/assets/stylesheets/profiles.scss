@@ -1,26 +1,54 @@
+@import 'colours';
 
 textarea {
   width: 95%;
   border: 1px solid grey;
 }
 
-.avatar {
-  margin: auto; 
-  background-repeat: no-repeat;
-  overflow: hidden;
+.button {
+  float: right;
+  clear: both;
+  margin-left: auto;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
-#profilePicture {
+
+#avatar {
+  background-size: cover;
+  margin-left: auto;
+  background-repeat: no-repeat;
+  overflow: hidden;
   cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.bordered {
+  border: 2px solid $border;
+  margin-bottom: 1em;
+  padding: 1em;
+  background-color: white;
+
+}
+
+.details {
+  margin-top: 5em;
 }
 
 #submitAvatar {
   display: none;
 }
 
+.biography {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
 .profile {
-  height: 200px;
-  width: 200px;
+  width: 280px;
+  height: 280px;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .thumb {
@@ -38,4 +66,38 @@ textarea {
 
 .expedLeft {
   display: inline-block;
+}
+
+#nameSubmit, #bioSubmit {
+  display: none;
+}
+
+.notEditing .bioBody {
+  display: block;
+}
+.notEditing .bioForm {
+  display: none;
+}
+.editing .bioBody {
+  display: none;
+}
+.editing .bioForm {
+  display: block;
+}
+
+.notEditing .nameBody {
+  display: block;
+}
+.notEditing .nameForm {
+  display: none;
+}
+.editing .nameBody {
+  display: none;
+}
+.editing .nameForm {
+  display: block;
+}
+
+#future_exped_page_links, #friends_page_links, #past_exped_page_links {
+  margin: auto;
 }
