@@ -6,6 +6,28 @@ RSpec.describe User do
   let(:laotzu) { create(:laotzu) }
 
   context "new user registration" do
+    context "with OAuth Facebook" do
+      before do
+        OAuthCallback = Struct.new(:provider, :uid, :info)
+        OAuthInfo = Struct.new(:email, :name, :image)
+        info = OAuthInfo.new("monkeyman@squirrelmailnet", "monkeyman", "http://some-url.net")
+        auth = OAuthCallback.new("facebook", "12345", info)
+        @user = User.from_omniauth(auth)
+      end
+
+      it "should create a User" do
+        expect(@user).to be_valid
+        expect(@user.username).to eq "monkeyman"
+      end
+
+      it "should find a user if one doesn't exist" do
+        info = OAuthInfo.new("monkeyman@squirrelmailnet", "monkeyman", "http://some-url.net")
+        auth = OAuthCallback.new("facebook", "12345", info)
+        user = User.from_omniauth(auth)
+        expect(user).to eq @user
+      end
+    end
+
     context "entering valid details" do
       it "is valid with a username" do
         expect(shaka).to be_valid

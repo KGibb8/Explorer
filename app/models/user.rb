@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :journeys, dependent: :destroy
   has_many :expeditions, through: :journeys
   has_many :created_expeditions, class_name: 'Expedition', foreign_key: :creator_id, inverse_of: :creator
+  has_many :created_completed_expeditions, ->(user) { where journeys: { :status => 'attended' }, :creator => user.id }, through: :journeys, source: :expedition
   has_many :invited_expeditions, -> { where journeys: { :status => 'invited'  }  }, through: :journeys, source: :expedition
   has_many :rejected_expeditions, -> { where journeys: { :status => 'rejected'  }  }, through: :journeys, source: :expedition
   has_many :attending_expeditions, -> { where journeys: { :status => 'attending'  }  }, through: :journeys, source: :expedition
@@ -30,7 +31,7 @@ class User < ApplicationRecord
   after_create :build_profile
 
   def name
-    self.profile.full_name || self.username
+    self.username
   end
 
   # --------------------------------------- Omniauth related ------------------------------------------ #
@@ -60,6 +61,10 @@ class User < ApplicationRecord
     journey = self.journeys.create(expedition: expedition)
     journey.status = 'requested'
     journey.save
+  end
+
+  def created_upcoming_expeditions
+    (self.created_expeditions - self.created_completed_expeditions).sort_by(&:start_time)
   end
 
   # ------------------------------------- Friendship related ------------------------------------------ #
