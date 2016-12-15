@@ -31,13 +31,17 @@ RSpec.describe Message do
 
   let(:expedition) { shaka.create_expedition(expedition_params) }
 
-  context "a user sends a message to a friend" do
 
-    it "should be valid without a chat" do
-      message = laotzu.messages.create
+  context "creating a message" do
+    it "should have a body" do
+      message = create(:message)
       expect(message).to be_valid
     end
 
+    it "should be invalid without a body" do
+      no_body = laotzu.messages.create
+      expect(no_body).to_not be_valid
+    end
   end
 
   context "a user sends a message in the chat room of an expedition" do
@@ -49,14 +53,14 @@ RSpec.describe Message do
     context "with valid sending criteria" do
       it "is valid if the sending user is invited to the chat's expedition" do
         expedition.invite(laotzu)
-        message = laotzu.messages.create(chat: @chat)
+        message = laotzu.messages.create(chat: @chat, body: "hello")
         expect(message).to be_valid
       end
 
       it "is valid if the sending user is an attendee of the chat's expedition" do
         expedition.invite(laotzu)
         laotzu.accept_invite(expedition)
-        message = laotzu.messages.create(chat: @chat)
+        message = laotzu.messages.create(chat: @chat, body: "hello")
         expect(message).to be_valid
       end
 
@@ -64,27 +68,27 @@ RSpec.describe Message do
         expedition.invite(laotzu)
         laotzu.accept_invite(expedition)
         expedition.set_as_complete
-        message = laotzu.messages.create(chat: @chat)
+        message = laotzu.messages.create(chat: @chat, body: "hello")
         expect(message).to be_valid
       end
     end
 
     context "with invalid sending criteria" do
       it "is invalid if the sending user is uninvolved in the expedition" do
-        message = laotzu.messages.create(chat: @chat)
+        message = laotzu.messages.create(chat: @chat, body: "hello")
         expect(message).to_not be_valid
       end
 
       it "is invalid if the sending user is still requesting to be involved in the expedition" do
         expedition.request(laotzu)
-        message = laotzu.messages.create(chat: @chat)
+        message = laotzu.messages.create(chat: @chat, body: "hello")
         expect(message).to_not be_valid
       end
 
       it "is invalid if the sending user has been rejected from the expedition" do
         expedition.request(laotzu)
         expedition.reject_attendance(laotzu)
-        message = laotzu.messages.create(chat: @chat)
+        message = laotzu.messages.create(chat: @chat, body: "hello")
         expect(message).to_not be_valid
       end
     end

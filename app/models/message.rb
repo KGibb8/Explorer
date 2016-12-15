@@ -3,6 +3,8 @@ class Message < ApplicationRecord
   belongs_to :chat, required: false
   belongs_to :user
 
+  validates_presence_of :body
+
   validate :journey_status
 
   private

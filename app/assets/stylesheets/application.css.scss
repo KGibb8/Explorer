@@ -201,6 +201,10 @@ input[type=text] {
   -moz-box-sizing:border-box;
 }
 
+textarea {
+  outline: none;
+}
+
 .organise {
   position: absolute;
   right: 3px;

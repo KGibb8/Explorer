@@ -116,7 +116,7 @@
           <%= f.fields_for :messages, @chat.messages.build do |b| %>
             <%= b.text_area :body %>
           <% end %>
-          <%= f.submit "Chat" %>
+          <%= f.submit "Chat", class: "btn-med blue" %>
         <% end %>
       </div>
     <% end %>
