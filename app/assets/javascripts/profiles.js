@@ -64,6 +64,7 @@ $(document).ready(function () {
     $(column).empty();
     var ele = document.createElement('p');
     ele.innerHTML = data.message;
+    ele.className = "btn green";
     column.appendChild(ele);
   });
 
@@ -86,23 +87,27 @@ $(document).ready(function () {
     container.appendChild(ele);
   });
 
-  $('.friends_pagination a').on("click", function (e){
-    e.preventDefault();
-    $.get(this.href, null, null, 'script');
-    return false;
-  });
+  // %%TODO%% Make AJAX pagination smooth
 
-  $('.past_expeditions_pagination a').on("click", function (e){
-    e.preventDefault();
-    $.get(this.href, null, null, 'script');
-    return false;
-  });
+  // $('.future_expeds_pagination > a').attr('data-remote', 'true');
 
-  $('.future_expeditions_pagination a').on("click", function (e){
-    e.preventDefault();
-    $.get(this.href, null, null, 'script');
-    return false;
-  });
+  // $('.friends_pagination a').on("click", function (e){
+  //   e.preventDefault();
+  //   $.get(this.href, null, null, 'script');
+  //   return false;
+  // });
+
+  // $('.past_expeditions_pagination a').on("click", function (e){
+  //   e.preventDefault();
+  //   $.get(this.href, null, null, 'script');
+  //   return false;
+  // });
+
+  // $('.future_expeditions_pagination a').on("click", function (e){
+  //   e.preventDefault();
+  //   $.get(this.href, null, null, 'script');
+  //   return false;
+  // });
 
   function createFriend (user, profile) {
     var a = document.createElement('a');

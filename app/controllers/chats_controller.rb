@@ -6,6 +6,7 @@ class ChatsController < ApplicationController
   def index
     @chats = @expedition.chats
     @message = Message.new
+    @chat = Chat.new
   end
 
   def create

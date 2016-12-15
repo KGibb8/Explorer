@@ -1,22 +1,8 @@
-
 $(document).ready(function () {
 
-  $('#organiseExpedition').on("click", function () {
+  $('body').on("click", "#organiseExpedition", function () {
     $('.fullscreen.modal').modal('toggle');
   });
-
-  var lastActive;
-  var url = window.location.href;
-  // $('#adminMenu').on('click', '.item', function () {
-  //   if (this == lastActive) {
-  //     $(this).removeClass("active");
-  //     lastActive = null;
-  //   } else {
-  //     $(lastActive).removeClass("active");
-  //     $(this).addClass("active");
-  //     lastActive = this;
-  //   };
-  // });
 
   $('#friendNav').on("click", function (e) {
     e.preventDefault();
@@ -29,4 +15,5 @@ $(document).ready(function () {
       dropdown.removeClass("notVisible");
     };
   });
+
 });

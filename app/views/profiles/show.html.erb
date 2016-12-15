@@ -44,22 +44,42 @@
 <div class="six wide column">
     <h2 class="expedTitle">Future Expeditions</h2>
     <div id="futureExpeditions">
-      <% @future_expeditions.each do |expedition| %>
+      <% unless @future_expeditions.empty? %>
+        <% @future_expeditions.each do |expedition| %>
+          <div class="bordered">
+            <%= render :partial => 'expeditions/expedition', locals: {expedition: expedition} %>
+          </div>
+        <% end %>
+      <% else %>
         <div class="bordered">
-          <%= render :partial => 'expeditions/expedition', locals: {expedition: expedition} %>
+          <% if my_profile %>
+           <p>You haven't got any upcoming expeditions</p>
+         <% else %>
+           <p><%= @profile.user.username %> hasn't got any upcoming expeditions</p>
+         <% end %>
         </div>
       <% end %>
     </div>
     <div id="future_exped_page_links">
-      <%= will_paginate @future_expeditions, :page_links => true, :param_name => :future_expeds_page, :class => 'future_expeditions_pagination' %>
+      <%= will_paginate @future_expeditions, :page_links => false, :param_name => :future_expeds_page, :class => 'future_expeditions_pagination' %>
     </div>
 </div>
 <div class="six wide column">
     <h2 class="expedTitle">Past Expeditions</h2>
     <div id="pastExpeditions">
-      <% @past_expeditions.each do |expedition| %>
+      <% unless @past_expeditions.empty? %>
+        <% @past_expeditions.each do |expedition| %>
+          <div class="bordered">
+            <%= render :partial => 'expeditions/expedition', locals: {expedition: expedition} %>
+          </div>
+        <% end %>
+      <% else %>
         <div class="bordered">
-          <%= render :partial => 'expeditions/expedition', locals: {expedition: expedition} %>
+          <% if my_profile %>
+           <p>You haven't attended any expeditions yet</p>
+         <% else %>
+           <p><%= @profile.user.username %> hasn't attended any expeditions</p>
+         <% end %>
         </div>
       <% end %>
     </div>

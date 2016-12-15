@@ -1,5 +1,5 @@
 class JourneysController < ApplicationController
-  before_action :find_expedition, only: [:inviting, :requesting, :approve, :accepting]
+  before_action :find_expedition, only: [:deny, :inviting, :requesting, :approve, :accepting]
 
   def approve
     if @expedition.creator? current_user

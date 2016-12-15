@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  will_paginate:
+    previous_label: <span class="paginate">Previous</span>
+    next_label: <span class="paginate">Next</span>

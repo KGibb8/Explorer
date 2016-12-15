@@ -1,8 +1,20 @@
-$("#friends").html("<%= escape_javascript(render :partial => 'users/user', :collection => @friends ) %>");
-$("#friend_page_links").html("<%= escape_javascript(will_paginate @friends, class_name: "friends_pagination") %>");
+<%# %%TODO%% Fix AJAX pagination %>
 
-$('#pastExpeditions').html("<%= escape_javascript(render :partial => 'expeditions/expedition', :collection => @past_expeditions) %>")
-$('#past_exped_page_links').html("<%= escape_javascript(will_paginate @past_expeditions, class_name: "past_expeditions_pagination") %>")
+<% if params["friends_page"] %>
+  $("#friends").html("<%= escape_javascript(render :partial => 'users/user', :collection => @friends ) %>");
+  $("#friend_page_links").html("<%= escape_javascript(will_paginate @friends, class_name: "friends_pagination") %>");
+<% end %>
 
-$('#futureExpeditions').html("<%= escape_javascript(render :partial => 'expeditions/expedition', :collection => @future_expeditions) %>")
-$('#future_exped_page_links').html("<%= escape_javascript(will_paginate @future_expeditions, class_name: "future_expeditions_pagination") %>")
+<% if params["past_expeds_page"] %>
+  <% @past_expeditions.each do |expedition| %>
+    $('#pastExpeditions').html("<div class='bordered'><%= escape_javascript(render :partial => 'expeditions/expedition', locals: { expedition: expedition }) %></div>")
+  <% end %>
+  $('#past_exped_page_links').html("<%= escape_javascript(will_paginate @past_expeditions, class_name: "past_expeditions_pagination") %>")
+<% end %>
+
+<% if params["future_expeds_page"] %>
+  <% @future_expeditions.each do |expedition| %>
+    $('#futureExpeditions').html("<div class='bordered'><%= escape_javascript(render :partial => 'expeditions/expedition', locals: { expedition: expedition }) %></div>")
+  <% end %>
+  $('#future_exped_page_links').html("<%= escape_javascript(will_paginate @future_expeditions, class_name: "future_expeditions_pagination") %>")
+<% end %>

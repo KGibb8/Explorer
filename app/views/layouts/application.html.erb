@@ -17,18 +17,19 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <p></p>
+    <p></p>
     <div class="ui grid">
       <div class="sixteen wide column nav">
       <nav>
         <div class="ui inverted menu">
           <% if user_signed_in?%>
+            <a class="item">Logged in as <%= current_user.username %></a>
+            <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item green" %>
+            <a class="item"></a>
             <%= link_to "Profile", user_profile_path(current_user), class: "item green" %>
             <%= link_to "Expeditions", root_path, class: "item green" %>
             <%= link_to "Friends", "#", id: "friendNav", class: "item green" %>
-            <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item green" %>
-            <p>Logged in as <%= current_user.username %></p>
             <div class="organise">
               <%= button_tag "Organise an Expedition", class: "btn-med green", id: "organiseExpedition" %>
               <%= render 'expeditions/create' %>
@@ -42,8 +43,8 @@
       </nav>
       <div class="dropdown notVisible top-menu">
         <% if current_user %>
+          <h4 class="sidebar">Pending Friend Requests</h4>
           <div class="friendRequests">
-            <h4>Pending Friend Requests</h4>
             <%= render :partial => 'friendships/request', :collection => @friend_requests %>
           </div>
         <% end %>

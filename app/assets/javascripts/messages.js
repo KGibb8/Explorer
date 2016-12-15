@@ -17,6 +17,7 @@ $(document).ready(function () {
 
   $('.submitNew').on("keydown", function (e) {
     if (e.which == 13) {
+      debugger;
       var id = this.parentElement.parentElement.id.substring(10, 9999);
       $('#submitBtn_' + id).click();
       $(this).children()[1].value = "";

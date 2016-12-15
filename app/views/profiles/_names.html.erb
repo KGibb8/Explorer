@@ -2,7 +2,7 @@
   <%= form_for [current_user, @profile], html: { id: 'submitNames' }, remote: true do |f| %>
     <%= f.text_field :first_name %><br>
     <%= f.text_field :last_name %><br>
-    <%= f.submit "Change Name", id: "nameSubmit" %>
+    <%= f.submit "Update Name", id: "nameSubmit" %>
   <% end %>
 </div>
 <i class="edit icon name" id="nameEdit"></i>

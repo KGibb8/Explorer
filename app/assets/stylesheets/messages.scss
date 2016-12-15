@@ -1,3 +1,4 @@
+@import "colours";
 
 .outerContainer {
   display: none;
@@ -10,10 +11,46 @@
 }
 
 .innerContainer {
-  max-height: 600px;
+  max-height: 800px;
   overflow-y:auto;
 }
 
+.message {
+  width: 100%;
+  .userInfo {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .messageBody {
+    display: inline-block;
+    vertical-align: top;
+    width: 90%;
+  }
+  .messageForm {
+    width: 90%;
+    textarea {
+      width: 100%;
+    }
+  }
+}
+
+.toggleChat {
+  cursor: pointer;
+}
+
+.submitNew {
+  textarea {
+    width: 100%;
+  }
+}
+
+#boardName {
+  margin-left: 0.75em;
+}
+
+.submitNewMessage {
+  display: none;
+}
 
 #submitBtn {
   display: none;
@@ -32,7 +69,7 @@
 }
 
 .notEditing .messageBody {
-  display: block;
+  display: inline-block;
 }
 .notEditing .messageForm {
   display: none;
@@ -41,5 +78,5 @@
   display: none;
 }
 .editing .messageForm {
-  display: block;
+  display: inline-block;
 }
