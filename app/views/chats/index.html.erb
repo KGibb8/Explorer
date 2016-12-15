@@ -38,7 +38,9 @@
       <li class="bordered toggleChat" id="toggleChat_<%= chat.id %>">
         <ul style="padding: 0;list-style-type: none">
           <li><strong><%= chat.topic %></strong> by <%= link_to "#{chat.creator.username}", user_profile_path(chat.creator) %></li><br>
-          <li><strong>Last Message:</strong> "<%= chat.messages.last.body.html_safe %>" posted by <%= link_to "#{chat.messages.last.user.username}", user_profile_path(chat.messages.last.user) %></li>
+          <% unless chat.messages.empty? %>
+            <li><strong>Last Message:</strong> "<%= chat.messages.last.body.html_safe %>" posted by <%= link_to "#{chat.messages.last.user.username}", user_profile_path(chat.messages.last.user) %></li>
+          <% end %>
         </ul>
       </li>
     <% end %>
