@@ -1,3 +1,18 @@
+function setActiveNav () {
+  var path = window.location.pathname;
+  var nav = ["users", "expeditions", "friends"];
+  nav.forEach(function (btn) { 
+    if (path.match(btn)) {
+      $("#" + btn + "Nav").addClass("active");
+    } else if (path == "/" || path == undefined) {
+      $("#expeditionsNav").addClass("active")
+    };
+  });
+}
+window.onload = function () {
+  setActiveNav();
+};
+
 $(document).ready(function () {
 
   $('body').on("click", "#organiseExpedition", function () {

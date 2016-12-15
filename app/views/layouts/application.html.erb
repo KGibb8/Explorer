@@ -24,19 +24,19 @@
       <nav>
         <div class="ui inverted menu">
           <% if user_signed_in?%>
-            <%= link_to "Logged in as #{current_user.username}", user_profile_path(current_user), class: "item" %>
-            <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item green" %>
+            <%= link_to "Logged in as #{current_user.username}", user_profile_path(current_user), class: "item active teal" %>
+            <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "item teal" %>
             <a class="item"></a>
-            <%= link_to "Profile", user_profile_path(current_user), class: "item green" %>
-            <%= link_to "Expeditions", root_path, class: "item green" %>
-            <%= link_to "Friends", "#", id: "friendNav", class: "item green" %>
+            <%= link_to "Profile", user_profile_path(current_user), class: "item teal", id: "usersNav"%>
+            <%= link_to "Expeditions", root_path, class: "item teal", id: "expeditionsNav" %>
+            <%= link_to "Friends", "#", id: "friendNav", class: "item teal", id: "friendsNav" %>
             <div class="organise">
               <%= button_tag "Organise an Expedition", class: "btn-med green", id: "organiseExpedition" %>
               <%= render 'expeditions/create' %>
             </div>
           <% else %>
-            <%= link_to "Home", root_path, class: "item green" %>
-            <%= link_to "Log In", new_user_session_path, class: "item green" %>
+            <%= link_to "Home", root_path, class: "item teal", id: "expeditionsNav" %>
+            <%= link_to "Log In", new_user_session_path, class: "item teal", id: "usersNav" %>
             <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path, class: "item green" %>
           <% end %>
         </div>
@@ -56,5 +56,19 @@
     <footer>
       <img src="/creative-commons.png">
     </footer>
+    <script>
+function setActiveNav () {
+  var path = window.location.pathname;
+  var nav = ["users", "expeditions", "friends"];
+  nav.forEach(function (btn) { 
+    if (path.match(btn)) {
+      $("#" + btn + "Nav").addClass("active");
+    } else if (path == "/" || path == undefined) {
+      $("#expeditionsNav").addClass("active")
+    };
+  });
+}
+setActiveNav();
+    </script>
   </body>
 </html>

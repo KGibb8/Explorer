@@ -1,4 +1,5 @@
 class Message < ApplicationRecord
+  # Make this polymorphic for extensible message model
   belongs_to :chat, required: false
   belongs_to :user
 

@@ -195,6 +195,12 @@ nav {
   font-size: 13px;
 }
 
+input[type=text] {
+  width:100%;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+}
+
 .organise {
   position: absolute;
   right: 3px;
