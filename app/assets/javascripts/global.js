@@ -16,4 +16,12 @@ $(document).ready(function () {
     };
   });
 
+  $($('#acceptFriend').parent()[0]).on('ajax:success', function (e, data) {
+    $(this).parent().parent().fadeOut();
+  });
+
+  $($('#rejectFriend').parent()[0]).on('ajax:success', function (e, data) {
+    $(this).parent().parent().fadeOut();
+  });
+
 });

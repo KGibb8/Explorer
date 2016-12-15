@@ -9,7 +9,7 @@
 
 # What is Explorer?
 
-Explorer is my final project for <a href="https://www.wegotcoders.com">WeGotCoders</a> Web Developer Fast Track training programme. It is built with Ruby on Rails and was completed in 9 days.
+Explorer is my final project for <a href="https://www.wegotcoders.com">WeGotCoders</a> Web Developer Fast Track training programme. It is built with Ruby on Rails 5 and was completed in 9 days.
 
 Explorer is a hikers/walkers social network site, where friends can get together to organise to go walking in fantastic places around the world. Its a place where you can meet people with a mutual love for the outdoors.
 

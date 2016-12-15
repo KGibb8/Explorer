@@ -74,7 +74,6 @@ $(document).ready(function () {
     var ele = document.createElement('p');
     ele.innerHTML = data.message;
     container.appendChild(ele);
-    // %%TODO%% Render partial instead!!
     var friend = createFriend(data.user, data.profile);
     $('#friends').append(friend);
   });
