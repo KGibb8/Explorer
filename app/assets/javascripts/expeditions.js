@@ -121,7 +121,7 @@ $(document).ready(function () {
   });
 
   $('#submitStartTime').on("ajax:success", function (e, data) {
-    var formatDate = moment(data.start_time).format('MMMM D YYYY, h:mm:ss');
+    var formatDate = moment(data.start_time).format('MMMM D YYYY, h:mm');
     $(this).parent().parent().find('.startTimeBody').html('<strong>Start: </strong>' + formatDate);
   });
 

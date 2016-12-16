@@ -12,6 +12,6 @@
   </div>
   <div id="expedRight">
     <p><strong>Duration:</strong> <%= expedition.days == 1 ? "#{expedition.days} day" : "#{expedition.days} days"%></p>
-    <p><strong>Date:</strong> <%= expedition.format_start_time %></p>
+    <p><strong>Date:</strong> <%= expedition.format_start_date %>, <%= expedition.format_start_time %></p>
   </div>
 </div>

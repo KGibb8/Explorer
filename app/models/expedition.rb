@@ -41,8 +41,12 @@ class Expedition < ApplicationRecord
     self.end_locations.first
   end
 
+  def format_start_date
+    self.start_time.to_date.strftime('%b %e %Y')
+  end
+
   def format_start_time
-    self.start_time.to_date.strftime('%b %e %Y -- %H:%M')
+    self.start_time.strftime('%H:%M')
   end
 
   def days
