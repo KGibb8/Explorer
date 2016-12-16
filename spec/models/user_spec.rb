@@ -8,8 +8,6 @@ RSpec.describe User do
   context "new user registration" do
     context "with OAuth Facebook" do
       before do
-        OAuthCallback = Struct.new(:provider, :uid, :info)
-        OAuthInfo = Struct.new(:email, :name, :image)
         info = OAuthInfo.new("monkeyman@squirrelmailnet", "monkeyman", "http://some-url.net")
         auth = OAuthCallback.new("facebook", "12345", info)
         @user = User.from_omniauth(auth)
