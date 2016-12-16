@@ -40,5 +40,4 @@ This project was entirely test-driven using RSpec and Cucumber. Final test cover
 <li>amazon s3</li>
 <li>facebook</li>
 <li>mapbox</li>
-<li>redis</li>
 </ul>
