@@ -1,4 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
+  include SessionsHelper
 # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -9,6 +10,7 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     cookies.signed[:user_id] = current_user.id if current_user
+    set_cookie(current_user)
     super
   end
 
